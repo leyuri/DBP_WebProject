@@ -17,5 +17,8 @@
   "main": "app.js",
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "jshint": "^2.9.5"
+  }
 }
