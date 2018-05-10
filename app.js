@@ -8,7 +8,35 @@ var sassMiddleware = require('node-sass-middleware');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+//////////////////////////////////////////////
+var mysql = require('mysql');
 var app = express();
+var config = {
+
+  host: 'localhost',
+  port: '3306',
+  user: 'root',
+  password: '',
+  database: 'test',
+  insecureAuth : true,
+};
+
+var conn = mysql.createConnection(config);
+
+
+app.list = function(req, res){
+  res.send('respond with a resource');
+  conn.query('SELECT * FROM USER',function(err,rows){
+    if(err){
+      console.log('MySQL Failure.');
+      console.log(err);
+    }
+      console.log(rows);
+      conn.destroy();
+    });
+    };
+
+////////////////////////////////////////////////////////
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
