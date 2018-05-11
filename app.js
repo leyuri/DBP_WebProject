@@ -4,40 +4,52 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-//////////////////////////////////////////////
+var flash = require('connect-flash');
+var bodyParser = require('body-parser');
+var session = require('express-session');
+var methodOverride = require('method-override');
+
+////////passport로그인관련
+var passport = require('passport') //passport module add
+  , LocalStrategy = require('passport-local').Strategy;
+var cookieSession = require('cookie-session');
+
+////////////////////////////////////
+
 var mysql = require('mysql');
 var app = express();
-var config = {
 
-  host: 'localhost',
-  port: '3306',
-  user: 'root',
-  password: '',
-  database: 'test',
-  insecureAuth : true,
-};
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
-var conn = mysql.createConnection(config);
+app.use(cookieSession({
+  keys: ['node_dbp'],
+  cookie: {
+    maxAge: 100 * 60 * 60 // 쿠키 유효기간 1시간
+  }
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
-app.list = function(req, res){
-  res.send('respond with a resource');
-  conn.query('SELECT * FROM USER',function(err,rows){
-    if(err){
-      console.log('MySQL Failure.');
-      console.log(err);
-    }
-      console.log(rows);
-      conn.destroy();
-    });
-    };
+app.use(flash()); // flash message를 사용할 수 있도록
 
-////////////////////////////////////////////////////////
+// public 디렉토리에 있는 내용은 static하게 service하도록.
+app.use(express.static(path.join(__dirname, 'public')));
 
+// pug의 local에 현재 사용자 정보와 flash 메시지를 전달하자.
+app.use(function(req, res, next) {
+  res.locals.currentUser = req.session.user;
+  res.locals.flashMessages = req.flash();
+  next();
+});
+////////////////////////////////////////////
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
