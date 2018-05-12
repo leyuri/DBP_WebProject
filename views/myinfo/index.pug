@@ -1,0 +1,37 @@
+extends ../layout
+
+block content
+  .container
+       
+    dl.row
+      dt.col-sm-3 ID
+      dd.col-sm-9= user_info.emp_id
+
+      dt.col-sm-3 이름
+      dd.col-sm-9= user_info.emp_name
+
+      dt.col-sm-3 부서
+      dd.col-sm-9= user_info.emp_dep
+    
+      dt.col-sm-3 최종학력
+      dd.col-sm-9= user_info.emp_edu
+
+      dt.col-sm-3 주민번호
+      dd.col-sm-9= user_info.emp_Rnum
+
+    br
+    a.btn.btn-sm.btn-outline-secondary(href=`/myinfo/${user_info.emp_id}/edit`) 
+      | 정보 수정
+    a.btn.btn-sm.btn-outline-danger.delete-btn(data-url=`/myinfo/${user_info.emp_id}/delete`)
+      | 회원 탈퇴
+    br
+    
+    script.
+      $(function() {
+        $('.delete-btn').click(function() {
+          if (confirm('Are you sure to delete?')) {
+            location = $(this).data('url');
+          }
+          return false;
+        });
+      });

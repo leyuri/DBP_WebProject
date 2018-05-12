@@ -70,12 +70,15 @@ passport.use(new LocalStrategy({
         } else {
           
           req.flash('success','Successfully Signed In');
-          return done(null, {
-            id: result[0].emp_id,
-            name: result[0].emp_name,
+          connection.query('select * from dept where dept_id= ?', result[0].emp_dep, function (err, result1) {
+            return done(null, {
+              id: result[0].emp_id,
+              name: result[0].emp_name,
+              dept: result1[0].dept_name,
+              edu:result[0].emp_edu,
+              rnum:result[0].emp_rnum,
+            });
           });
-          // req.flash('success','Login Success');
-          // res.redirect('/');
         }
       }
     }
@@ -88,14 +91,6 @@ router.get('/signout', function(req, res, next) {
   req.logout();
   req.flash('success','Successfully Signed Out');
   res.redirect('/');
-});
-
-
-router.get('/myinfo', isAuthenticated, function (req, res) {
-  res.render('myinfo', {
-    title: 'My Info',
-    user_info: req.user
-  })
 });
 
 
