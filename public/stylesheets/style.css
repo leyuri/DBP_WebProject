@@ -1,8 +1,70 @@
 body {
-  padding: 50px;
+  padding-top: 50px;
+
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
 a {
   color: #00B7FF; }
 
-/*# sourceMappingURL=style.css.map */
+.wrapper {
+
+  position:relative;
+  min-height:100%;
+  
+}
+#myFooter {
+
+  margin-top:4em;
+  margin-bottom:0;
+  background-color: #2d313c;
+  color: white;
+}
+#myFooter .row {
+  margin-bottom: 60px;
+}
+
+#myFooter ul {
+  list-style-type: none;
+  padding-left: 0;
+  line-height: 1.7;
+}
+#myFooter ul>li{
+font-size: 0.9em;
+margin-left: 3em;
+}
+#myFooter a {
+  color: #ffffff;
+  text-decoration: none;
+}
+#myFooter a:hover,
+#myFooter a:focus {
+  text-decoration: none;
+  color: white;
+}
+
+#myFooter .third-bar {
+  text-align: center;
+  background-color: #2d313c;
+  text-align: center;
+}
+#myFooter .third-bar .container .logo{
+text-align: left;
+}
+#myFooter .third-bar a {
+  font-size: 20px;
+  color: #ffffff;
+  padding: 10px;
+  transition: 0.2s;
+  line-height: 68px;
+}
+#myFooter .third-bar li{
+text-decoration: none;
+list-style: none;
+display:inline;
+}
+#myFooter .third-bar li a{
+font-size: 1em;
+}
+#myFooter .third-bar a:hover {
+  text-decoration: none;
+}
