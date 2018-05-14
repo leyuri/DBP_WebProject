@@ -19,7 +19,8 @@ block content
         each project in projects
           tr(data-toggle='modal', data-target='#myModal')
             
-            td= project.pro_name
+            td
+             a(href=`/project/${project.pro_id}`)= project.pro_name
             td= project.cus_name
             td= project.pro_start 
     .container

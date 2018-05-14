@@ -16,12 +16,13 @@ block content
             th [PRO_START]
             th [PRO_END]
         tbody
-        tr
-            td 적립 앱 개발
-            td 0203339
-            td 파리바게트(SPC)
-            td 2018-03-02
-            td 2018-09-02
+          each project in projects
+            tr
+                td=project.pro_name
+                td=project.pro_org
+                td=project.cus_name
+                td=project.pro_start
+                td=project.pro_end
     table.table.table-bordered.table-striped.table-hover
         thead
         tr
@@ -29,10 +30,11 @@ block content
             th [ORDER_CONTENT]
             th 기관[CUS_NAME]
         tbody
-        tr
-            td 2018-03-02
-            td 기존 앱 업그레이드
-            td 파리바게트(SPC)
+          each project in projects
+            tr
+                td=project.order_date
+                td=project.order_content
+                td=project.cus_name
     table.table.table-bordered.table-striped.table-hover
         h2 프로젝트 참여자 명단
         input#myInput2.form-control(type='text', placeholder='참여자검색..')
@@ -44,47 +46,14 @@ block content
             th 참여일[ER_START]
             th 종료일[ER_END]
         tbody#myTable2
-        tr(href='#emp', data-toggle='collapse')
-            td 홍길동
-            td PM
-            td 2018-03-02
-            td 2018-09-02
-        #emp.collapse
-            a(href='users', target='_blank') 홍길동 자세히
-        tr(href='#emp2', data-toggle='collapse')
-            td 이니
-            td 개발자
-            td 2018-03-02
-            td 2018-06-02
-        #emp2.collapse
-            a(href='users', target='_blank') 이니 자세히
-        tr(href='#emp3', data-toggle='collapse')
-            td 으니
-            td 개발자
-            td 2018-05-02
-            td 2018-07-02
-        #emp3.collapse
-            a(href='users', target='_blank') 으니 자세히
-        tr(href='#emp4', data-toggle='collapse')
-            td 이니
-            td 개발자
-            td 2018-03-02
-            td 2018-06-02
-        tr(href='#emp5', data-toggle='collapse')
-            td 으니
-            td 개발자
-            td 2018-05-02
-            td 2018-07-02
-        tr(href='#emp6', data-toggle='collapse')
-            td 이니
-            td 개발자
-            td 2018-03-02
-            td 2018-06-02
-        tr(href='#emp7', data-toggle='collapse')
-            td 으니
-            td 개발자
-            td 2018-05-02
-            td 2018-07-02
+         each emp_proj in emp_projs
+          tr(href='#emp', data-toggle='collapse')
+         
+            td=emp_proj.emp_name
+            td=emp_proj.er_role
+            td=emp_proj.er_start
+            td=emp_proj.er_end
+       
     script.
         $(document).ready(function(){
         $("#myInput2").on("keyup", function() {
