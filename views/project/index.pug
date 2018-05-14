@@ -16,22 +16,12 @@ block content
           th 기관명[PRO_ORG]
           th 시작일[PRO_START]
       tbody#myTable
-        tr(data-toggle='modal', data-target='#myModal')
-          td 적립 앱 개발
-          td 파리바게트(SPC)
-          td 2018-03-02
-        tr(data-toggle='modal2', data-target='#myModal2')
-          td 웹 페이지 개발
-          td 명지대학교 도서관
-          td 2016-02-02
-        tr
-          td 앱 개발
-          td 명지대학교 도서관
-          td 2018-02-02
-        tr
-          td 앱 개발
-          td 투썸플레이스 
-          td 2017-04-02
+        each project in projects
+          tr(data-toggle='modal', data-target='#myModal')
+            
+            td= project.pro_name
+            td= project.cus_name
+            td= project.pro_start 
     .container
         a.btn.btn-info(href='#tel', data-toggle='collapse') 회사 정보
         #tel.collapse

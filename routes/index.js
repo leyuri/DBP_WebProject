@@ -15,9 +15,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Expressssss!' });
 });
 
-router.get('/project', function(req, res, next) {
-  res.render('project');
-});
+
 
 router.get('/signin', function(req, res, next) {
   res.render('signin');
