@@ -15,6 +15,10 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Expressssss!' });
 });
 
+router.get('/project', function(req, res, next) {
+  res.render('project');
+});
+
 router.get('/signin', function(req, res, next) {
   res.render('signin');
 });
@@ -75,8 +79,7 @@ passport.use(new LocalStrategy({
               id: result[0].emp_id,
               name: result[0].emp_name,
               dept: result1[0].dept_name,
-              edu:result[0].emp_edu,
-              rnum:result[0].emp_rnum,
+  
             });
           });
         }

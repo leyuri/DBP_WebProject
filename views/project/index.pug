@@ -1,0 +1,51 @@
+extends ../layout
+block content
+  title= 'Project List'
+  meta(charset='utf-8')
+  .container
+    .jumbotron
+      h1 Project List
+      p These are our ongoing projects 
+  .container
+    input#myInput.form-control(type='text', placeholder='Search..')
+    br
+    table.table.table-bordered.table-striped.table-hover
+      thead
+        tr
+          th 프로젝트명[PRO_NAME]
+          th 기관명[PRO_ORG]
+          th 시작일[PRO_START]
+      tbody#myTable
+        tr(data-toggle='modal', data-target='#myModal')
+          td 적립 앱 개발
+          td 파리바게트(SPC)
+          td 2018-03-02
+        tr(data-toggle='modal2', data-target='#myModal2')
+          td 웹 페이지 개발
+          td 명지대학교 도서관
+          td 2016-02-02
+        tr
+          td 앱 개발
+          td 명지대학교 도서관
+          td 2018-02-02
+        tr
+          td 앱 개발
+          td 투썸플레이스 
+          td 2017-04-02
+    .container
+        a.btn.btn-info(href='#tel', data-toggle='collapse') 회사 정보
+        #tel.collapse
+        p| Prompt Company는 현재 여러 업체들과 프로젝트를 진행중입니다.
+        p| 홈페이지 수정 사항이 있으면 담당자에게 연락주세요.
+        p| 연락처 : 02.2633.3323
+        p| 위치 : 강남구 역삼동 좋은건물
+        p
+  script.
+    $(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+    });
+    });
