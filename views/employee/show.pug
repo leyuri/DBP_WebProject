@@ -1,45 +1,95 @@
 extends ../layout
 block content
-     .container
-    #myModal.modal.fade(role='dialog')
-        .modal-dialog
-        // Modal content
-        .modal-content
-            .modal-header
-            button.close(type='button', data-dismiss='modal') &times;
-            h4.modal-title &#xC9C1;&#xC6D0; &#xC0C1;&#xC138; &#xC870;&#xD68C;
-            .modal-body
-            .media
-                .media-left
-                img.media-object(src='박보검.png', style='width:60px')
-                .media-body
-                h4.media-heading &#xBC15;&#xBCF4;&#xAC80;
-                p 안녕하세요^.^ 개발부서의 테스트 직무를 맡고 있는 박보검입니다. 잘부탁드립니다.;
-                thead
-                tr
-                    th 조회;
-                    th 내용;
-                tbody#myTable
-                tr
-                    td 부서;
-                    td 개발;
-                tr
-                    td 직무;
-                    td 테스트;
-                tr
-                    td 재직구분;
-                    td 재직;
-                tr
-                    td 학력;
-                    td 대졸;
-                tr
-                    td 보유기술명;
-                    td Java,C++
-                tr
-                    td 보유기술등급;
-                    td 상;
-                tr
-                    td 경력;
-                    td google
+  title= 'Project List'
+
+  .container
+    each employee in employees
+      h1=employee.emp_name
+      br
+      br
+
+    table.table.table-bordered.table-striped.table-hover
+        h2 직원 정보
+        thead
+        tr
+            th 직원번호
+            th 부서
+            th 이름
+            th 재직구분
+            th 학력
+            th 입사날짜
+            th 경력
+        tbody
+          each employee in employees
+            tr
+                td= employee.emp_id
+                td= employee.dept_name
+                td= employee.emp_name
+                td= employee.emp_status 
+                td= employee.emp_edu  
+                td= employee.emp_hiredate 
+                td= employee.emp_workyear
+
+    table.table.table-bordered.table-striped.table-hover
+        h2 직원 보유 기술
+        br
+        thead
+        tr
+            th 기술 이름
+            th 기술 등급
+
+        tbody#myTable2
+         each skill in skills
+          tr(href='#emp', data-toggle='collapse')
+         
+            td=skill.skill_name
+            td=skill.skill_grade
+
+  
+    table.table.table-bordered.table-striped.table-hover
+        h2 직원 경력 정보
+        br
+        thead
+        tr
+            th 이전 직장 이름
+            th 근무 기간
+
+        tbody#myTable2
+         each skill in skills
+          tr(href='#emp', data-toggle='collapse')
+         
+            td=skill.career_name
+            td=skill.career_period
+
+    table.table.table-bordered.table-striped.table-hover
+        h2 진행 프로젝트 정보
+        input#myInput2.form-control(type='text', placeholder='프로젝트 검색..')
+        br
+        thead
+        tr
+            th 프로젝트 이름
+            th 직무[EMP_ROLE]
+            th 참여일[ER_START]
+            th 종료일[ER_END]
+        tbody#myTable2
+         each emp_proj in emp_projs
+          tr(href='#emp', data-toggle='collapse')
+         
+            td=emp_proj.pro_name
+            td=emp_proj.er_role
+            td=emp_proj.er_start
+            td=emp_proj.er_end
+       
+       
+    script.
+        $(document).ready(function(){
+        $("#myInput2").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable2 tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+        });
+        });
+  
     .modal-footer
-        button.btn.btn-default(type='button', data-dismiss='modal') Close
+    button.btn.btn-default(href="/project" type='button') Back

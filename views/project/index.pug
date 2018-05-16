@@ -23,14 +23,7 @@ block content
              a(href=`/project/${project.pro_id}`)= project.pro_name
             td= project.cus_name
             td= project.pro_start 
-    .container
-        a.btn.btn-info(href='#tel', data-toggle='collapse') 회사 정보
-        #tel.collapse
-        p| Prompt Company는 현재 여러 업체들과 프로젝트를 진행중입니다.
-        p| 홈페이지 수정 사항이 있으면 담당자에게 연락주세요.
-        p| 연락처 : 02.2633.3323
-        p| 위치 : 강남구 역삼동 좋은건물
-        p
+
   script.
     $(document).ready(function(){
     $("#myInput").on("keyup", function() {

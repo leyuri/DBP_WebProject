@@ -20,6 +20,10 @@ router.get('/signin', function(req, res, next) {
   res.render('signin');
 });
 
+router.get('/company_info', function(req, res, next) {
+  res.render('company_info');
+});
+
 router.post('/signin', passport.authenticate('local', {failureRedirect: '/signin', failureFlash: true}), // 인증실패시 401 리턴, {} -> 인증 스트레티지
   function (req, res) {
     res.redirect('/');

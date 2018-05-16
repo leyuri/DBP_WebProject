@@ -3,8 +3,9 @@ block content
   title= 'Project List'
 
   .container
-
-    h1 적립 앱 개발[Pro_NAME]
+    each project in projects
+      h1=project.pro_name
+    br
 
     table.table.table-bordered.table-striped.table-hover
         h2 프로젝트 정보
@@ -68,4 +69,4 @@ block content
         | 10%
     p 진행중인 프로젝트입니다.
     .modal-footer
-    button.btn.btn-default(href='javascript:window.history.back();' type='button') Back
+    button.btn.btn-default(href='/project/index' type='button') Back
