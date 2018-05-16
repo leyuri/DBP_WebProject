@@ -11,12 +11,21 @@ var mysql_dbc = require('../models/db_con')();
 var connection = mysql_dbc.init();
 
 /*로그인 유저 판단 로직*/
+// var isAuthenticated = function (req, res, next) {
+//   if (!req.isAuthenticated())
+//     res.redirect('/signin');
+//   console.log(req.user);
+//   if(req.user.dept!=3){
+//     //경영진만 열람가능(일단은)
+//     req.flash('danger','접근 권한이 없습니다.');
+//     res.redirect('/');
+//   }
+// };
 var isAuthenticated = function (req, res, next) {
   if (req.isAuthenticated())
     return next();
   res.redirect('/signin');
 };
-
 
 
 router.get('/', isAuthenticated, function (req, res,next) {
@@ -35,7 +44,7 @@ router.get('/:id', isAuthenticated, function (req, res,next) {
   function(err,employees){
     if(err) throw err;
 
-      connection.query('select * from emp_proj , project where emp_proj.pro_id=project.pro_id and emp_id=?',req.params.id,
+      connection.query('select * from emp_proj , project, role_er where emp_proj.pro_id=project.pro_id and role_er.role_id =emp_proj.er_role and emp_id=?',req.params.id,
       function(err,emp_projs){
         if(err) throw err;
 

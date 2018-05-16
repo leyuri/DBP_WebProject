@@ -18,7 +18,7 @@ var isAuthenticated = function (req, res, next) {
 };
 
 router.get('/', isAuthenticated, function (req, res,next) {
-  connection.query('SELECT * FROM employee WHERE emp_id = ?',req.user.id,
+  connection.query('SELECT * FROM employee, dept WHERE dept.dept_id = employee.emp_dep and emp_id = ?',req.user.id,
 
   function(err,result){
     console.log(result[0]);
@@ -36,7 +36,7 @@ router.get('/', isAuthenticated, function (req, res,next) {
 });
 
 router.get('/:id/edit', isAuthenticated, function (req, res) {
-  connection.query('SELECT * FROM employee WHERE emp_id = ?',req.user.id,
+  connection.query('SELECT * FROM employee  WHERE  emp_id = ?',req.user.id,
 
   function(err,result){
     console.log(result[0]);

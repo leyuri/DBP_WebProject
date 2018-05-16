@@ -79,7 +79,7 @@ passport.use(new LocalStrategy({
             return done(null, {
               id: result[0].emp_id,
               name: result[0].emp_name,
-              dept: result1[0].dept_name,
+              dept: result[0].emp_dep,
   
             });
           });
