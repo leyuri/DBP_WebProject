@@ -1,2 +1,45 @@
 extends ../layout
 block content
+     .container
+    #myModal.modal.fade(role='dialog')
+        .modal-dialog
+        // Modal content
+        .modal-content
+            .modal-header
+            button.close(type='button', data-dismiss='modal') &times;
+            h4.modal-title &#xC9C1;&#xC6D0; &#xC0C1;&#xC138; &#xC870;&#xD68C;
+            .modal-body
+            .media
+                .media-left
+                img.media-object(src='박보검.png', style='width:60px')
+                .media-body
+                h4.media-heading &#xBC15;&#xBCF4;&#xAC80;
+                p 안녕하세요^.^ 개발부서의 테스트 직무를 맡고 있는 박보검입니다. 잘부탁드립니다.;
+                thead
+                tr
+                    th 조회;
+                    th 내용;
+                tbody#myTable
+                tr
+                    td 부서;
+                    td 개발;
+                tr
+                    td 직무;
+                    td 테스트;
+                tr
+                    td 재직구분;
+                    td 재직;
+                tr
+                    td 학력;
+                    td 대졸;
+                tr
+                    td 보유기술명;
+                    td Java,C++
+                tr
+                    td 보유기술등급;
+                    td 상;
+                tr
+                    td 경력;
+                    td google
+    .modal-footer
+        button.btn.btn-default(type='button', data-dismiss='modal') Close

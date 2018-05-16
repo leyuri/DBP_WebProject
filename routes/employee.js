@@ -17,8 +17,35 @@ var isAuthenticated = function (req, res, next) {
   res.redirect('/signin');
 };
 
-router.get('/', function(req, res, next) {
-  res.render('employee/index');
+
+
+router.get('/', isAuthenticated, function (req, res,next) {
+  connection.query(' select * from employee, dept where employee.emp_dep=dept.dept_id',
+  function(err,employees){
+    if(err) throw err;
+
+    res.render('employee/index',{
+      employees: employees
+    });
+  });
+});
+
+router.get('/:id', isAuthenticated, function (req, res,next) {
+  connection.query('select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id and project.pro_id=?',req.params.id,
+  function(err,projects){
+    if(err) throw err;
+
+      connection.query('select * from emp_proj , employee where emp_proj.emp_id=employee.emp_id and pro_id=?',req.params.id,
+      function(err,emp_projs){
+        if(err) throw err;
+
+        res.render('project/show',{
+          projects: projects,
+          emp_projs: emp_projs
+        });
+    
+    });
+  });
 });
 
 
