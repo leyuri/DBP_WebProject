@@ -70,7 +70,7 @@ passport.use(new LocalStrategy({
         console.log(password);
         console.log(result[0].emp_pass);        
         if (password!= result[0].emp_pass) {
-               req.flash('danger','Password x');
+               req.flash('danger','Password is not correct');
           return done(false, null);
         } else {
           

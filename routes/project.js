@@ -9,27 +9,19 @@ var connection = mysql_dbc.init();
 
 
 
-/*로그인 유저 판단 로직*/
-// var isAuthenticated = function (req, res, next) {
-//   if (!req.isAuthenticated())
-//     res.redirect('/signin');
-//   if(req.user.dept !=3 ){
-//     //경영진만 열람가능(일단은)
-//     req.flash('danger','접근 권한이 없습니다.');
-//     res.redirect('/');
-    
- 
-//   }
-// };
+
 var isAuthenticated = function (req, res, next) {
-  if (req.isAuthenticated())
+  
+  if (req.isAuthenticated()){
+    if(req.user.dept !=3 ){
+      //경영진만 열람가능(일단은)
+      req.flash('danger','접근 권한이 없습니다.');
+      res.redirect('/');
+    }
     return next();
-  res.redirect('/signin');
-  if(req.user.dept !=3 ){
-    //경영진만 열람가능(일단은)
-    req.flash('danger','접근 권한이 없습니다.');
-    res.redirect('/');
   }
+  res.redirect('/signin');
+ 
 };
 
 router.get('/', isAuthenticated, function (req, res,next) {
