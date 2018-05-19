@@ -55,11 +55,11 @@ block content
             th 근무 기간
 
         tbody#myTable2
-         each skill in skills
+         each career in careers
           tr(href='#emp', data-toggle='collapse')
          
-            td=skill.career_name
-            td=skill.career_period
+            td=career.career_name
+            td=career.career_period
 
     table.table.table-bordered.table-striped.table-hover
         h2 진행 프로젝트 정보
@@ -74,8 +74,8 @@ block content
         tbody#myTable2
          each emp_proj in emp_projs
           tr(href='#emp', data-toggle='collapse')
-         
-            td=emp_proj.pro_name
+            td
+              a(href=`/project/${emp_proj.pro_id}`)= emp_proj.pro_name
             td=emp_proj.role_name
             td=emp_proj.er_start
             td=emp_proj.er_end

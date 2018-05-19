@@ -23,7 +23,9 @@ block content
              a(href=`/project/${project.pro_id}`)= project.pro_name
             td= project.cus_name
             td= project.pro_start 
-
+    br
+    a.btn.btn-sm.btn-outline-secondary(href=`/project/add_project`) 
+      | 프로젝트 추가
   script.
     $(document).ready(function(){
     $("#myInput").on("keyup", function() {

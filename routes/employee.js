@@ -45,16 +45,23 @@ router.get('/:id', isAuthenticated, function (req, res,next) {
       connection.query('select * from emp_proj , project, role_er where emp_proj.pro_id=project.pro_id and role_er.role_id =emp_proj.er_role and emp_id=?',req.params.id,
       function(err,emp_projs){
         if(err) throw err;
+        
 
-          connection.query('select * from skill , career where skill.emp_id=career.emp_id and skill.emp_id=?',req.params.id,
+          connection.query('select * from skill where  emp_id=?',req.params.id,
           function(err,skills){
             if(err) throw err;
+            
+            connection.query('select * from career where  emp_id=?',req.params.id,
+              function(err,careers){
+                if(err) throw err;
     
-              res.render('employee/show',{
-                skills:skills,
-                employees: employees,
-                emp_projs: emp_projs
-        
+                res.render('employee/show',{
+                  careers:careers,
+                  skills:skills,
+                  employees: employees,
+                  emp_projs: emp_projs
+          
+                });
               });
           });
    
