@@ -27,7 +27,7 @@ var isAuthenticated = function (req, res, next) {
 
 
 router.get('/', isAuthenticated, function (req, res,next) {
-  connection.query(' select * from employee, dept where employee.emp_dep=dept.dept_id',
+  connection.query(' select * from employee, dept ,status where employee.emp_dep=dept.dept_id and employee.emp_status=status.st_id',
   function(err,employees){
     if(err) throw err;
 
@@ -86,7 +86,7 @@ router.post('/new', isAuthenticated, (req,res, next) => {
 
 
 router.get('/:id', isAuthenticated, function (req, res,next) {
-  connection.query('select * from employee, dept where employee.emp_dep=dept.dept_id  and emp_id=?',req.params.id,
+  connection.query('select * from employee, dept, status where employee.emp_dep=dept.dept_id and employee.emp_status=status.st_id and emp_id=?',req.params.id,
   function(err,employees){
     if(err) throw err;
 
