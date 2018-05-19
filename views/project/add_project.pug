@@ -1,0 +1,52 @@
+extends ../layout
+block content
+  .container
+    h1.main-title Create Project
+    .form-group
+      label(for='name') 프로젝트명
+      input#formGroupExampleInput.form-control(type='text', placeholder='ProjectName')
+    .form-group
+      label(for='rnum') 발주처
+      input#formGroupExampleInput.form-control(type='text', placeholder='발주처')
+    .form-group
+      label(for='edu') 프로젝트 시작
+      input#formGroupExampleInput.form-control(type='text', placeholder='START')
+    .form-group
+      label(for='password') 프로젝트 끝
+      input#formGroupExampleInput.form-control(type='text', placeholder='END')
+    .form-group
+      label(for='edu') 참여 인력 선택
+
+
+  .container
+
+    table.table.table-bordered.table-striped.table-hover
+      thead
+        tr
+          th 직원번호
+          th 부서
+          th 이름
+          th 재직구분
+          th 학력
+          th 입사날짜
+          th 경력
+      tbody#myTable
+        each employee in employees
+          tr
+            td
+             a(href=`/employee/${employee.emp_id}`)= employee.emp_id
+            td= employee.dept_name
+            td= employee.emp_name
+            td= employee.emp_status 
+            td= employee.emp_edu  
+            td= employee.emp_hiredate 
+            td= employee.emp_workyear  
+  script.
+    $(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+    });
+    });

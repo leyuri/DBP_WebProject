@@ -1,6 +1,6 @@
 extends ../layout
 block content
-  title= 'Project List'
+  title= 'Employee View'
   meta(charset='utf-8')
   .container
     .jumbotron
@@ -26,8 +26,7 @@ block content
           th 경력
       tbody#myTable
         each employee in employees
-          tr(data-toggle='modal', data-target='#myModal')
-            
+          tr
             td
              a(href=`/employee/${employee.emp_id}`)= employee.emp_id
             td= employee.dept_name
