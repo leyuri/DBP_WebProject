@@ -36,6 +36,10 @@ block content
             td= employee.emp_edu  
             td= employee.emp_hiredate 
             td= employee.emp_workyear  
+  
+      br
+      a.btn.btn-sm.btn-outline-secondary(href=`/employee/new`) 
+      | 사원 추가
   script.
     $(document).ready(function(){
     $("#myInput").on("keyup", function() {

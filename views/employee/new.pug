@@ -1,0 +1,54 @@
+extends ../layout
+block content
+  title= 'Add New Employee'
+  .container
+    h1.main_title 직원 정보 입력 (필수)
+    form(action=`/employee/new`, method = 'POST')
+      .form-group
+        label(for='id') 사번
+        input.form-control(type='text', id='id', name='id' placeholder='(번호를 입력하세요)')
+      .form-group
+        label(for="dept") 부서 &nbsp;
+        select.form-control(name="dept")
+            option(value="1") 마케팅
+            option(value="2") 인사
+            option(value="3") 경영
+            option(value="4") 연구개발
+            option(value="5") 개발
+
+      .form-group
+        label(for = 'name') 이름
+        input.form-control(type='text', id='name', name='name' placeholder='(필수)')
+      .form-group
+        label(for='rnum') 주민번호
+        input.form-control(type='text', id='rnum', name='rnum')
+      .form-group
+        label(for='edu') 최종학력
+        input.form-control(type='text', id='edu', name='edu')
+   
+      |재직상태 : &nbsp;
+      input(type="radio", name="status", value="재직" )
+      |	재직 &nbsp;
+      input(type="radio", name="status", value="휴직")
+      |	휴직 &nbsp;
+      input(type="radio", name="status", value="퇴직")
+      |	퇴직 &nbsp;
+      br
+      br
+      .form-group
+        label(for='password') 비밀번호
+        input.form-control(type='password', id='password', name='password' placeholder='(필수)')
+      .form-group
+        label(for='hiredate') 입사일자
+        input.form-control(type='date', id='hiredate', name='hiredate')
+      .form-group
+        label(for='workyear') 근속연수
+        input.form-control(type='text', id='workyear', name='workyear')
+
+        //- .form-group
+        //-     label(for='retiredate') 퇴사일자
+        //-     input.form-control(type='text', id='retiredate', name='retiredate')
+
+      a.btn.btn-outline-secondary(href='javascript:window.history.back();') Back 
+      | 
+      button.btn.btn-dark(type='submit') 저장
