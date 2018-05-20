@@ -45,7 +45,6 @@ router.get('/add_project', isAuthenticated, function (req, res,next) {
         res.render('project/add_project',{
           projects: projects,
           employees: employees
-
         });
       });
   });

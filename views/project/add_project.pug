@@ -18,11 +18,14 @@ block content
       label(for='edu') 참여 인력 선택
 
 
+    #ex3_Result1.col-lg-12
+    #ex3_Result2.col-lg-12
   .container
-
-    table.table.table-bordered.table-striped.table-hover
+    button#selectBtn.btn.btn-outline.btn-primary.pull-left(type='button') 선택
+    table#emptable.table.table-bordered.table-striped.table-hover
       thead
         tr
+          th
           th 직원번호
           th 부서
           th 이름
@@ -34,7 +37,9 @@ block content
         each employee in employees
           tr
             td
-             a(href=`/employee/${employee.emp_id}`)= employee.emp_id
+              input(type='checkbox', name='user_CheckBox')
+            td
+              a(href=`/employee/${employee.emp_id}`)= employee.emp_id
             td= employee.dept_name
             td= employee.emp_name
             td= employee.emp_status 
@@ -50,3 +55,69 @@ block content
     });
     });
     });
+
+  script.
+    // 상단 선택버튼 클릭시 체크된 Row의 값을 가져온다.
+    $("#selectBtn").click(function(){
+    var rowData = new Array();
+    var tdArr = new Array();
+    var checkbox = $("input[name=user_CheckBox]:checked");
+    // 체크된 체크박스 값을 가져온다
+    checkbox.each(function(i) {
+    // checkbox.parent() : checkbox의 부모는 <td>이다.
+    // checkbox.parent().parent() : <td>의 부모이므로 <tr>이다.
+    var tr = checkbox.parent().parent().eq(i);
+    var td = tr.children();
+    // 체크된 row의 모든 값을 배열에 담는다.
+    rowData.push(tr.text());
+    // td.eq(0)은 체크박스 이므로  td.eq(1)의 값부터 가져온다.
+    var id = td.eq(1).text()+", "
+    var dept = td.eq(2).text()+", ";
+    var name = td.eq(3).text()+", ";
+    var status = td.eq(4).text()+", ";
+    var emp_edu = td.eq(5).text()+", ";
+    var hiredate = td.eq(6).text()+", ";
+    var workyear = td.eq(7).text()+", ";
+
+    // 가져온 값을 배열에 담는다.
+    tdArr.push(id);
+    tdArr.push(dept);
+    tdArr.push(name);
+    tdArr.push(status);
+    tdArr.push(emp_edu);
+    tdArr.push(hiredate);
+    tdArr.push(workyear);
+    //console.log("id : " + id);
+    //console.log("dept : " + dept);
+    //console.log("name : " + name);
+    //console.log("status : " + status);
+    });
+    $("#ex3_Result1").html(" * 체크된 Row의 모든 데이터 = "+rowData);
+    $("#ex3_Result2").html(tdArr);
+    });
+    //Pagination Script
+  script.
+    $(document).ready(function() {
+    $('#emptable').DataTable();
+    } );
+
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+
+  script(src='https://code.jquery.com/jquery-1.12.4.js')
+  script(src='https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js')
+  script(src='https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js')
+  link(href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css', rel='stylesheet', type='text/css')
+  link(href='https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css', rel='stylesheet', type='text/css')
+
+
+
+
+
+    
