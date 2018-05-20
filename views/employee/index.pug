@@ -1,18 +1,13 @@
 extends ../layout
 block content
   title= 'Employee View'
-  meta(charset='utf-8')
   .container
     .jumbotron
       h1 Employee View Pages
       p You can view the Employee. 
   .container
     h2 Employee View
-    //- p
-    //- | Type something in the input field to search the table for number, department, names ect.
-    //- br
-    //- input#myInput.form-control(type='text', placeholder='Search..')
-  
+
     table#emptable.table.table-bordered.table-striped.table-hover
       thead
         tr
@@ -34,29 +29,14 @@ block content
             td= employee.emp_edu  
             td= employee.emp_hiredate 
             td= employee.emp_workyear  
-
-  br
-  br
-  br
-  br
-  br
-  br
-  //- script.
-  //-   $(document).ready(function(){
-  //-   $("#myInput").on("keyup", function() {
-  //-   var value = $(this).val().toLowerCase();
-  //-   $("#myTable tr").filter(function() {
-  //-   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-  //-   });
-  //-   });
-  //-   });
-   
-   //Pagination Script
-
-  
-      br
-      a.btn.btn-sm.btn-outline-secondary(href=`/employee/new`) 
+    br
+    a.btn.btn-sm.btn-outline-secondary(href=`/employee/new`) 
       | 사원 추가
+    br
+    br
+    br
+    br
+    br
 
   script.
     $(document).ready(function() {

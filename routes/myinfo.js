@@ -30,8 +30,9 @@ router.get('/', isAuthenticated, function (req, res,next) {
     function(err,result1){
 
       if (err) {
-        return next(err);
+        return next();
       }
+    
       connection.query('select * from career  where emp_id=?',req.user.id,
 
       function(err,result2){
@@ -39,6 +40,7 @@ router.get('/', isAuthenticated, function (req, res,next) {
         if (err) {
           return next(err);
         }
+
         res.render('myinfo/index', {
       
           title: 'My Info',
