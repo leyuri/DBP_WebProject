@@ -71,5 +71,13 @@ router.get('/:id', isAuthenticated, function (req, res,next) {
 });
 
 
-
+router.get('/:id/delete', isAuthenticated, (req, res, next) => {
+  connection.query('DELETE FROM project WHERE pro_id = ?',req.params.id,function(err,result){
+    if (err) {
+      return next(err);
+    }
+    req.flash('success', 'Deleted Successfully.');
+    res.redirect('/');
+  });
+});
 module.exports = router;

@@ -95,7 +95,17 @@ block content
     a.btn.btn-dark(href='javascript:window.history.back();') Back
     br
     br
+    a.btn.btn-secondary(data-url=`/employee/${careers[0].emp_id}/delete`) 사원 정보 삭제
+    
     br
     br
     br
-    br
+    script.
+      $(function() {
+        $('.btn-secondary').click(function() {
+          if (confirm('Are you sure to delete?')) {
+            location = $(this).data('url');
+          }
+          return false;
+        });
+      });

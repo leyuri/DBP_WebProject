@@ -116,7 +116,15 @@ router.get('/:id', isAuthenticated, function (req, res,next) {
     });
   });
 });
-
+router.get('/:id/delete', isAuthenticated, (req, res, next) => {
+  connection.query('DELETE FROM employee WHERE emp_id = ?',req.params.id,function(err,result){
+    if (err) {
+      return next(err);
+    }
+    req.flash('success', 'Deleted Successfully.');
+    res.redirect('/');
+  });
+});
 
 module.exports = router;
 
