@@ -11,10 +11,18 @@ var mysql_dbc = require('../models/db_con')();
 var connection = mysql_dbc.init();
 
 
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Expressssss!' });
-});
 
+
+router.get('/',  function (req, res,next) {
+  connection.query(' select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id',
+  function(err,projects){
+    if(err) throw err;
+
+    res.render('index',{
+      projects: projects
+    });
+  });
+});
 
 router.get('/signin', function(req, res, next) {
   res.render('signin');
