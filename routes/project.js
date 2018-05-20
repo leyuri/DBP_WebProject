@@ -40,6 +40,20 @@ router.get('/add_project', isAuthenticated, function (req, res,next) {
   
 });
 
+router.get('/add_project', isAuthenticated, function (req, res,next) {
+  connection.query('select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id',
+  function(err,projects){
+    if(err) throw err;
+      connection.query('select * from employee, dept where employee.emp_dep=dept.dept_id',
+      function(err,employees){
+        if(err) throw err;
+        res.render('project/add_project',{
+          projects: projects,
+          employees: employees
+        });
+      });
+  });
+});
 router.get('/:id', isAuthenticated, function (req, res,next) {
   connection.query('select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id and project.pro_id=?',req.params.id,
   function(err,projects){
@@ -54,10 +68,9 @@ router.get('/:id', isAuthenticated, function (req, res,next) {
           emp_projs: emp_projs
         });
     
-    });
+      });
   });
 });
-
 
 
 

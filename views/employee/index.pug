@@ -1,6 +1,6 @@
 extends ../layout
 block content
-  title= 'Project List'
+  title= 'Employee View'
   meta(charset='utf-8')
   .container
     .jumbotron
@@ -8,13 +8,12 @@ block content
       p You can view the Employee. 
   .container
     h2 Employee View
-    p
-    | Type something in the input field to search the table for number, duty, names ect.
-    br
-    br
-    input#myInput.form-control(type='text', placeholder='Search..')
-    br
-    table.table.table-bordered.table-striped.table-hover
+    //- p
+    //- | Type something in the input field to search the table for number, department, names ect.
+    //- br
+    //- input#myInput.form-control(type='text', placeholder='Search..')
+  
+    table#emptable.table.table-bordered.table-striped.table-hover
       thead
         tr
           th 직원번호
@@ -26,8 +25,7 @@ block content
           th 경력
       tbody#myTable
         each employee in employees
-          tr(data-toggle='modal', data-target='#myModal')
-            
+          tr
             td
              a(href=`/employee/${employee.emp_id}`)= employee.emp_id
             td= employee.dept_name
@@ -36,16 +34,39 @@ block content
             td= employee.emp_edu  
             td= employee.emp_hiredate 
             td= employee.emp_workyear  
+
+  br
+  br
+  br
+  br
+  br
+  br
+  //- script.
+  //-   $(document).ready(function(){
+  //-   $("#myInput").on("keyup", function() {
+  //-   var value = $(this).val().toLowerCase();
+  //-   $("#myTable tr").filter(function() {
+  //-   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  //-   });
+  //-   });
+  //-   });
+   
+   //Pagination Script
+
   
       br
       a.btn.btn-sm.btn-outline-secondary(href=`/employee/new`) 
       | 사원 추가
+
   script.
-    $(document).ready(function(){
-    $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-    });
-    });
+    $(document).ready(function() {
+    $('#emptable').DataTable();
+    } );
+
+  script(src='https://code.jquery.com/jquery-1.12.4.js')
+  script(src='https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js')
+  script(src='https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js')
+  link(href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css', rel='stylesheet', type='text/css')
+  link(href='https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css', rel='stylesheet', type='text/css')
+
+

@@ -1,4 +1,145 @@
 extends ../layout
 
 block content
-  h1 add Proejct 페이지
+
+  script(src='https://code.jquery.com/jquery-3.3.1.min.js')
+  script(src='https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js')
+  script(src='https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js')
+  
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js')
+  link(href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css', rel='stylesheet', type='text/css')
+  link(href='https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css', rel='stylesheet', type='text/css')
+  link(href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css', rel='stylesheet')
+
+  link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm', crossorigin='anonymous')
+  link(href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', rel='stylesheet', integrity='sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN', crossorigin='anonymous')
+  script(src='https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js', type='text/javascript')
+  link(href='https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css', rel='stylesheet', type='text/css')
+
+  .container
+    h1.main-title Create Project
+    .form-group
+      label(for='name') 프로젝트명
+      input#formGroupExampleInput.form-control(type='text', placeholder='ProjectName')
+    .form-group
+      label(for='rnum') 발주처
+      input#formGroupExampleInput.form-control(type='text', placeholder='발주처')
+    .form-group
+      label(for='pro_start') 프로젝트 시작
+      input#startDate.form-control.date(type='text', placeholder='Start Date')
+    .form-group
+      label(for='pro_end') 프로젝트 끝
+      input#endDate.form-control.date(type='text', placeholder='End Date')
+    .form-group
+      label(for='edu') 참여 인력 선택
+
+    script.
+      var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+      $('#startDate').datepicker({
+      minDate: today,
+      format: 'yyyy-mm-dd',
+      maxDate: function () {
+      return $('#endDate').val();
+      }
+      });
+      $('#endDate').datepicker({
+      format: 'yyyy-mm-dd',
+      minDate: function () {
+      return $('#startDate').val();
+      }
+      });
+
+  
+
+    #ex3_Result1.col-lg-12
+    #ex3_Result2.col-lg-12
+  .container
+    button#selectBtn.btn.btn-outline.btn-primary.pull-left(type='button') 선택
+    table#emptable.table.table-bordered.table-striped.table-hover
+      thead
+        tr
+          th
+          th 직원번호
+          th 부서
+          th 이름
+          th 재직구분
+          th 학력
+          th 입사날짜
+          th 경력
+      tbody#myTable
+        each employee in employees
+          tr
+            td
+              input(type='checkbox', name='user_CheckBox')
+            td
+              a(href=`/employee/${employee.emp_id}`)= employee.emp_id
+            td= employee.dept_name
+            td= employee.emp_name
+            td= employee.emp_status 
+            td= employee.emp_edu  
+            td= employee.emp_hiredate 
+            td= employee.emp_workyear  
+  script.
+    $(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+    });
+    });
+
+  script.
+    // 상단 선택버튼 클릭시 체크된 Row의 값을 가져온다.
+    $("#selectBtn").click(function(){
+    var rowData = new Array();
+    var tdArr = new Array();
+    var checkbox = $("input[name=user_CheckBox]:checked");
+    // 체크된 체크박스 값을 가져온다
+    checkbox.each(function(i) {
+    // checkbox.parent() : checkbox의 부모는 <td>이다.
+    // checkbox.parent().parent() : <td>의 부모이므로 <tr>이다.
+    var tr = checkbox.parent().parent().eq(i);
+    var td = tr.children();
+    // 체크된 row의 모든 값을 배열에 담는다.
+    rowData.push(tr.text());
+    // td.eq(0)은 체크박스 이므로  td.eq(1)의 값부터 가져온다.
+    var id = td.eq(1).text()+", "
+    var dept = td.eq(2).text()+", ";
+    var name = td.eq(3).text()+", ";
+    var status = td.eq(4).text()+", ";
+    var emp_edu = td.eq(5).text()+", ";
+    var hiredate = td.eq(6).text()+", ";
+    var workyear = td.eq(7).text()+", ";
+
+    // 가져온 값을 배열에 담는다.
+    tdArr.push(id);
+    tdArr.push(dept);
+    tdArr.push(name);
+    tdArr.push(status);
+    tdArr.push(emp_edu);
+    tdArr.push(hiredate);
+    tdArr.push(workyear);
+    //console.log("id : " + id);
+    //console.log("dept : " + dept);
+    //console.log("name : " + name);
+    //console.log("status : " + status);
+    });
+    $("#ex3_Result1").html(" * 체크된 Row의 모든 데이터 = "+rowData);
+    $("#ex3_Result2").html(tdArr);
+    });
+    //Pagination Script
+  script.
+    $(document).ready(function() {
+    $('#emptable').DataTable();
+    } );
+
+  br
+  b
+  br
+  br
+  br
+  br
+  br
+  br
