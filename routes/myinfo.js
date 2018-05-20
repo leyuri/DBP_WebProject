@@ -94,7 +94,7 @@ router.post('/:id/add_skill', isAuthenticated, (req, res, next) => {
         return next(err);
       }
       req.flash('success', '성공적으로 정보를 추가하였습니다.');
-      res.redirect('/myinfo');
+      return next();
     });
   }
   res.redirect('/myinfo');

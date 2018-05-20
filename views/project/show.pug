@@ -49,8 +49,8 @@ block content
         tbody#myTable2
          each emp_proj in emp_projs
           tr(href='#emp', data-toggle='collapse')
-         
-            td=emp_proj.emp_name
+            td
+              a(href=`/employee/${emp_proj.emp_id}`)= emp_proj.emp_name
             td=emp_proj.role_name
             td=emp_proj.er_start
             td=emp_proj.er_end

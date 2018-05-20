@@ -34,6 +34,11 @@ router.get('/', isAuthenticated, function (req, res,next) {
     });
   });
 });
+router.get('/add_project', isAuthenticated, function (req, res,next) {
+  
+  res.render('project/add_project');
+  
+});
 
 router.get('/add_project', isAuthenticated, function (req, res,next) {
   connection.query('select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id',

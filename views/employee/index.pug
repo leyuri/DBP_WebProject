@@ -30,10 +30,11 @@ block content
              a(href=`/employee/${employee.emp_id}`)= employee.emp_id
             td= employee.dept_name
             td= employee.emp_name
-            td= employee.emp_status 
+            td= employee.st_name 
             td= employee.emp_edu  
             td= employee.emp_hiredate 
             td= employee.emp_workyear  
+
   br
   br
   br
@@ -51,6 +52,12 @@ block content
   //-   });
    
    //Pagination Script
+
+  
+      br
+      a.btn.btn-sm.btn-outline-secondary(href=`/employee/new`) 
+      | 사원 추가
+
   script.
     $(document).ready(function() {
     $('#emptable').DataTable();
