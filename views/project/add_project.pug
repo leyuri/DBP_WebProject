@@ -1,5 +1,21 @@
 extends ../layout
 block content
+
+  script(src='https://code.jquery.com/jquery-3.3.1.min.js')
+  script(src='https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js')
+  script(src='https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js')
+  
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js')
+  link(href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css', rel='stylesheet', type='text/css')
+  link(href='https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css', rel='stylesheet', type='text/css')
+  link(href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css', rel='stylesheet')
+
+  link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm', crossorigin='anonymous')
+  link(href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', rel='stylesheet', integrity='sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN', crossorigin='anonymous')
+  script(src='https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js', type='text/javascript')
+  link(href='https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css', rel='stylesheet', type='text/css')
+
   .container
     h1.main-title Create Project
     .form-group
@@ -9,14 +25,31 @@ block content
       label(for='rnum') 발주처
       input#formGroupExampleInput.form-control(type='text', placeholder='발주처')
     .form-group
-      label(for='edu') 프로젝트 시작
-      input#formGroupExampleInput.form-control(type='text', placeholder='START')
+      label(for='pro_start') 프로젝트 시작
+      input#startDate.form-control.date(type='text', placeholder='Start Date')
     .form-group
-      label(for='password') 프로젝트 끝
-      input#formGroupExampleInput.form-control(type='text', placeholder='END')
+      label(for='pro_end') 프로젝트 끝
+      input#endDate.form-control.date(type='text', placeholder='End Date')
     .form-group
       label(for='edu') 참여 인력 선택
 
+    script.
+      var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+      $('#startDate').datepicker({
+      minDate: today,
+      format: 'yyyy-mm-dd',
+      maxDate: function () {
+      return $('#endDate').val();
+      }
+      });
+      $('#endDate').datepicker({
+      format: 'yyyy-mm-dd',
+      minDate: function () {
+      return $('#startDate').val();
+      }
+      });
+
+  
 
     #ex3_Result1.col-lg-12
     #ex3_Result2.col-lg-12
@@ -109,15 +142,3 @@ block content
   br
   br
   br
-
-  script(src='https://code.jquery.com/jquery-1.12.4.js')
-  script(src='https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js')
-  script(src='https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js')
-  link(href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css', rel='stylesheet', type='text/css')
-  link(href='https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css', rel='stylesheet', type='text/css')
-
-
-
-
-
-    
