@@ -18,13 +18,7 @@ var isAuthenticated = function (req, res, next) {
       //경영진만 열람가능(일단은)
       req.flash('danger','접근 권한이 없습니다.');
       res.redirect('/');
-    }
-    if(req.user.dept !=2 ){
-      //인사과 열람가능
-      req.flash('danger','접근 권한이 없습니다.');
-      res.redirect('/');
-    }
-    return next();
+    
   }
   res.redirect('/signin');
  
