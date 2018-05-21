@@ -19,6 +19,11 @@ var isAuthenticated = function (req, res, next) {
       req.flash('danger','접근 권한이 없습니다.');
       res.redirect('/');
     }
+    if(req.user.dept !=2 ){
+      //인사과 열람가능
+      req.flash('danger','접근 권한이 없습니다.');
+      res.redirect('/');
+    }
     return next();
   }
   res.redirect('/signin');
