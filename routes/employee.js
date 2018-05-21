@@ -18,12 +18,12 @@ var isAuthenticated = function (req, res, next) {
       //경영진만 열람가능(일단은)
       req.flash('danger','접근 권한이 없습니다.');
       res.redirect('/');
-    
+    }
+    return next();
   }
   res.redirect('/signin');
  
 };
-
 
 router.get('/', isAuthenticated, function (req, res,next) {
   connection.query(' select * from employee, dept ,status where employee.emp_dep=dept.dept_id and employee.emp_status=status.st_id',
