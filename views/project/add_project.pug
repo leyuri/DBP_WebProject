@@ -1,83 +1,77 @@
 extends ../layout
-
 block content
-
-  script(src='https://code.jquery.com/jquery-3.3.1.min.js')
-  script(src='https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js')
-  script(src='https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js')
-  
-  script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js')
-  script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js')
-  link(href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css', rel='stylesheet', type='text/css')
-  link(href='https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css', rel='stylesheet', type='text/css')
-  link(href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css', rel='stylesheet')
-
-  link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm', crossorigin='anonymous')
-  link(href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', rel='stylesheet', integrity='sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN', crossorigin='anonymous')
-  script(src='https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js', type='text/javascript')
-  link(href='https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css', rel='stylesheet', type='text/css')
-
-  // script(src='/js/moment.js')
   .container
     h1.main-title Create Project
     form(action=`/project/add_project`, method = 'POST')
-    .form-group
-      label(for='name') 프로젝트명
-      input.form-control(type='text', name='pro_name', placeholder='ProjectName')
-    .form-group
-      label(for='order') Order
-      select.form-control(type='text',name="order")
-        each project in projects
-          option=project.order_content
-    .form-group
-      label(for='pro_start') 프로젝트 시작
-      input#startDate.form-control(type='date',name='pro_start', placeholder='Start Date',size='35')
-    .form-group
-      label(for='pro_end') 프로젝트 끝
-      input#endDate.form-control(type='date',name='pro_end', placeholder='End Date')
-    .form-group
-    
-      label(for='edu') 참여 인력 선택&nbsp;
-      .row
-        .col-sm-8
-          select#select1.form-control(type='text',name="employee")
-            each employee in employees
-              option=' 사원번호 : '+employee.emp_id +'/ 이름 : '+employee.emp_name + '/  경력: '+employee.emp_workyear
-          br
-          #container
-        .col-sm-4
-          select#select2.form-control(type='text',name="role")
-            each role_er in role_ers
-              option=role_er.role_name
-          br
-          #container2
-      p
-        button#addBtn.btn.btn-outline.btn-primary.pull-left(type='button',onclick='add()',class="btn btn-secondary float-right") 추가
+      .form-group
+        label(for='name') 프로젝트명
+        input.form-control(type='text', name='pro_name', placeholder='ProjectName')
+      .form-group
+        label(for='order') Order
+        select.form-control(type='text',name="order")
+          each project in projects
+            option(value=project.order_id)=project.order_content
+      .form-group
+        label(for='pro_start') 프로젝트 시작
+        input#startDate.form-control(type='date',name='pro_start', placeholder='Start Date',size='35')
+      .form-group
+        label(for='pro_end') 프로젝트 끝
+        input#endDate.form-control(type='date',name='pro_end', placeholder='End Date')
+      .form-group
+      
+        label(for='edu') 참여 인력 선택&nbsp;
+        .row
+          .col-sm-4
+            | 개발자 선택:
+            select#select1.form-control(type='text',name="employee")
+              each employee in employees
+                option(value=employee.emp_id)=' 사원번호 : '+employee.emp_id +' /  이름 : '+employee.emp_name + ' /  경력: '+employee.emp_workyear+'년'
+            br
+            #container
+          .col-sm-2
+            |역할:
+            select#select2.form-control(type='text',name="role")
+              each role_er in role_ers
+                option(value=role_er.role_id)=role_er.role_name
+            br
+            #container2
+          .col-sm-2
+            |시작일:
+            input.form-control(type='date', name="er_start")
+   
+            br
+            #container3
+          .col-sm-2
+            |종료일:
+            input.form-control(type='date', name="er_end")  
+            br 
+            #container4
+            
+        p
+          button#addBtn.btn.btn-outline.btn-primary.pull-left(type='button',onclick='add()',class="btn btn-secondary float-right") 추가
 
-      br
-      br
+          br
+          | 
+          button.btn.btn-dark(type='submit') 프로젝트 생성
+          br
+          br
 
-  script.
-    $(document).ready(function(){
-    $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-    });
-    });
+
   script(type='text/javascript').
     $(function () {
     $("#addBtn").bind("click", function () {
     var index1 = $("#container select").length + 1;
     var index2 = $("#container2 select").length + 1;
+    var index3 = $("#container3 select").length + 1;
+    var index4 = $("#container4 select").length + 1;
     //Clone the DropDownList
     var ddl1 = $("#select1").clone();
     var ddl2 = $("#select2").clone();
+    var ddl3 = $("#select3").clone();
+    var ddl4 = $("#select4").clone();
     //Set the ID and Name
-    ddl1.attr("id", "select1_" + index1);
+   
     ddl1.attr("name", "select1_" + index1);
-    ddl2.attr("id2", "select2_" + index2);
     ddl2.attr("name2", "select2_" + index2);
     //[OPTIONAL] Copy the selected value
     var selectedValue1 = $("#select1 option:selected").val();
@@ -87,7 +81,11 @@ block content
     //Append to the DIV.
     $("#container").append(ddl1);
     $("#container2").append(ddl2);
+    $("#containe3").append(ddl3);
+    $("#container4").append(ddl4);
     $("#container").append("<br />");
     $("#container2").append("<br />");
+    $("#container3").append("<br />");
+    $("#container4").append("<br />");
     });
     });

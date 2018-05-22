@@ -59,6 +59,39 @@ router.get('/add_project', isAuthenticated, function (req, res,next) {
   });
 });
 
+router.post('/add_project', isAuthenticated, (req, res, next) => {
+  console.log(req.body.pro_name);
+  if(req.body.pro_name){
+    connection.query('INSERT into project(pro_name, pro_start, pro_deadline, pro_org) values(?,?,?,?)',
+    [req.body.pro_name,req.body.pro_start,req.body.pro_end,req.body.order] ,
+    function(err,result){
+      if (err) {
+        return next(err);
+      }
+      connection.query('select * from project where pro_name=?',req.body.pro_name,
+      function(err,projects){
+        if(err) throw err;
+        connection.query('INSERT into emp_proj(pro_id,emp_id,er_role,er_start,er_end) values(?,?,?,?,?)',
+        [projects[0].pro_id, req.body.employee,req.body.role,req.body.er_start,req.body.er_end] ,
+        function(err,result){
+          if (err) {
+            return next(err);
+          }
+          req.flash('success', '성공적으로 프로젝트/참여직원을 추가하였습니다.');
+          res.redirect('/project');
+        });
+      });
+      
+
+    });
+  }
+  else{
+    req.flash('danger', '프로젝트 이름을 지정해주세요');
+    res.redirect('/project/add_project');
+  }
+
+});
+
 
 router.get('/:id', isAuthenticated, function (req, res,next) {
   connection.query('select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id and project.pro_id=?',req.params.id,
@@ -88,34 +121,6 @@ router.get('/:id/delete', isAuthenticated, (req, res, next) => {
     req.flash('success', 'Deleted Successfully.');
     res.redirect('/');
   });
-});
-
-router.post('/project/add_project', isAuthenticated, (req, res, next) => {
-  console.log(req.body.pro_name);
-  if(req.body.pro_name){
-    connection.query('INSERT into project(pro_name, pro_start, pro_end) values(?,?,?)',
-    [req.body.project_name,req.body.pro_start,req.body.pro_end] ,
-    function(err,result){
-      if (err) {
-        return next(err);
-      }
-      req.flash('success', '성공적으로 정보를 추가하였습니다.');
-      return next();
-    });
-  }
-  if(req.body.career_name){
-    connection.query('INSERT into emp_proj(pro_id,emp_id,er_role,er_start,er_end) values(?,?,?,?,?) ',
-    [req.body.pro_id, req.params.emp_id,req.body.er_role,body.pro_start,req.body.pro_end] ,
-    function(err,result){
-      if (err) {
-        return next(err);
-      }
-      req.flash('success', '성공적으로 정보를 추가하였습니다.');
-      return next();
-    });
-  }
-  res.redirect('/project');
-  
 });
 
 
