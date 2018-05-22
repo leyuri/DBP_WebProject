@@ -3,18 +3,17 @@ block content
   .container
     h1.main-title 직원 정보 수정
     form(action=`/employee/${emp_info.emp_id}/edit`, method = 'POST')
-
         .form-group
           label(for='id') 사번
           input.form-control(type='text', id='id', name='id' value=emp_info.emp_id)
         .form-group
             label(for="dept") 부서 &nbsp;
-            select.form-control(name="dept" value=emp_info.emp_dept)
+            select.form-control(name="dept")
                 option(value="1") 마케팅
                 option(value="2") 인사
                 option(value="3") 경영
                 option(value="4") 연구개발
-                option(value="5") 개발
+                option(value="5" selected="selected") 개발
         .form-group
           label(for = 'name') 이름
           input.form-control(type='text', id='name', name='name' value=emp_info.emp_name)
@@ -53,10 +52,10 @@ block content
           input.form-control(type='date', id='hiredate', name='hiredate' value=emp_info.emp_hiredate)
         .form-group
           label(for='workyear') 근속연수
-          input.form-control(type='date', id='workyear', name='workyear' value=emp_info.emp_workyear)
+          input.form-control(type='text', id='workyear', name='workyear' value=emp_info.emp_workyear)
         .form-group
           label(for='retiredate') 퇴사일자
-          input.form-control(type='text', id='retiredate', name='retiredate')
+          input.form-control(type='date', id='retiredate', name='retiredate')
 
         a.btn.btn-outline-secondary(href='javascript:window.history.back();') Back 
         | 
