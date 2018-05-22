@@ -117,6 +117,23 @@ router.get('/:id', isAuthenticated, function (req, res,next) {
     });
   });
 });
+router.get('/:id/edit', isAuthenticated, function (req, res) {
+  connection.query('SELECT * FROM employee  WHERE  emp_id = ?',req.params.id,
+
+  function(err,result){
+    console.log(result[0]);
+    if (err) {
+      return next(err);
+    }
+    res.render('employee/edit', {
+  
+      title: 'Employee Info',
+      emp_info: result[0],
+
+    });
+
+  });
+});
 router.get('/:id/delete', isAuthenticated, (req, res, next) => {
   connection.query('DELETE FROM employee WHERE emp_id = ?',req.params.id,function(err,result){
     if (err) {

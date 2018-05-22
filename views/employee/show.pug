@@ -93,10 +93,11 @@ block content
   
     .modal-footer
     a.btn.btn-dark(href='javascript:window.history.back();') Back
-    br
-    br
-    a.btn.btn-secondary(data-url=`/employee/${careers[0].emp_id}/delete`) 사원 정보 삭제
+    a.btn.btn-primary(href=`/employee/${employees[0].emp_id}/edit`) 사원 정보 수정
     
+    a.btn.btn-secondary(data-url=`/employee/${employees[0].emp_id}/delete`) 사원 정보 삭제
+
+
     br
     br
     br
