@@ -39,7 +39,7 @@ router.get('/add_project', isAuthenticated, function (req, res,next) {
   connection.query('select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id',
   function(err,projects){
     if(err) throw err;
-      connection.query('select * from employee, dept where employee.emp_dep=dept.dept_id',
+      connection.query('select * from employee, role_er, dept where employee.emp_dep=dept.dept_id',
       function(err,employees){
         if(err) throw err;
         console.log(employees);
@@ -80,4 +80,34 @@ router.get('/:id/delete', isAuthenticated, (req, res, next) => {
     res.redirect('/');
   });
 });
+
+router.post('/project/add_project', isAuthenticated, (req, res, next) => {
+  console.log(req.body.pro_name);
+  if(req.body.pro_name){
+    connection.query('INSERT into project(pro_name, pro_start, pro_end) values(?,?,?)',
+    [req.body.project_name,req.body.pro_start,req.body.pro_end] ,
+    function(err,result){
+      if (err) {
+        return next(err);
+      }
+      req.flash('success', '성공적으로 정보를 추가하였습니다.');
+      return next();
+    });
+  }
+  if(req.body.career_name){
+    connection.query('INSERT into emp_proj(pro_id,emp_id,er_role,er_start,er_end) values(?,?,?,?,?) ',
+    [req.body.pro_id, req.params.emp_id,req.body.er_role,body.pro_start,req.body.pro_end] ,
+    function(err,result){
+      if (err) {
+        return next(err);
+      }
+      req.flash('success', '성공적으로 정보를 추가하였습니다.');
+      return next();
+    });
+  }
+  res.redirect('/project');
+  
+});
+
+
 module.exports = router;

@@ -8,12 +8,16 @@ block topnav
       #navbarsExampleDefault.collapse.navbar-collapse
         ul.navbar-nav.ml-auto
           li.nav-item
-            a.nav-link(href="/#services") About
-          li.nav-item
-            a.nav-link(href="/project") Project
+            a.nav-link(href="/company_info") About
+          li.nav-item.dropdown
+            a#navbardrop.dropdown-toggle(href = "/project/add_project",data-toggle='dropdown').nav-link Project
+            .dropdown-menu
+              a.dropdown-item(href="/project") Project List
+              a.dropdown-item(href="/#project") Project Order
+              a.dropdown-item(href="/project") Project Create
           li.nav-item
             a.nav-link(href="/employee") Employee Info
- 
+
           if(!currentUser)
             li.nav-item
               a.nav-link(href='/signin') Signin
@@ -22,4 +26,3 @@ block topnav
               a.nav-link(href='/signout') Signout
             li.nav-item
               a.nav-link(href='/myinfo') My Profile
-          
