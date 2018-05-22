@@ -37,84 +37,26 @@ block content
       input#endDate.form-control(type='date',name='pro_end', placeholder='End Date')
     .form-group
     
-      label(for='edu') 참여 인력 선택
+      label(for='edu') 참여 인력 선택&nbsp;
       .row
         .col-sm-8
-          select.form-control(type='text',name="employee")
+          select#select1.form-control(type='text',name="employee")
             each employee in employees
               option=' 사원번호 : '+employee.emp_id +'/ 이름 : '+employee.emp_name + '/  경력: '+employee.emp_workyear
+          br
+          #container
         .col-sm-4
-          select.form-control(type='text',name="role")
+          select#select2.form-control(type='text',name="role")
             each role_er in role_ers
               option=role_er.role_name
-        button#selectBtn.btn.btn-outline.btn-primary.pull-left(type='button') 추가
+          br
+          #container2
+      p
+        button#addBtn.btn.btn-outline.btn-primary.pull-left(type='button',onclick='add()',class="btn btn-secondary float-right") 추가
 
-    #empData1.col-lg-12
-    #empData2.col-lg-12
-    #id1.col-lg-12
-    #id.col-lg-12
-    #dept.col-lg-12
-    #name.col-lg-12
-    #status.col-lg-12
-    #emp_edu.col-lg-12
-    #hiredate.col-lg-12
-    #workyear.col-lg-12
-    #role.col-lg-12
+      br
+      br
 
-  br
-  .container
-    button#selectBtn.btn.btn-outline.btn-primary.pull-left(type='button') 선택
-    table#emptable.table.table-bordered.table-striped.table-hover
-      thead
-        tr
-          th
-            input(type='checkbox', name='user_CheckBox')
-          th 직원번호
-          th 부서
-          th 이름
-          th 재직구분
-          th 학력
-          th 입사날짜
-          th 경력
-          th Role
-
-      tbody#myTable
-        each employee in employees
-          tr
-            td
-              input#myCheck(type='checkbox', name='user_CheckBox', onclick='myFunction()')
-            td
-              a(href=`/employee/${employee.emp_id}`)= employee.emp_id
-            td= employee.dept_name
-            td= employee.emp_name
-            td= employee.emp_status 
-            td= employee.emp_edu  
-            td= employee.emp_hiredate 
-            td= employee.emp_workyear  
-            td
-              select(name='er_role')
-                option PM
-                option PL
-                option 개발
-                option 테스트
-
-
-    button.btn.btn-dark(type='submit') 등록
-  br
-  br
-  br
-  br
-  br
-  p Display some text when the checkbox is checked:
-  | Test checkbox: 
-  input(type='checkbox')
-  p#text(style='display:none') Checkbox is CHECKED!
-  br
-  br
-  br
-  br
-  br
-    
   script.
     $(document).ready(function(){
     $("#myInput").on("keyup", function() {
@@ -124,82 +66,28 @@ block content
     });
     });
     });
-
-  script.
-    function myFunction() {
-    var checkBox = document.getElementById("myCheck");
-    var text = document.getElementById("text");
-    if (checkBox.checked == true){
-    text.style.display = "block";
-    } else {
-    text.style.display = "none";
-    }
-    }
-
-  script.
-    // 상단 선택버튼 클릭시 체크된 Row의 값을 가져온다.
-    $("#selectBtn").click(function(){
-    var rowData = new Array();
-    var tdArr = new Array();
-    var checkbox = $("input[name=user_CheckBox]:checked");
-    // 체크된 체크박스 값을 가져온다
-    checkbox.each(function(i) {
-    // checkbox.parent() : checkbox의 부모는 <td>이다.
-    // checkbox.parent().parent() : <td>의 부모이므로 <tr>이다.
-    var tr = checkbox.parent().parent().eq(i);
-    var td = tr.children();
-    // 체크된 row의 모든 값을 배열에 담는다.
-    rowData.push(tr.text());
-    // td.eq(0)은 체크박스 이므로  td.eq(1)의 값부터 가져온다.
-    var id = td.eq(1).text()+", "
-    var dept = td.eq(2).text()+", ";
-    var name = td.eq(3).text()+", ";
-    var status = td.eq(4).text()+", ";
-    var emp_edu = td.eq(5).text()+", ";
-    var hiredate = td.eq(6).text()+", ";
-    var workyear = td.eq(7).text()+", ";
-    var role = td.eq(8).text()+"/ ";
-
-    // 가져온 값을 배열에 담는다.
-    tdArr.push(id);
-    tdArr.push(dept);
-    tdArr.push(name);
-    tdArr.push(status);
-    tdArr.push(emp_edu);
-    tdArr.push(hiredate);
-    tdArr.push(workyear);
-    tdArr.push(role);
-    //console.log("id : " + id);
-
-    });
-    $("#empData1").html(" * 체크된 Row의 모든 데이터 = "+rowData);
-    $("#empData2").html(tdArr);
-
-    tdArr.forEach(function(entry) {
-        $("#id1").html(entry);
-    });
-
-    $("#id").html(tdArr[0]);
-    $("#dept").html(tdArr[1]);
-    $("#name").html(tdArr[2]);
-    $("#status").html(tdArr[3]);
-    $("#emp_edu").html(tdArr[4]);
-    $("#hiredate").html(tdArr[5]);
-    $("#workyear").html(tdArr[6]);
-    $("#role").html(tdArr[7]);
-
-    });
-    //Pagination Script
-  script.
-    $(document).ready(function() {
-    $('#emptable').DataTable();
-    } );
-  script.
-    $("#emptable thead tr th:first input:checkbox").click(function () {
-    var checkedStatus = this.checked;
-    $("#emptable tbody tr td:first-child input:checkbox").each(function () {
-    this.checked = checkedStatus;
+  script(type='text/javascript').
+    $(function () {
+    $("#addBtn").bind("click", function () {
+    var index1 = $("#container select").length + 1;
+    var index2 = $("#container2 select").length + 1;
+    //Clone the DropDownList
+    var ddl1 = $("#select1").clone();
+    var ddl2 = $("#select2").clone();
+    //Set the ID and Name
+    ddl1.attr("id", "select1_" + index1);
+    ddl1.attr("name", "select1_" + index1);
+    ddl2.attr("id2", "select2_" + index2);
+    ddl2.attr("name2", "select2_" + index2);
+    //[OPTIONAL] Copy the selected value
+    var selectedValue1 = $("#select1 option:selected").val();
+    var selectedValue2 = $("#select2 option:selected").val();
+    ddl1.find("option[value = '" + selectedValue1 + "']").attr("selected", "selected");
+    ddl2.find("option[value = '" + selectedValue2 + "']").attr("selected", "selected");
+    //Append to the DIV.
+    $("#container").append(ddl1);
+    $("#container2").append(ddl2);
+    $("#container").append("<br />");
+    $("#container2").append("<br />");
     });
     });
-
-
