@@ -32,5 +32,13 @@
   "description": "",
   "devDependencies": {
     "jshint": "^2.9.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HyunJu1/DBP_WebProject.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HyunJu1/DBP_WebProject/issues"
+  },
+  "homepage": "https://github.com/HyunJu1/DBP_WebProject#readme"
 }
