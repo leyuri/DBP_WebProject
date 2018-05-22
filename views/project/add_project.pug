@@ -22,9 +22,6 @@ block content
     h1.main-title Create Project
     form(action=`/project/add_project`, method = 'POST')
     .form-group
-      label(for='pro_id') 프로젝트ID
-        input.form-control(type='text', name='pro_id', placeholder='ProjectID')
-    .form-group
       label(for='name') 프로젝트명
       input.form-control(type='text', name='pro_name', placeholder='ProjectName')
     .form-group
@@ -34,30 +31,23 @@ block content
           option=project.order_content
     .form-group
       label(for='pro_start') 프로젝트 시작
-      input#startDate.form-control.date(type='date',name='pro_start', placeholder='Start Date',size='35')
+      input#startDate.form-control(type='date',name='pro_start', placeholder='Start Date',size='35')
     .form-group
       label(for='pro_end') 프로젝트 끝
-      input#endDate.form-control.date(type='date',name='pro_end', placeholder='End Date')
+      input#endDate.form-control(type='date',name='pro_end', placeholder='End Date')
     .form-group
+    
       label(for='edu') 참여 인력 선택
-
-    script.
-      var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-      $('#startDate').datepicker({
-      minDate: today,
-      format: 'yyyy-mm-dd',
-      maxDate: function () {
-      return $('#endDate').val();
-      }
-      });
-      $('#endDate').datepicker({
-      format: 'yyyy-mm-dd',
-      minDate: function () {
-      return $('#startDate').val();
-      }
-      });
-
-  
+      .row
+        .col-sm-8
+          select.form-control(type='text',name="employee")
+            each employee in employees
+              option=' 사원번호 : '+employee.emp_id +'/ 이름 : '+employee.emp_name + '/  경력: '+employee.emp_workyear
+        .col-sm-4
+          select.form-control(type='text',name="role")
+            each role_er in role_ers
+              option=role_er.role_name
+        button#selectBtn.btn.btn-outline.btn-primary.pull-left(type='button') 추가
 
     #empData1.col-lg-12
     #empData2.col-lg-12

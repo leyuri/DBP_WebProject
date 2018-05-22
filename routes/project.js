@@ -40,13 +40,20 @@ router.get('/add_project', isAuthenticated, function (req, res,next) {
   connection.query('select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id',
   function(err,projects){
     if(err) throw err;
-      connection.query('select * from employee, role_er, dept where employee.emp_dep=dept.dept_id',
+      connection.query('select * from employee, dept where employee.emp_dep=dept.dept_id and dept.dept_id=5',
       function(err,employees){
         if(err) throw err;
         console.log(employees);
-        res.render('project/add_project',{
-          projects: projects,
-          employees: employees
+        connection.query('select * from role_er',
+        function(err,role_ers){
+          if(err) throw err;
+          console.log(employees);
+          res.render('project/add_project',{
+            projects: projects,
+            employees: employees,
+            role_ers:role_ers
+          });
+
         });
       });
   });
