@@ -10,7 +10,7 @@ var bcrypt = require('bcrypt');
 var mysql_dbc = require('../models/db_con')();
 var connection = mysql_dbc.init();
 
-
+var moment = require('moment');
 var isAuthenticated = function (req, res, next) {
   
   if (req.isAuthenticated()){
@@ -31,7 +31,8 @@ router.get('/', isAuthenticated, function (req, res,next) {
     if(err) throw err;
 
     res.render('employee/index',{
-      employees: employees
+      employees: employees,
+      moment:moment
     });
   });
 });
@@ -106,7 +107,8 @@ router.get('/:id', isAuthenticated, function (req, res,next) {
                   careers:careers,
                   skills:skills,
                   employees: employees,
-                  emp_projs: emp_projs
+                  emp_projs: emp_projs,
+                  moment:moment
           
                 });
               });

@@ -27,7 +27,7 @@ block content
             td= employee.emp_name
             td= employee.st_name 
             td= employee.emp_edu  
-            td= employee.emp_hiredate 
+            td= moment(employee.emp_hiredate).format("YYYY년 MM월 DD일")
             td= employee.emp_workyear  
     br
     a.btn.btn-sm.btn-outline-secondary(href=`/employee/new`) 

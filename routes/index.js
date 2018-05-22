@@ -10,7 +10,7 @@ var bcrypt = require('bcrypt');
 var mysql_dbc = require('../models/db_con')();
 var connection = mysql_dbc.init();
 
-
+var moment = require('moment');
 
 
 router.get('/',  function (req, res,next) {
@@ -19,7 +19,8 @@ router.get('/',  function (req, res,next) {
     if(err) throw err;
 
     res.render('index',{
-      projects: projects
+      projects: projects,
+      moment:moment
     });
   });
 });
