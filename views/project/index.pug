@@ -22,7 +22,7 @@ block content
             td
              a(href=`/project/${project.pro_id}`)= project.pro_name
             td= project.cus_name
-            td= project.pro_start 
+            td= moment(project.pro_start).format("YYYY년 MM월 DD일")
 
     a.btn.btn-sm.btn-outline-secondary(href=`/project/add_project`) 
       | 프로젝트 추가

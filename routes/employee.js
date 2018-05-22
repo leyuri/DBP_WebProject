@@ -10,7 +10,7 @@ var bcrypt = require('bcrypt');
 var mysql_dbc = require('../models/db_con')();
 var connection = mysql_dbc.init();
 
-
+var moment = require('moment');
 var isAuthenticated = function (req, res, next) {
   
   if (req.isAuthenticated()){
@@ -31,7 +31,8 @@ router.get('/', isAuthenticated, function (req, res,next) {
     if(err) throw err;
 
     res.render('employee/index',{
-      employees: employees
+      employees: employees,
+      moment:moment
     });
   });
 });
@@ -106,7 +107,8 @@ router.get('/:id', isAuthenticated, function (req, res,next) {
                   careers:careers,
                   skills:skills,
                   employees: employees,
-                  emp_projs: emp_projs
+                  emp_projs: emp_projs,
+                  moment:moment
           
                 });
               });
@@ -115,6 +117,39 @@ router.get('/:id', isAuthenticated, function (req, res,next) {
     });
   });
 });
+router.get('/:id/edit', isAuthenticated, function (req, res) {
+  connection.query('SELECT * FROM employee,dept  WHERE employee.emp_dep=dept.dept_id and  emp_id = ?',req.params.id,
+
+  function(err,result){
+    console.log(result[0]);
+    if (err) {
+      return next(err);
+    }
+    res.render('employee/edit', {
+  
+      title: 'Employee Info',
+      emp_info: result[0],
+
+    });
+
+  });
+});
+
+router.post('/:id/edit', isAuthenticated, (req, res, next) => {
+
+
+  connection.query('UPDATE employee SET  emp_dep=? ,emp_name = ? , emp_Rnum =? , emp_edu=?,  emp_status=?, emp_pass=?, emp_workyear=? ,emp_retiredate=? WHERE emp_id=? ',
+  [req.body.dept, req.body.name, req.body.rnum, req.body.edu,  req.body.status, req.body.password, req.body.workyear,req.body.retiredate, req.params.id] ,
+  function(err,result){
+    if (err) {
+      return next(err);
+    }
+    req.flash('success', 'Updated successfully.');
+    res.redirect(`/employee`);
+  
+  });
+});
+
 router.get('/:id/delete', isAuthenticated, (req, res, next) => {
   connection.query('DELETE FROM employee WHERE emp_id = ?',req.params.id,function(err,result){
     if (err) {

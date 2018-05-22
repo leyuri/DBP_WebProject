@@ -8,7 +8,7 @@ var passport = require('passport')
 var mysql_dbc = require('../models/db_con')();
 var connection = mysql_dbc.init();
 
-
+var moment = require('moment');
 
 /*로그인 유저 판단 로직*/
 var isAuthenticated = function (req, res, next) {
@@ -46,7 +46,8 @@ router.get('/', isAuthenticated, function (req, res,next) {
           title: 'My Info',
           user_info: result[0],
           skills:result1,
-          careers:result2
+          careers:result2,
+          moment:moment
       });
       });
     });

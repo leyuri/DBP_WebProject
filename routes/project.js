@@ -7,7 +7,7 @@ var passport = require('passport')
 var mysql_dbc = require('../models/db_con')();
 var connection = mysql_dbc.init();
 
-
+var moment = require('moment');
 
 
 var isAuthenticated = function (req, res, next) {
@@ -30,7 +30,8 @@ router.get('/', isAuthenticated, function (req, res,next) {
     if(err) throw err;
 
     res.render('project/index',{
-      projects: projects
+      projects: projects,
+      moment:moment
     });
   });
 });
@@ -63,7 +64,8 @@ router.get('/:id', isAuthenticated, function (req, res,next) {
 
         res.render('project/show',{
           projects: projects,
-          emp_projs: emp_projs
+          emp_projs: emp_projs,
+          moment:moment
         });
     
       });

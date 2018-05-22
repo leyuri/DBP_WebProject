@@ -69,7 +69,7 @@ block content
             img.img-fluid(src='img/portfolio/01-thumbnail.jpg', alt='')
           .portfolio-caption
             h4=projects[0].pro_name
-            p.text-muted=projects[0].pro_start
+            p.text-muted=moment(projects[0].pro_start).format("YYYY년 MM월 DD일")
         .col-md-4.col-sm-6.portfolio-item
           a.portfolio-link(data-toggle='modal', href='#portfolioModal2')
             .portfolio-hover
@@ -78,7 +78,7 @@ block content
             img.img-fluid(src='img/portfolio/02-thumbnail.jpg', alt='')
           .portfolio-caption
             h4=projects[1].pro_name
-            p.text-muted=projects[1].pro_start
+            p.text-muted=moment(projects[1].pro_start).format("YYYY년 MM월 DD일")
         .col-md-4.col-sm-6.portfolio-item
           a.portfolio-link(data-toggle='modal', href='#portfolioModal3')
             .portfolio-hover
@@ -87,7 +87,7 @@ block content
             img.img-fluid(src='img/portfolio/03-thumbnail.jpg', alt='')
           .portfolio-caption
             h4=projects[2].pro_name
-            p.text-muted=projects[2].pro_start
+            p.text-muted=moment(projects[2].pro_start).format("YYYY년 MM월 DD일")
         .col-md-4.col-sm-6.portfolio-item
           a.portfolio-link(data-toggle='modal', href='#portfolioModal4')
             .portfolio-hover
@@ -96,7 +96,7 @@ block content
             img.img-fluid(src='img/portfolio/04-thumbnail.jpg', alt='')
           .portfolio-caption
             h4=projects[3].pro_name
-            p.text-muted=projects[3].pro_start
+            p.text-muted=moment(projects[3].pro_start).format("YYYY년 MM월 DD일")
         .col-md-4.col-sm-6.portfolio-item
           a.portfolio-link(data-toggle='modal', href='#portfolioModal5')
             .portfolio-hover
@@ -105,7 +105,7 @@ block content
             img.img-fluid(src='img/portfolio/05-thumbnail.jpg', alt='')
           .portfolio-caption
             h4=projects[4].pro_name
-            p.text-muted=projects[4].pro_start
+            p.text-muted=moment(projects[4].pro_start).format("YYYY년 MM월 DD일")
         .col-md-4.col-sm-6.portfolio-item
           a.portfolio-link(data-toggle='modal', href='#portfolioModal6')
             .portfolio-hover
@@ -114,7 +114,7 @@ block content
             img.img-fluid(src='img/portfolio/06-thumbnail.jpg', alt='')
           .portfolio-caption
             h4=projects[5].pro_name
-            p.text-muted=projects[5].pro_start
+            p.text-muted=moment(projects[5].pro_start).format("YYYY년 MM월 DD일")
     .intro-text
       a.btn.btn-primary.btn-xl.text-uppercase.js-scroll-trigger(href='/project') Project List
       p

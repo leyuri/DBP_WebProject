@@ -27,7 +27,7 @@ block content
                 td= employee.emp_name
                 td= employee.st_name 
                 td= employee.emp_edu  
-                td= employee.emp_hiredate 
+                td= moment(employee.emp_hiredate).format("YYYY년 MM월 DD일")
                 td= employee.emp_workyear
 
     table.table.table-bordered.table-striped.table-hover
@@ -77,8 +77,8 @@ block content
             td
               a(href=`/project/${emp_proj.pro_id}`)= emp_proj.pro_name
             td=emp_proj.role_name
-            td=emp_proj.er_start
-            td=emp_proj.er_end
+            td=moment(emp_proj.er_start).format("YYYY년 MM월 DD일")
+            td=moment(emp_proj.er_end).format("YYYY년 MM월 DD일")
        
        
     script.
@@ -93,10 +93,11 @@ block content
   
     .modal-footer
     a.btn.btn-dark(href='javascript:window.history.back();') Back
-    br
-    br
-    a.btn.btn-secondary(data-url=`/employee/${careers[0].emp_id}/delete`) 사원 정보 삭제
+    a.btn.btn-primary(href=`/employee/${employees[0].emp_id}/edit`) 사원 정보 수정
     
+    a.btn.btn-secondary(data-url=`/employee/${employees[0].emp_id}/delete`) 사원 정보 삭제
+
+
     br
     br
     br
