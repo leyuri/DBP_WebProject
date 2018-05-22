@@ -15,7 +15,7 @@ block content
             th [PRO_ID]
             th 기관[PRO_ORG]
             th [PRO_START]
-            th [PRO_END]
+            th [PRO_DEADLINE]
         tbody
           each project in projects
             tr
@@ -23,7 +23,7 @@ block content
                 td=project.pro_org
                 td=project.cus_name
                 td=moment(project.pro_start).format("YYYY년 MM월 DD일")
-                td=moment(project.pro_end).format("YYYY년 MM월 DD일")
+                td=moment(project.pro_deadline).format("YYYY년 MM월 DD일")
     table.table.table-bordered.table-striped.table-hover
         thead
         tr
@@ -52,8 +52,12 @@ block content
             td
               a(href=`/employee/${emp_proj.emp_id}`)= emp_proj.emp_name
             td=emp_proj.role_name
-            td=moment(emp_proj.er_start).format("YYYY년 MM월 DD일")
-            td=moment(emp_proj.er_end).format("YYYY년 MM월 DD일")
+            td
+              if(emp_proj.er_start)
+                =moment(emp_proj.er_start).format("YYYY년 MM월 DD일")
+            td
+              if(emp_proj.er_end)
+                =moment(emp_proj.er_end).format("YYYY년 MM월 DD일")
        
     script.
         $(document).ready(function(){
