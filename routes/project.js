@@ -10,20 +10,43 @@ var connection = mysql_dbc.init();
 var moment = require('moment');
 
 
-var isAuthenticated = function (req, res, next) {
+var isAuthenticated = function (req, res, next) {  
+  if (req.isAuthenticated()){ 
+    return next();    
+  }
+  res.redirect('/signin'); 
+};
+
+
+var isAuthenticated1 = function (req, res, next) {
   
   if (req.isAuthenticated()){
-    if(req.user.dept !=3 ){
-      //경영진만 열람가능(일단은)
-      req.flash('danger','접근 권한이 없습니다.');
-      res.redirect('/');
+    if(req.user.dept ==3 ||req.user.dept ==2){
+      //경영진/인사과만 열람가능
+      return next();
     }
-    return next();
+    req.flash('danger','접근 권한이 없습니다.');
+    res.redirect('/project');
+    
   }
   res.redirect('/signin');
  
 };
 
+var isAuthenticated2 = function (req, res, next) {
+  
+  if (req.isAuthenticated()){
+    if(req.user.dept ==3||req.user.dept ==5){
+      //경영진, 개발자만 가능
+      return next();
+    }
+    req.flash('danger','접근 권한이 없습니다.');
+    res.redirect('/project');
+    
+  }
+  res.redirect('/signin');
+ 
+};
 router.get('/', isAuthenticated, function (req, res,next) {
   connection.query(' select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id',
   function(err,projects){
@@ -36,7 +59,7 @@ router.get('/', isAuthenticated, function (req, res,next) {
   });
 });
 
-router.get('/add_project', isAuthenticated, function (req, res,next) {
+router.get('/add_project', isAuthenticated2, function (req, res,next) {
   connection.query('select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id',
   function(err,projects){
     if(err) throw err;
@@ -59,7 +82,7 @@ router.get('/add_project', isAuthenticated, function (req, res,next) {
   });
 });
 
-router.post('/add_project', isAuthenticated, (req, res, next) => {
+router.post('/add_project', isAuthenticated2, (req, res, next) => {
   console.log(req.body.select1_2);
   console.log(req.body.select2_2);
   console.log(req.body.select3_1);
@@ -109,7 +132,7 @@ router.post('/add_project', isAuthenticated, (req, res, next) => {
 });
 
 
-router.get('/:id', isAuthenticated, function (req, res,next) {
+router.get('/:id', isAuthenticated1, function (req, res,next) {
   connection.query('select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id and project.pro_id=?',req.params.id,
   function(err,projects){
     if(err) throw err;
@@ -129,7 +152,7 @@ router.get('/:id', isAuthenticated, function (req, res,next) {
 });
 
 
-router.get('/:id/delete', isAuthenticated, (req, res, next) => {
+router.get('/:id/delete', isAuthenticated2, (req, res, next) => {
   connection.query('DELETE FROM project WHERE pro_id = ?',req.params.id,function(err,result){
     if (err) {
       return next(err);

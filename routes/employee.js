@@ -11,19 +11,32 @@ var mysql_dbc = require('../models/db_con')();
 var connection = mysql_dbc.init();
 
 var moment = require('moment');
-var isAuthenticated = function (req, res, next) {
-  
-  if (req.isAuthenticated()){
-    if(req.user.dept !=3 ){
-      //경영진만 열람가능(일단은)
-      req.flash('danger','접근 권한이 없습니다.');
-      res.redirect('/');
+
+
+  var isAuthenticated = function (req, res, next) {  
+    if (req.isAuthenticated()){ 
+      return next();    
     }
-    return next();
-  }
-  res.redirect('/signin');
- 
-};
+    res.redirect('/signin'); 
+  };
+  
+  
+  var isAuthenticated1 = function (req, res, next) {
+    
+    if (req.isAuthenticated()){
+      if(req.user.dept ==3 ||req.user.dept ==2){
+        //경영진/인사과만 열람가능
+        return next();
+      }
+      req.flash('danger','접근 권한이 없습니다.');
+      res.redirect('/employee');
+      
+    }
+    res.redirect('/signin');
+   
+  };
+  
+
 
 router.get('/', isAuthenticated, function (req, res,next) {
   connection.query(' select * from employee, dept ,status where employee.emp_dep=dept.dept_id and employee.emp_status=status.st_id',
@@ -38,13 +51,13 @@ router.get('/', isAuthenticated, function (req, res,next) {
 });
 
 
-router.get('/new', isAuthenticated, function (req, res,next) {
+router.get('/new', isAuthenticated1, function (req, res,next) {
  
   res.render('employee/new');
 
 });
 
-router.post('/new', isAuthenticated, (req,res, next) => {
+router.post('/new', isAuthenticated1, (req,res, next) => {
   if(!req.body.id){
     req.flash('danger', '사번을 입력해주세요');
     res.redirect('/employee/new');
@@ -85,7 +98,7 @@ router.post('/new', isAuthenticated, (req,res, next) => {
 });
 
 
-router.get('/:id', isAuthenticated, function (req, res,next) {
+router.get('/:id', isAuthenticated1, function (req, res,next) {
   connection.query('select * from employee, dept, status where employee.emp_dep=dept.dept_id and employee.emp_status=status.st_id and emp_id=?',req.params.id,
   function(err,employees){
     if(err) throw err;
@@ -117,7 +130,7 @@ router.get('/:id', isAuthenticated, function (req, res,next) {
     });
   });
 });
-router.get('/:id/edit', isAuthenticated, function (req, res) {
+router.get('/:id/edit', isAuthenticated1, function (req, res) {
   connection.query('SELECT * FROM employee,dept  WHERE employee.emp_dep=dept.dept_id and  emp_id = ?',req.params.id,
 
   function(err,result){
@@ -135,7 +148,7 @@ router.get('/:id/edit', isAuthenticated, function (req, res) {
   });
 });
 
-router.post('/:id/edit', isAuthenticated, (req, res, next) => {
+router.post('/:id/edit', isAuthenticated1, (req, res, next) => {
 
 
   connection.query('UPDATE employee SET  emp_dep=? ,emp_name = ? , emp_Rnum =? , emp_edu=?,  emp_status=?, emp_pass=?, emp_workyear=? ,emp_retiredate=? WHERE emp_id=? ',
@@ -150,7 +163,7 @@ router.post('/:id/edit', isAuthenticated, (req, res, next) => {
   });
 });
 
-router.get('/:id/delete', isAuthenticated, (req, res, next) => {
+router.get('/:id/delete', isAuthenticated1, (req, res, next) => {
   connection.query('DELETE FROM employee WHERE emp_id = ?',req.params.id,function(err,result){
     if (err) {
       return next(err);
