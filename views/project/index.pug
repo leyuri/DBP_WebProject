@@ -7,9 +7,8 @@ block content
       h1 Project List
       p These are our ongoing projects 
   .container
-    input#myInput.form-control(type='text', placeholder='Search..')
-    br
-    table.table.table-bordered.table-striped.table-hover
+    //input#myInput.form-control(type='text', placeholder='Search..')
+    table#projtable.table.table-bordered.table-striped.table-hover
       thead
         tr
           th 프로젝트명[PRO_NAME]
@@ -34,9 +33,13 @@ block content
     br
     
     
- 
-
   script.
+    $(document).ready(function() {
+    $('#projtable').DataTable();
+    } );
+
+
+  //script.
     $(document).ready(function(){
     $("#myInput").on("keyup", function() {
     var value = $(this).val().toLowerCase();
