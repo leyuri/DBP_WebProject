@@ -21,7 +21,7 @@ block content
       
         label(for='edu') 참여 인력 선택&nbsp;
         .row
-          .col-sm-4
+          .col-sm-6
             | 개발자 선택:
             select#select1.form-control(type='text',name="employee")
               each employee in employees
@@ -37,13 +37,13 @@ block content
             #container2
           .col-sm-2
             |시작일:
-            input.form-control(type='date', name="er_start")
+            input#select3.form-control(type='date', name="er_start")
    
             br
             #container3
           .col-sm-2
             |종료일:
-            input.form-control(type='date', name="er_end")  
+            input#select4.form-control(type='date', name="er_end")  
             br 
             #container4
             
@@ -60,7 +60,7 @@ block content
   script(type='text/javascript').
     $(function () {
     $("#addBtn").bind("click", function () {
-    var index1 = $("#container select").length + 1;
+    var index2 = $("#container1 select").length + 1;
     var index2 = $("#container2 select").length + 1;
     var index3 = $("#container3 select").length + 1;
     var index4 = $("#container4 select").length + 1;
@@ -73,8 +73,8 @@ block content
    
     ddl1.attr("name", "select1_" + index1);
     ddl2.attr("name", "select2_" + index2);
-    ddl1.attr("name", "select3_" + index3);
-    ddl2.attr("name", "select4_" + index4);
+    ddl3.attr("name", "select3_" + index3);
+    ddl4.attr("name", "select4_" + index4);
     //[OPTIONAL] Copy the selected value
     var selectedValue1 = $("#select1 option:selected").val();
     var selectedValue2 = $("#select2 option:selected").val();
@@ -84,7 +84,7 @@ block content
     //Append to the DIV.
     $("#container").append(ddl1);
     $("#container2").append(ddl2);
-    $("#containe3").append(ddl3);
+    $("#container3").append(ddl3);
     $("#container4").append(ddl4);
     $("#container").append("<br />");
     $("#container2").append("<br />");

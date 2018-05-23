@@ -59,23 +59,24 @@ block content
               if(emp_proj.er_end)
                 =moment(emp_proj.er_end).format("YYYY년 MM월 DD일")
        
-    script.
-        $(document).ready(function(){
-        $("#myInput2").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#myTable2 tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-        });
-        });
+ 
     .progress
         .progress-bar.progress-bar-striped.active(role='progressbar', aria-valuenow='10', aria-valuemin='0', aria-valuemax='100', style='width:10%')
         | 10%
     p 진행중인 프로젝트입니다.
     .modal-footer
     a.btn.btn-dark(href='javascript:window.history.back();') Back
-    br
-    br
-    a.btn.btn-secondary(data-url=`/project/${projects[0].pro_id}/delete`) 프로젝트 삭제
-    br
-    br
+        br
+        br
+        a.btn.btn-secondary(data-url=`/project/${projects[0].pro_id}/delete`) 프로젝트 삭제
+        br
+        br
+        script.
+            $(document).ready(function(){
+            $("#myInput2").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable2 tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+            });
+            });

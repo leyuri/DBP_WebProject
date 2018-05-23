@@ -43,11 +43,11 @@ router.get('/add_project', isAuthenticated, function (req, res,next) {
       connection.query('select * from employee, dept where employee.emp_dep=dept.dept_id and dept.dept_id=5',
       function(err,employees){
         if(err) throw err;
-        console.log(employees);
+
         connection.query('select * from role_er',
         function(err,role_ers){
           if(err) throw err;
-          console.log(employees);
+
           res.render('project/add_project',{
             projects: projects,
             employees: employees,
@@ -60,7 +60,9 @@ router.get('/add_project', isAuthenticated, function (req, res,next) {
 });
 
 router.post('/add_project', isAuthenticated, (req, res, next) => {
-  console.log(req.body.pro_name);
+  console.log(req.body.select2_1);
+  console.log(req.body.select2_0);
+  console.log(req.body.select2_2);
   if(req.body.pro_name){
     connection.query('INSERT into project(pro_name, pro_start, pro_deadline, pro_org) values(?,?,?,?)',
     [req.body.pro_name,req.body.pro_start,req.body.pro_end,req.body.order] ,
@@ -71,19 +73,32 @@ router.post('/add_project', isAuthenticated, (req, res, next) => {
       connection.query('select * from project where pro_name=?',req.body.pro_name,
       function(err,projects){
         if(err) throw err;
-        connection.query('INSERT into emp_proj(pro_id,emp_id,er_role,er_start,er_end) values(?,?,?,?,?)',
+        
+        var sql='INSERT into emp_proj(pro_id,emp_id,er_role,er_start,er_end) values(?,?,?,?,?)';
+        connection.query(sql,
         [projects[0].pro_id, req.body.employee,req.body.role,req.body.er_start,req.body.er_end] ,
         function(err,result){
           if (err) {
             return next(err);
           }
-          req.flash('success', '성공적으로 프로젝트/참여직원을 추가하였습니다.');
-          res.redirect('/project');
-        });
+          for (var i=1; i<3; i++){
+            var sql='INSERT into emp_proj(pro_id,emp_id,er_role,er_start,er_end) values(?,?,?,?,?)';
+            connection.query(sql,
+            [projects[0].pro_id, req.body.employee,req.body.role,req.body.er_start,req.body.er_end] ,
+            function(err,result){
+              if (err) {
+                return next(err);
+              }
+            
+            req.flash('success', '성공적으로 프로젝트/참여직원을 추가하였습니다.');
+           next();
+          });
+        };
       });
       
 
     });
+  
   }
   else{
     req.flash('danger', '프로젝트 이름을 지정해주세요');
