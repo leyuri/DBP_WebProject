@@ -60,9 +60,9 @@ router.get('/add_project', isAuthenticated, function (req, res,next) {
 });
 
 router.post('/add_project', isAuthenticated, (req, res, next) => {
-  console.log(req.body.select2_1);
-  console.log(req.body.select2_0);
+  console.log(req.body.select1_2);
   console.log(req.body.select2_2);
+  console.log(req.body.select3_1);
   if(req.body.pro_name){
     connection.query('INSERT into project(pro_name, pro_start, pro_deadline, pro_org) values(?,?,?,?)',
     [req.body.pro_name,req.body.pro_start,req.body.pro_end,req.body.order] ,
@@ -73,24 +73,29 @@ router.post('/add_project', isAuthenticated, (req, res, next) => {
       connection.query('select * from project where pro_name=?',req.body.pro_name,
       function(err,projects){
         if(err) throw err;
-        
-        var sql='INSERT into emp_proj(pro_id,emp_id,er_role,er_start,er_end) values(?,?,?,?,?)';
-        connection.query(sql,
+
+        connection.query('INSERT into emp_proj(pro_id,emp_id,er_role,er_start,er_end) values(?,?,?,?,?)',
         [projects[0].pro_id, req.body.employee,req.body.role,req.body.er_start,req.body.er_end] ,
         function(err,result){
           if (err) {
             return next(err);
           }
          
-          connection.query(sql,
+          connection.query('INSERT into emp_proj(pro_id,emp_id,er_role,er_start,er_end) values(?,?,?,?,?)',
           [projects[0].pro_id, req.body.select1_1,req.body.select2_1,req.body.select3_1,req.body.select4_1] ,
           function(err,result){
             if (err) {
               return next(err);
             }
-          
-            req.flash('success', '성공적으로 프로젝트/참여직원을 추가하였습니다.');
-            next();
+            connection.query('INSERT into emp_proj(pro_id,emp_id,er_role,er_start,er_end) values(?,?,?,?,?)',
+              [projects[0].pro_id, req.body.select1_2,req.body.select2_2,req.body.select3_2,req.body.select4_2] ,
+              function(err,result){
+                if (err) {
+                  return next(err);
+                }
+                req.flash('success', '성공적으로 프로젝트/참여직원을 추가하였습니다.');
+                res.redirect('/project');
+            });
           });
         
         });
