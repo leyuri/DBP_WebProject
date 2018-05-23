@@ -37,13 +37,13 @@ block content
             #container2
           .col-sm-2
             |시작일:
-            input.form-control(type='date', name="er_start")
+            input#select3.form-control(type='date', name="er_start")
    
             br
             #container3
           .col-sm-2
             |종료일:
-            input.form-control(type='date', name="er_end")  
+            input#select4.form-control(type='date', name="er_end")  
             br 
             #container4
             
@@ -84,7 +84,7 @@ block content
     //Append to the DIV.
     $("#container").append(ddl1);
     $("#container2").append(ddl2);
-    $("#containe3").append(ddl3);
+    $("#container3").append(ddl3);
     $("#container4").append(ddl4);
     $("#container").append("<br />");
     $("#container2").append("<br />");
