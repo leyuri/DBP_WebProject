@@ -3,11 +3,9 @@ block content
   title= 'Employee View'
   .container
     .jumbotron
-      h1 Employee View Pages
+      h1 Employee View Page
       p You can view the Employee. 
   .container
-    h2 Employee View
-
     table#emptable.table.table-bordered.table-striped.table-hover
       thead
         tr
@@ -30,22 +28,12 @@ block content
             td= moment(employee.emp_hiredate).format("YYYY년 MM월 DD일")
             td= employee.emp_workyear  
     br
+    br
     a.btn.btn-sm.btn-outline-secondary(href=`/employee/new`) 
       | 사원 추가
     br
     br
-  
-    
-
   script.
     $(document).ready(function() {
     $('#emptable').DataTable();
     } );
-
-  script(src='https://code.jquery.com/jquery-1.12.4.js')
-  script(src='https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js')
-  script(src='https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js')
-  link(href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css', rel='stylesheet', type='text/css')
-  link(href='https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css', rel='stylesheet', type='text/css')
-
-

@@ -84,27 +84,24 @@ router.post('/add_project', isAuthenticated, (req, res, next) => {
           for (var i=1; i<3; i++){
             var sql='INSERT into emp_proj(pro_id,emp_id,er_role,er_start,er_end) values(?,?,?,?,?)';
             connection.query(sql,
-            [projects[0].pro_id, req.body.employee,req.body.role,req.body.er_start,req.body.er_end] ,
+            [projects[0].pro_id, req.body.select1,req.body.select2,req.body.select3,req.body.select4] ,
             function(err,result){
               if (err) {
                 return next(err);
               }
             
-            req.flash('success', '성공적으로 프로젝트/참여직원을 추가하였습니다.');
-           next();
-          });
-        };
-      });
-      
-
+              req.flash('success', '성공적으로 프로젝트/참여직원을 추가하였습니다.');
+              next();
+            });
+          }
+        });
+      });  
     });
-  
   }
   else{
     req.flash('danger', '프로젝트 이름을 지정해주세요');
     res.redirect('/project/add_project');
   }
-
 });
 
 

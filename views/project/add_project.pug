@@ -21,7 +21,7 @@ block content
       
         label(for='edu') 참여 인력 선택&nbsp;
         .row
-          .col-sm-6
+          .col-sm-4
             | 개발자 선택:
             select#select1.form-control(type='text',name="employee")
               each employee in employees
@@ -60,7 +60,7 @@ block content
   script(type='text/javascript').
     $(function () {
     $("#addBtn").bind("click", function () {
-    var index2 = $("#container1 select").length + 1;
+    var index1 = $("#container select").length + 1;
     var index2 = $("#container2 select").length + 1;
     var index3 = $("#container3 select").length + 1;
     var index4 = $("#container4 select").length + 1;
@@ -73,8 +73,8 @@ block content
    
     ddl1.attr("name", "select1_" + index1);
     ddl2.attr("name", "select2_" + index2);
-    ddl3.attr("name", "select3_" + index3);
-    ddl4.attr("name", "select4_" + index4);
+    ddl1.attr("name", "select3_" + index3);
+    ddl2.attr("name", "select4_" + index4);
     //[OPTIONAL] Copy the selected value
     var selectedValue1 = $("#select1 option:selected").val();
     var selectedValue2 = $("#select2 option:selected").val();
