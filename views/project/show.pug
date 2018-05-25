@@ -63,8 +63,9 @@ block content
         a.btn.btn-dark(href='javascript:window.history.back();') Back
             br
             br
-            
+            a.btn.btn-primary(href=`/project/${projects[0].pro_id}/edit`) 프로젝트 수정
             a.btn.btn-secondary(data-url=`/project/${projects[0].pro_id}/delete`) 프로젝트 삭제
+            
             br
             br
     script.
@@ -85,12 +86,4 @@ block content
             });
         });
 
-    //- script.
-    //-     $(function() {
-    //-         $('.btn-secondary').click(function() {
-    //-         if (confirm('Are you sure to delete?')) {
-    //-             location = $(this).data('url');
-    //-         }
-    //-         return false;
-    //-         });
-    //-     });
+ 

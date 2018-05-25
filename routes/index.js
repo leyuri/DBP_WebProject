@@ -24,6 +24,10 @@ router.get('/',  function (req, res,next) {
     });
   });
 });
+router.get('/#service', function(req, res, next) {
+  res.render('#service');
+});
+
 
 router.get('/signin', function(req, res, next) {
   res.render('signin');

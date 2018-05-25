@@ -1,29 +1,35 @@
 extends ../layout
 block content
   .container
-    h1.main-title Create Project
-    form(action=`/project/add_project`, method = 'POST')
+    h1.main-title Edit Project
+    br
+    h5
+      | 프로젝트 참여 사원의 수 :
+      =emp_infos[0].cnt 
+    br
+    form(action=`/project/edit`, method = 'POST')
+
       .form-group
         label(for='name') 프로젝트명
-        input.form-control(type='text', name='pro_name', placeholder='ProjectName')
+        input.form-control(type='text', name='pro_name', placeholder='ProjectName' ,value=pro_info.pro_name)
       .form-group
         label(for='order') Order
-        select.form-control(type='text',name="order")
+        select.form-control(type='text',name="order")=pro_info.order_content
           each project in projects
             option(value=project.order_id)=project.order_content
       .form-group
         label(for='pro_start') 프로젝트 시작
-        input#startDate.form-control(type='date',name='pro_start', placeholder='Start Date',size='35')
+        input#startDate.form-control(type='date',name='pro_start', placeholder='Start Date',size='35' value= moment(pro_info.pro_start).format('YYYY-MM-DD'))
       .form-group
         label(for='pro_end') 프로젝트 끝
-        input#endDate.form-control(type='date',name='pro_end', placeholder='End Date')
+        input#endDate.form-control(type='date',name='pro_end', placeholder='End Date', value=moment(pro_info.pro_deadline).format('YYYY-MM-DD'))
       .form-group
       
         label(for='edu') 참여 인력 선택&nbsp;
         .row
           .col-sm-4
             | 개발자 선택:
-            select#select1.form-control(type='text',name="employee")
+            select#select1.form-control(type='text',name="employee" value=emp_infos[0].emp_id)=emp_infos[0].emp_id
               each employee in employees
                 option(value=employee.emp_id)=' 사원번호 : '+employee.emp_id +' /  이름 : '+employee.emp_name + ' /  경력: '+employee.emp_workyear+'년'
             br
@@ -37,13 +43,12 @@ block content
             #container2
           .col-sm-2
             |시작일:
-            input#select3.form-control(type='date', name="er_start")
-   
+            input#select3.form-control(type='date', name="er_start" ,value=moment(emp_infos[0].er_start).format('YYYY-MM-DD'))
             br
             #container3
           .col-sm-2
             |종료일:
-            input#select4.form-control(type='date', name="er_end")  
+            input#select4.form-control(type='date', name="er_end" ,value=moment(emp_infos[0].er_end).format('YYYY-MM-DD'))
             br 
             #container4
             
@@ -52,7 +57,7 @@ block content
 
           br
           | 
-          button.btn.btn-dark(type='submit') 프로젝트 생성
+          button.btn.btn-dark(type='submit') 프로젝트 수정
           br
           br
 

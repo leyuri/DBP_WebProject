@@ -162,5 +162,55 @@ router.get('/:id/delete', isAuthenticated2, (req, res, next) => {
   });
 });
 
+router.get('/:id/edit', isAuthenticated2, function (req, res) {
+  connection.query('select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id',
+  function(err,projects){
+    if(err) throw err;
+      connection.query('select * from employee, dept where employee.emp_dep=dept.dept_id and dept.dept_id=5',
+      function(err,employees){
+        if(err) throw err;
+
+        connection.query('select * from role_er',
+        function(err,role_ers){
+          if(err) throw err;
+          connection.query('select * from project,cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id and project.pro_id=?',req.params.id,function(err,result){
+            if(err){
+              return next(err);
+            }
+            connection.query('select emp_id, pro_id, er_role, er_start,er_end, count(*) as cnt from emp_proj where pro_id=?',req.params.id,function(err,result1){
+            if(err){
+              return next(err);
+            }
+
+            res.render('project/edit',{
+              projects: projects,
+              employees: employees,
+              role_ers:role_ers,
+              pro_info:result[0],
+              moment:moment,
+              emp_infos:result1
+
+            });  
+          });       
+        });
+      });
+    });
+  });
+});
+
+router.post('/:id/edit', isAuthenticated2, (req, res, next) => {
+
+
+  connection.query('UPDATE employee SET  emp_dep=? ,emp_name = ? , emp_Rnum =? , emp_edu=?,  emp_status=?, emp_pass=?, emp_workyear=? ,emp_retiredate=? WHERE emp_id=? ',
+  [req.body.dept, req.body.name, req.body.rnum, req.body.edu,  req.body.status, req.body.password, req.body.workyear,req.body.retiredate, req.params.id] ,
+  function(err,result){
+    if (err) {
+      return next(err);
+    }
+    req.flash('success', 'Updated successfully.');
+    res.redirect(`/employee`);
+  
+  });
+});
 
 module.exports = router;

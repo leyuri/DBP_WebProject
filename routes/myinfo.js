@@ -131,19 +131,13 @@ router.post('/:id/edit', isAuthenticated, (req, res, next) => {
     return res.redirect('back');
   }
   if(!req.body.password){
-    connection.query('UPDATE employee SET emp_NAME = ? , EMP_RNUM =? , EMP_EDU=? WHERE EMP_ID=? ',
-    [req.body.name, req.body.rnum, req.body.edu, req.params.id] ,
-    function(err,result){
-      if (err) {
-        return next(err);
-      }
-      req.flash('success', 'Updated successfully.');
-      res.redirect('/myinfo');
-    });
+
+    res.redirect('/myinfo');
+
   }
   else{
-    connection.query('UPDATE employee SET emp_NAME = ? , EMP_RNUM =? , EMP_EDU=? , EMP_PASS=? WHERE EMP_ID=? ',
-    [req.body.name, req.body.rnum, req.body.edu, req.body.password,req.params.id] ,
+    connection.query('UPDATE employee SET EMP_PASS=? WHERE EMP_ID=? ',
+    [req.body.password,req.params.id] ,
     function(err,result){
       if (err) {
         return next(err);
