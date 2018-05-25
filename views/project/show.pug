@@ -38,6 +38,9 @@ block content
                 td=project.cus_name
     table.table.table-bordered.table-striped.table-hover
         h2 프로젝트 참여자 명단
+        br 
+        h5 프로젝트 참여 인원 수 :
+          =cnt.cnt
         input#myInput2.form-control(type='text', placeholder='참여자검색..')
         br
         thead
@@ -60,7 +63,7 @@ block content
                 =moment(emp_proj.er_end).format("YYYY년 MM월 DD일")
        
     .modal-footer
-        a.btn.btn-dark(href='javascript:window.history.back();') Back
+            a.btn.btn-dark(href='javascript:window.history.back();') Back
             br
             br
             a.btn.btn-primary(href=`/project/${projects[0].pro_id}/edit`) 프로젝트 수정

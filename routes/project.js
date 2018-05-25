@@ -137,15 +137,20 @@ router.get('/:id', isAuthenticated1, function (req, res,next) {
   function(err,projects){
     if(err) throw err;
 
-      connection.query('select * from emp_proj , employee,role_er where emp_proj.emp_id=employee.emp_id and role_er.role_id =emp_proj.er_role and pro_id=?',req.params.id,
+      connection.query('select * from emp_proj , employee,role_er where emp_proj.emp_id=employee.emp_id and role_er.role_id =emp_proj.er_role and emp_proj.pro_id=?',req.params.id,
       function(err,emp_projs){
         if(err) throw err;
-
+        connection.query('select count(*) as cnt from (select emp_proj.er_id from emp_proj , employee,role_er where emp_proj.emp_id=employee.emp_id and role_er.role_id =emp_proj.er_role and emp_proj.pro_id=?)b',req.params.id,
+        function(err,cnt){
+          if(err) throw err;
+          console.log(cnt);
         res.render('project/show',{
           projects: projects,
           emp_projs: emp_projs,
+          cnt:cnt[0],
           moment:moment
         });
+      });
     
       });
   });
@@ -177,18 +182,23 @@ router.get('/:id/edit', isAuthenticated2, function (req, res) {
             if(err){
               return next(err);
             }
-            connection.query('select emp_id, pro_id, er_role, er_start,er_end, count(*) as cnt from emp_proj where pro_id=?',req.params.id,function(err,result1){
+            connection.query('select emp_id, pro_id, er_role, er_start,er_end from emp_proj where pro_id=?',req.params.id,function(err,result1){
             if(err){
               return next(err);
             }
+            connection.query('select count(*) as cnt from (select emp_proj.er_id from emp_proj where emp_proj.pro_id=?)b',req.params.id,
+            function(err,cnt){
+            if(err) throw err;
 
-            res.render('project/edit',{
-              projects: projects,
-              employees: employees,
-              role_ers:role_ers,
-              pro_info:result[0],
-              moment:moment,
-              emp_infos:result1
+              res.render('project/edit',{
+                projects: projects,
+                employees: employees,
+                role_ers:role_ers,
+                pro_info:result[0],
+                moment:moment,
+                emp_infos:result1,
+                cnt:cnt[0]
+              });
 
             });  
           });       
