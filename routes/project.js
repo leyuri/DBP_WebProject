@@ -67,11 +67,15 @@ router.get('/order_list', isAuthenticated, function (req, res,next) {
   connection.query(' select * from  cus_order, customer where cus_order.cus_id=customer.cus_id',
   function(err,orders){
     if(err) throw err;
-
+  connection.query(' select * from   customer',
+  function(err,clients){
+    if(err) throw err;
     res.render('project/order_list',{
       orders: orders,
-      moment:moment
+      moment:moment,
+      clients:clients
 
+    });
     });
   });
 });

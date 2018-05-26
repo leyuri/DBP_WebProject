@@ -6,17 +6,34 @@ block content
       h1 Client / Received Order List Page
       p You can view the Client / Received Order List 
   .container
+    h2 Client List
     table#clienttable.table.table-bordered.table-striped.table-hover
       thead
         tr
           th 번호
           th 이름
       tbody#myTable
-        each order in orders
+        each client in clients
           tr           
-            td= order.cus_id
-            td= order.cus_name
+            td= client.cus_id
+            td= client.cus_name
     br
+    br
+    h2 Order List
+    table#ordertable.table.table-bordered.table-striped.table-hover
+      thead
+        tr
+          th 번호
+          th 수주 내용
+          th 수주일
+          th 고객 이름
+      tbody#myTable
+        each order in orders
+          tr
+            th= order.order_id          
+            td= order.order_content
+            td= moment(order.order_date).format("YYYY년 MM월 DD일")
+            td= order.cus_name
     br
     a.btn.btn-dark(href='javascript:window.history.back();') Back
 
@@ -26,3 +43,7 @@ block content
     $(document).ready(function() {
     $('#clienttable').DataTable();
     } );
+      $(document).ready(function() {
+    $('#ordertable').DataTable();
+    } );
+
