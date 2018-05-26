@@ -3,7 +3,7 @@ block content
   title= 'Edit Recieved Order'
   .container
     h1.main_title 수주 정보 수정
-    form(action=`/project/edit_order`, method = 'POST')
+    form(action=`/project/${order.order_id}/edit_order`, method = 'POST')
 
 
         label(for = 'content') 주문 내용
