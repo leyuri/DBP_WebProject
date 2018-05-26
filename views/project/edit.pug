@@ -15,7 +15,7 @@ block content
       select#selectST
         each emp_infoss in emp_infos
           option=moment(emp_infoss.er_start).format('YYYY-MM-DD')
-      select#selectED
+      select#selectEN
         each emp_infoss in emp_infos
           option=moment(emp_infoss.er_end).format('YYYY-MM-DD')
     br
@@ -80,15 +80,15 @@ block content
     $("#selectEE").hide();
     $("#selectRL").hide();
     $("#selectST").hide();
-    $("#selectED").hide();
+    $("#selectEN").hide();
     //First row init.
     var countEmp = document.getElementById("countE").innerHTML;
     countEmp *=1;
-    var value1 = document.getElementById("selectEE").options[0].innerHTML;
-    var selectText = "select option[value='"+value1+"']";
+    var value1st = document.getElementById("selectEE").options[0].innerHTML;
+    var selectText = "select option[value='"+value1st+"']";
     $(selectText).attr("selected", true);
-    var value2 = document.getElementById("selectRL").options[0].innerHTML;
-    var selectText = "select option[value='"+value2+"']";
+    var value2nd = document.getElementById("selectRL").options[0].innerHTML;
+    var selectText = "select option[value='"+value2nd+"']";
     $(selectText).attr("selected", true);
     //Initialize Funciton with DB Data
     $(function () {
@@ -96,9 +96,9 @@ block content
     var value1 = document.getElementById("selectEE").options[i].innerHTML;
     var value2 = document.getElementById("selectRL").options[i].innerHTML;
     var value3 = document.getElementById("selectST").options[i].innerHTML;
-    var value4 = document.getElementById("selectED").options[i].innerHTML;
+    var value4 = document.getElementById("selectEN").options[i].innerHTML;
 
-    //window.alert(selectText);
+    window.alert(value1);
     var init_1 = $("#container select").length + 1;
     var init_2 = $("#container2 select").length + 1;
     var init_3 = $("#container3 input").length + 1;
@@ -111,8 +111,8 @@ block content
 
     initselect1.attr("name", "select1_" + init_1); 
     initselect2.attr("name", "select2_" + init_2);
-    initselect3.attr("name", "select3_" + init_1);
-    initselect4.attr("name", "select4_" + init_2); 
+    initselect3.attr("name", "select3_" + init_3);
+    initselect4.attr("name", "select4_" + init_4); 
 
     initselect3.attr('value',value3);
     initselect4.attr('value',value4);
@@ -120,8 +120,8 @@ block content
     var selectedValue1 = $("#select1 option:selected").val();
     var selectedValue2 = $("#select2 option:selected").val();
 
-    initselect1.find("option[value = '" + value1 + "']").attr("selected", "selected");
-    initselect2.find("option[value = '" + value2 + "']").attr("selected", "selected"); 
+    initselect1.find("option[value = '" + value1 + "']").attr("selected", true);
+    initselect2.find("option[value = '" + value2 + "']").attr("selected", true); 
 
     $("#container").append(initselect1);
     $("#container").append("<br />");
@@ -156,13 +156,13 @@ block content
     var selectedValue1 = $("#select1 option:selected").val();
     var selectedValue2 = $("#select2 option:selected").val();
 
-    ddl1.find("option[value = '" + selectedValue1 + "']").attr("selected", "selected");
-    ddl2.find("option[value = '" + selectedValue2 + "']").attr("selected", "selected");
+    ddl1.find("option[value = '" + selectedValue1 + "']").attr("selected", true);
+    ddl2.find("option[value = '" + selectedValue2 + "']").attr("selected", true);
 
     var selectedValue3 = $("#select3 option:selected").val();
     var selectedValue4 = $("#select4 option:selected").val();
-    ddl3.find("option[value = '" + selectedValue3 + "']").attr("selected", "selected");
-    ddl4.find("option[value = '" + selectedValue4 + "']").attr("selected", "selected");
+    ddl3.find("option[value = '" + selectedValue3 + "']").attr("selected", true);
+    ddl4.find("option[value = '" + selectedValue4 + "']").attr("selected", true);
 
     //Append to the DIV.
     $("#container").append(ddl1);
