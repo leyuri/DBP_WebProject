@@ -1,0 +1,27 @@
+extends ../layout
+block content
+  .container
+    h1.main-title Order
+    br
+    form(action=`/project/order_project`, method = 'POST')
+      .form-group
+        label(for='name') 고객 성명
+        input.form-control(type='text', name='cus_name', placeholder='customer_name')
+      .form-group
+        label(for='order') 발주 내용
+        input.form-control(type='text', name='order_content', placeholder='order_content')
+
+      .form-group
+        label(for='pro_start') 발주 날짜
+        input#startDate.form-control(type='date',name='order_date', placeholder='Start Date',size='35') 
+        br
+        br
+        p
+          button#addBtn.btn.btn-outline.btn-primary.pull-left(type='button',class="btn btn-secondary float-right") 주문
+
+        br
+        br
+        br
+
+
+
