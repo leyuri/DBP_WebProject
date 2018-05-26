@@ -54,3 +54,11 @@ block content
     $('#ordertable').DataTable();
     } );
 
+    $(function() {
+    $('.btn-outline-danger').click(function() {
+    if (confirm('정말 삭제하시겠습니까?')) {
+        location = $(this).data('url');
+    }
+    return false;
+    });
+    });

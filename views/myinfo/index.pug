@@ -56,13 +56,33 @@ block content
             td=skill.skill_name
             td=skill.skill_grade
 
-  
 
+    if(user_info.emp_dep==5)
+      table.table.table-bordered.table-striped.table-hover
+        h2 진행 프로젝트
+        br
+        thead
+        tr
+          th 프로젝트명[PRO_NAME]
+          th 직무[EMP_ROLE]
+          th 시작일[ER_START]
+          th 종료일[ER_END]
+
+        tbody#myTable2
+          each project in projects        
+            tr(data-toggle='modal', data-target='#myModal')
+              
+              td= project.pro_name
+              td= project.role_name
+              td= moment(project.er_start).format("YYYY년 MM월 DD일")
+              td
+                if(project.er_end)
+                  = moment(project.er_end).format("YYYY년 MM월 DD일")
+            
     br
     a.btn.btn-sm.btn-outline-secondary(href=`/myinfo/${user_info.emp_id}/edit`) 
       | 비밀번호 수정
-    a.btn.btn-sm.btn-outline-warning(href=`/myinfo/${user_info.emp_id}/add_skill`) 
-      | 경력/기술 추가
+
     a.btn.btn-sm.btn-outline-danger.delete-btn(data-url=`/myinfo/${user_info.emp_id}/delete`)
       | 회원 탈퇴
     br

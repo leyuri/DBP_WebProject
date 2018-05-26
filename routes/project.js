@@ -51,14 +51,18 @@ router.get('/', isAuthenticated, function (req, res,next) {
   connection.query(' select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id',
   function(err,projects){
     if(err) throw err;
-    connection.query('select count(*) from emp_proj group by pro_id;',
+    connection.query('select count(*) from emp_proj group by pro_id',
     function(err,cnt){
     if(err) throw err;
-
-    res.render('project/index',{
-      projects: projects,
-      moment:moment,
-      cnt:cnt
+      connection.query('select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id and date(now()) >=project.pro_start and date(now())<=project.pro_deadline',
+      function(err,current_projects){
+      if(err) throw err;
+      res.render('project/index',{
+        projects: projects,
+        moment:moment,
+        cnt:cnt,
+        current_projects:current_projects
+      });
     });
     });
   });
@@ -123,6 +127,21 @@ router.get('/:id/edit_order', isAuthenticated2, function (req, res,next) {
       });
   });
 });
+router.post('/:id/edit_order', isAuthenticated2, (req, res, next) => {
+
+
+  connection.query('UPDATE cus_order SET  order_content=? ,order_date=? WHERE order_id=? ',
+  [req.body.content,  req.body.orderdate, req.params.id] ,
+  function(err,result){
+    if (err) {
+      return next(err);
+    }
+    req.flash('success', 'Updated successfully.');
+    res.redirect(`/project/order_list`);
+  
+  });
+});
+
 
 router.post('/add_order', isAuthenticated2, (req, res, next) => {
   if(req.body.client_add){
@@ -241,7 +260,17 @@ router.get('/:id/delete', isAuthenticated2, (req, res, next) => {
       return next(err);
     }
     req.flash('success', 'Deleted Successfully.');
-    res.redirect('/');
+    res.redirect('/project');
+  });
+});
+
+router.get('/:id/delete_order', isAuthenticated2, (req, res, next) => {
+  connection.query('DELETE FROM cus_order WHERE order_id = ?',req.params.id,function(err,result){
+    if (err) {
+      return next(err);
+    }
+    req.flash('success', 'Deleted Successfully.');
+    res.redirect('/project/order_list');
   });
 });
 
@@ -286,19 +315,5 @@ router.get('/:id/edit', isAuthenticated2, function (req, res) {
   });
 });
 
-router.post('/:id/edit', isAuthenticated2, (req, res, next) => {
-
-
-  connection.query('UPDATE employee SET  emp_dep=? ,emp_name = ? , emp_Rnum =? , emp_edu=?,  emp_status=?, emp_pass=?, emp_workyear=? ,emp_retiredate=? WHERE emp_id=? ',
-  [req.body.dept, req.body.name, req.body.rnum, req.body.edu,  req.body.status, req.body.password, req.body.workyear,req.body.retiredate, req.params.id] ,
-  function(err,result){
-    if (err) {
-      return next(err);
-    }
-    req.flash('success', 'Updated successfully.');
-    res.redirect(`/employee`);
-  
-  });
-});
 
 module.exports = router;
