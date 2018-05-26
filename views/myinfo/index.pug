@@ -78,13 +78,15 @@ block content
               td
                 if(project.er_end)
                   = moment(project.er_end).format("YYYY년 MM월 DD일")
-            
-    br
-    a.btn.btn-sm.btn-outline-secondary(href=`/myinfo/${user_info.emp_id}/edit`) 
-      | 비밀번호 수정
-
-    a.btn.btn-sm.btn-outline-danger.delete-btn(data-url=`/myinfo/${user_info.emp_id}/delete`)
-      | 회원 탈퇴
+    
+    table(width='250')
+      tr
+        th
+          a.btn.btn-sm.btn-outline-secondary(href=`/myinfo/${user_info.emp_id}/edit`) 비밀번호 수정
+        th
+          a.btn.btn-sm.btn-outline-danger.delete-btn(data-url=`/myinfo/${user_info.emp_id}/delete`) 회원 탈퇴
+      br
+      br 
     br
     br
     br

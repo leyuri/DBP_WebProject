@@ -23,10 +23,14 @@ block content
       .form-group
         label(for='hiredate') 주문 일자
         input.form-control(type='date', id='orderdate', name='orderdate')
-
-      a.btn.btn-outline-secondary(href='javascript:window.history.back();') Back 
-      | 
-      button.btn.btn-dark(type='submit') 저장
+   
+      table(width='160')
+        tr
+          th
+            a.btn.btn-outline-secondary(href='javascript:window.history.back();') Back 
+          th
+            button.btn.btn-dark(type='submit') 저장
+   
     br
     br
     br

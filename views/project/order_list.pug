@@ -40,10 +40,16 @@ block content
                     | #[i.fa.fa-pencil] 주문 수정
                 a.btn.btn-sm.btn-outline-danger(data-url=`/project/${order.order_id}/delete_order`)
                     | #[i.fa.fa-trash] 주문 삭제            
-    br
-    a.btn.btn-dark(href='javascript:window.history.back();') Back
-    a.btn.btn-sm.btn-outline-info(href=`/project/add_order`) 
-      | 고객 / 수주 추가
+
+    .container
+      table(width='250')
+        tr
+          th
+            a.btn.btn-dark(href='javascript:window.history.back();') Back
+          th
+            a.btn.btn-sm.btn-outline-info(href=`/project/add_order`) 고객 / 수주 추가
+   
+    
     br
     br
   script.
