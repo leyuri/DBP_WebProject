@@ -36,6 +36,7 @@ block content
                 td=moment(project.order_date).format("YYYY년 MM월 DD일")
                 td=project.order_content
                 td=project.cus_name
+    br
     table.table.table-bordered.table-striped.table-hover
         h2 프로젝트 참여자 명단
         br 
@@ -49,6 +50,7 @@ block content
             th 직무[EMP_ROLE]
             th 참여일[ER_START]
             th 종료일[ER_END]
+            
         tbody#myTable2
          each emp_proj in emp_projs
           tr(href='#emp', data-toggle='collapse')
@@ -61,7 +63,7 @@ block content
             td
               if(emp_proj.er_end)
                 =moment(emp_proj.er_end).format("YYYY년 MM월 DD일")
-       
+
     .modal-footer
             a.btn.btn-dark(href='javascript:window.history.back();') Back
             br

@@ -1,0 +1,28 @@
+extends ../layout
+block content
+  title= 'Client / Order List'
+  .container
+    .jumbotron
+      h1 Client / Received Order List Page
+      p You can view the Client / Received Order List 
+  .container
+    table#clienttable.table.table-bordered.table-striped.table-hover
+      thead
+        tr
+          th 번호
+          th 이름
+      tbody#myTable
+        each order in orders
+          tr           
+            td= order.cus_id
+            td= order.cus_name
+    br
+    br
+    a.btn.btn-dark(href='javascript:window.history.back();') Back
+
+    br
+    br
+  script.
+    $(document).ready(function() {
+    $('#clienttable').DataTable();
+    } );

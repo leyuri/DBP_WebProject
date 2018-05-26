@@ -15,20 +15,23 @@ block content
           th 기관명[PRO_ORG]
           th 시작일[PRO_START]
           th 종료일[PRO_END]
+          //- th 참여 인원
       tbody#myTable
-        each project in projects
+        each project in projects        
           tr(data-toggle='modal', data-target='#myModal')
             
             td
-             a(href=`/project/${project.pro_id}`)= project.pro_name
+              a(href=`/project/${project.pro_id}`)= project.pro_name
             td= project.cus_name
             td= moment(project.pro_start).format("YYYY년 MM월 DD일")
             td
               if(project.pro_deadline)
                 = moment(project.pro_deadline).format("YYYY년 MM월 DD일")
-
+            
     a.btn.btn-sm.btn-outline-secondary(href=`/project/add_project`) 
       | 프로젝트 추가
+    a.btn.btn-sm.btn-outline-success(href=`/project/order_list`) 
+      | 고객 / 수주 리스트
     br
     br
     
