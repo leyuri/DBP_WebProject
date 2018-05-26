@@ -55,56 +55,6 @@ router.get('/', isAuthenticated, function (req, res,next) {
   });
 });
 
-router.get('/:id/add_skill', isAuthenticated, function (req, res) {
-  connection.query('SELECT * FROM employee  WHERE  emp_id = ?',req.user.id,
-
-  function(err,result){
-    console.log(result[0]);
-    if (err) {
-      return next(err);
-    }
-    res.render('myinfo/add_skill', {
-  
-      title: 'My Info',
-      user_info: result[0],
-      myinfo:req.user
-
-    });
-
-  });
-});
-
-
-router.post('/:id/add_skill', isAuthenticated, (req, res, next) => {
-  console.log(req.body.skill_level);
-  if(req.body.skill_name){
-    connection.query('INSERT into skill(emp_id,skill_name,skill_grade) values(?,?,?) ',
-    [req.params.id, req.body.skill_name, req.body.skill_level] ,
-    function(err,result){
-      if (err) {
-        return next(err);
-      }
-      req.flash('success', '성공적으로 정보를 추가하였습니다.');
-      
- 
-    });
-  }
-  if(req.body.career_name){
-    connection.query('INSERT into career(emp_id,career_name,career_period ) values(?,?,?) ',
-    [req.params.id, req.body.career_name, req.body.career_period] ,
-    function(err,result){
-      if (err) {
-        return next(err);
-      }
-      req.flash('success', '성공적으로 정보를 추가하였습니다.');
-      return next();
-    });
-  }
-  res.redirect('/myinfo');
-  
-});
-
-
 router.get('/:id/edit', isAuthenticated, function (req, res) {
   connection.query('SELECT * FROM employee  WHERE  emp_id = ?',req.user.id,
 
