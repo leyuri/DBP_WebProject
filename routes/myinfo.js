@@ -40,15 +40,24 @@ router.get('/', isAuthenticated, function (req, res,next) {
         if (err) {
           return next(err);
         }
+        connection.query('select * from emp_proj , project, role_er where emp_proj.pro_id=project.pro_id and role_er.role_id =emp_proj.er_role and emp_id=?',req.user.id,
 
-        res.render('myinfo/index', {
-      
-          title: 'My Info',
-          user_info: result[0],
-          skills:result1,
-          careers:result2,
-          moment:moment
-      });
+        function(err,projects){
+    
+          if (err) {
+            return next(err);
+          }
+
+          res.render('myinfo/index', {
+        
+            title: 'My Info',
+            user_info: result[0],
+            skills:result1,
+            careers:result2,
+            projects:projects,
+            moment:moment
+          });
+        });
       });
     });
 
