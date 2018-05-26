@@ -5,9 +5,9 @@ block content
   .container
     .jumbotron
       h1 Project List
-      p These are our ongoing projects 
+      p These are our past/ongoing projects 
   .container
-    //input#myInput.form-control(type='text', placeholder='Search..')
+    h3 전체프로젝트 리스트
     table#projtable.table.table-bordered.table-striped.table-hover
       thead
         tr
@@ -27,7 +27,29 @@ block content
             td
               if(project.pro_deadline)
                 = moment(project.pro_deadline).format("YYYY년 MM월 DD일")
+    br
+    br
+    h3 현재 프로젝트 리스트
+    table#projtable1.table.table-bordered.table-striped.table-hover
+      thead
+        tr
+          th 프로젝트명[PRO_NAME]
+          th 기관명[PRO_ORG]
+          th 시작일[PRO_START]
+          th 종료일[PRO_END]
+          //- th 참여 인원
+      tbody#myTable
+        each c_projects in current_projects        
+          tr(data-toggle='modal', data-target='#myModal')
             
+            td
+              a(href=`/project/${c_projects.pro_id}`)= c_projects.pro_name
+            td= c_projects.cus_name
+            td= moment(c_projects.pro_start).format("YYYY년 MM월 DD일")
+            td
+              if(c_projects.pro_deadline)
+                = moment(c_projects.pro_deadline).format("YYYY년 MM월 DD일")
+               
     a.btn.btn-sm.btn-outline-secondary(href=`/project/add_project`) 
       | 프로젝트 추가
     a.btn.btn-sm.btn-outline-success(href=`/project/order_list`) 
@@ -42,5 +64,10 @@ block content
     $(document).ready(function() {
     $('#projtable').DataTable();
     } );
+
+   $(document).ready(function() {
+    $('#projtable1').DataTable();
+    } );
+
 
 

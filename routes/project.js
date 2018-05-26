@@ -51,14 +51,18 @@ router.get('/', isAuthenticated, function (req, res,next) {
   connection.query(' select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id',
   function(err,projects){
     if(err) throw err;
-    connection.query('select count(*) from emp_proj group by pro_id;',
+    connection.query('select count(*) from emp_proj group by pro_id',
     function(err,cnt){
     if(err) throw err;
-
-    res.render('project/index',{
-      projects: projects,
-      moment:moment,
-      cnt:cnt
+      connection.query('select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id and date(now()) >=project.pro_start and date(now())<=project.pro_deadline',
+      function(err,current_projects){
+      if(err) throw err;
+      res.render('project/index',{
+        projects: projects,
+        moment:moment,
+        cnt:cnt,
+        current_projects:current_projects
+      });
     });
     });
   });
