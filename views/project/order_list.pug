@@ -27,6 +27,7 @@ block content
           th 수주 내용
           th 수주일
           th 고객 이름
+          th
       tbody#myTable
         each order in orders
           tr
@@ -34,6 +35,11 @@ block content
             td= order.order_content
             td= moment(order.order_date).format("YYYY년 MM월 DD일")
             td= order.cus_name
+            td
+                a.btn.btn-sm.btn-outline-secondary(href=`/project/${order.order_id}/edit_order`) 
+                    | #[i.fa.fa-pencil] 주문 수정
+                a.btn.btn-sm.btn-outline-danger(data-url=`/project/${order.order_id}/delete_order`)
+                    | #[i.fa.fa-trash] 주문 삭제            
     br
     a.btn.btn-dark(href='javascript:window.history.back();') Back
     a.btn.btn-sm.btn-outline-info(href=`/project/add_order`) 

@@ -1,0 +1,22 @@
+extends ../layout
+block content
+  title= 'Edit Recieved Order'
+  .container
+    h1.main_title 수주 정보 수정
+    form(action=`/project/edit_order`, method = 'POST')
+
+
+        label(for = 'content') 주문 내용
+        textarea.form-control(name="content", rows="5",placeholder="수주 상세 내용을 입력하시오(필수)")=order.order_content
+        .form-group
+            label(for='hiredate') 주문 일자
+            input.form-control(type='date', id='orderdate', name='orderdate' value=moment(order.order_date).format("YYYY-MM-DD"))
+
+        a.btn.btn-outline-secondary(href='javascript:window.history.back();') Back 
+        | 
+        button.btn.btn-dark(type='submit') 저장
+    br
+    br
+    br
+    br
+  

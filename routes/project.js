@@ -113,6 +113,17 @@ router.get('/add_order', isAuthenticated2, function (req, res,next) {
   });
 });
 
+router.get('/:id/edit_order', isAuthenticated2, function (req, res,next) {
+  connection.query('select * from cus_order where order_id=?',req.params.id,
+  function(err,orders){
+    if(err) throw err;
+      res.render('project/edit_order',{
+        order: orders[0],
+        moment:moment      
+      });
+  });
+});
+
 router.post('/add_order', isAuthenticated2, (req, res, next) => {
   if(req.body.client_add){
     connection.query('insert into customer(cus_name) values(?)',

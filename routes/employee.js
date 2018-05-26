@@ -142,7 +142,7 @@ router.get('/:id/edit', isAuthenticated1, function (req, res) {
   
       title: 'Employee Info',
       emp_info: result[0],
-
+      moment,moment
     });
 
   });
