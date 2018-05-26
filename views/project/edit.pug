@@ -14,7 +14,7 @@ block content
         input.form-control(type='text', name='pro_name', placeholder='ProjectName' ,value=pro_info.pro_name)
       .form-group
         label(for='order') Order
-        select.form-control(type='text',name="order")=pro_info.order_content
+        select.form-control(name="order")=pro_info.order_content
           each project in projects
             option(value=project.order_id)=project.order_content
       .form-group

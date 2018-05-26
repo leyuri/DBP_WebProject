@@ -103,6 +103,16 @@ router.get('/add_project', isAuthenticated2, function (req, res,next) {
   });
 });
 
+router.get('/add_order', isAuthenticated2, function (req, res,next) {
+  connection.query('select * from customer',
+  function(err,clients){
+    if(err) throw err;
+      res.render('project/add_order',{
+        clients: clients      
+      });
+  });
+});
+
 router.post('/add_project', isAuthenticated2, (req, res, next) => {
   console.log(req.body.select1_2);
   console.log(req.body.select2_2);

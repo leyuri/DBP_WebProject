@@ -4,12 +4,6 @@ block content
   .container
     h1.main-title 내 정보 수정
     form(action=`/myinfo/${user_info.emp_id}/edit`, method='POST')
-      //- .form-group
-      //-   label(for='name') 이름
-      //-   input.form-control(type='text', id='name', name='name', value=user_info.emp_name)
-      //- .form-group
-      //-   label(for='rnum') 주민번호
-      //-   input.form-control(type='text', id='rnum', name='rnum',value=user_info.emp_Rnum)
       .form-group
         label(for='password') 새 비밀번호
         input.form-control(type='password', id='current_password', name='current_password')
