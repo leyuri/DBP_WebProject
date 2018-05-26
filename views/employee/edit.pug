@@ -49,7 +49,7 @@ block content
           input.form-control(type='password', id='password', name='password' value=emp_info.emp_pass)
         .form-group
           label(for='hiredate') 입사일자
-          input.form-control(type='date', id='hiredate', name='hiredate' value=emp_info.emp_hiredate)
+          input.form-control(type='date', id='hiredate', name='hiredate' value=moment(emp_info.emp_hiredate).format('YYYY-MM-DD'))
         .form-group
           label(for='workyear') 근속연수
           input.form-control(type='text', id='workyear', name='workyear' value=emp_info.emp_workyear)

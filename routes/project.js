@@ -103,10 +103,67 @@ router.get('/add_project', isAuthenticated2, function (req, res,next) {
   });
 });
 
+router.get('/add_order', isAuthenticated2, function (req, res,next) {
+  connection.query('select * from customer',
+  function(err,clients){
+    if(err) throw err;
+      res.render('project/add_order',{
+        clients: clients      
+      });
+  });
+});
+
+router.get('/:id/edit_order', isAuthenticated2, function (req, res,next) {
+  connection.query('select * from cus_order where order_id=?',req.params.id,
+  function(err,orders){
+    if(err) throw err;
+      res.render('project/edit_order',{
+        order: orders[0],
+        moment:moment      
+      });
+  });
+});
+
+router.post('/add_order', isAuthenticated2, (req, res, next) => {
+  if(req.body.client_add){
+    connection.query('insert into customer(cus_name) values(?)',
+    req.body.client_add, function(err,result){
+      if (err) {
+        return next(err);
+      }
+      connection.query('select * from customer where cus_name=?',
+      req.body.client_add, function(err,result1){
+        if (err) {
+          return next(err);
+        }
+        
+      connection.query('insert into cus_order(order_content,order_date,cus_id) values(?,?,?)',
+      [req.body.content,req.body.orderdate,result1[0].cus_id], function(err,result){
+        if (err) {
+          return next(err);
+        }
+        req.flash('success', 'Updated successfully.');
+        res.redirect(`/project/order_list`);
+      });
+    });
+  });
+  }
+  else{
+    connection.query('insert into cus_order(order_content,order_date,cus_id) values(?,?,?)',
+    [req.body.content,req.body.orderdate,req.body.client], function(err,result){
+      if (err) {
+        return next(err);
+      }
+      req.flash('success', 'Updated successfully.');
+      res.redirect(`/project/order_list`);
+    
+    });
+  }
+});
+
+
+
 router.post('/add_project', isAuthenticated2, (req, res, next) => {
-  console.log(req.body.select1_2);
-  console.log(req.body.select2_2);
-  console.log(req.body.select3_1);
   if(req.body.pro_name){
     connection.query('INSERT into project(pro_name, pro_start, pro_deadline, pro_org) values(?,?,?,?)',
     [req.body.pro_name,req.body.pro_start,req.body.pro_end,req.body.order] ,
