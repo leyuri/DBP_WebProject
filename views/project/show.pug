@@ -73,6 +73,19 @@ block content
             
             br
             br
+
+    h3 Comments
+      each answer in answers
+        include _answer      
+        hr       
+    form(action=`/project/${projects[0].pro_id}/answers`, method='POST')
+      .form-group
+        label(for='answer') Your Answer
+        textarea.form-control(name="content", rows="5")
+      button.btn.btn-info(type="submit") Post Your Answer
+      br
+      br
+     
     script.
         $(document).ready(function(){
         $("#myInput2").on("keyup", function() {

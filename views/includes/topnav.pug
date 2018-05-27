@@ -16,10 +16,12 @@ block topnav
           a#navbardrop.dropdown-toggle(href = "/project",data-toggle='dropdown').nav-link Project
           .dropdown-menu
             a.dropdown-item(href="/project") Project List
-            a.dropdown-item(href="/project/add_project") Project Create
-        li.nav-item
-          a.nav-link(href="/employee") Employee Info
-
+            a.dropdown-item(href="/project/add_project") Create Project 
+        li.nav-item.dropdown
+          a#navbardrop.dropdown-toggle(href = "/employee",data-toggle='dropdown').nav-link Employee
+          .dropdown-menu
+            a.dropdown-item(href="/employee") Employee List
+            a.dropdown-item(href="/employee/new") Create Employee 
         if(!currentUser)
           li.nav-item
             a.nav-link(href='/signin') Signin

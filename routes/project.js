@@ -85,7 +85,7 @@ router.get('/order_list', isAuthenticated, function (req, res,next) {
 });
 
 router.get('/add_project', isAuthenticated2, function (req, res,next) {
-  connection.query('select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id',
+  connection.query('select * from cus_order',
   function(err,projects){
     if(err) throw err;
       connection.query('select * from employee, dept where employee.emp_dep=dept.dept_id and dept.dept_id=5',
@@ -142,6 +142,20 @@ router.post('/:id/edit_order', isAuthenticated2, (req, res, next) => {
   });
 });
 
+router.post('/:id/answers', isAuthenticated2, (req, res, next) => {
+
+
+  connection.query('insert into project_comment(com_project,com_author,com_content,com_date) values(?,?,?,NOW())',
+  [req.params.id, req.user.id, req.body.content] ,
+  function(err,result){
+    if (err) {
+      return next(err);
+    }
+    req.flash('success', '성공적으로 comment를 남겼습니다.');
+    res.redirect(`/project/${req.params.id}`);
+  
+  });
+});
 
 router.post('/add_order', isAuthenticated2, (req, res, next) => {
   if(req.body.client_add){
@@ -230,22 +244,29 @@ router.post('/add_project', isAuthenticated2, (req, res, next) => {
 
 
 router.get('/:id', isAuthenticated1, function (req, res,next) {
-  connection.query('select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id and project.pro_id=?',req.params.id,
+  connection.query('select * from cus_order',
   function(err,projects){
     if(err) throw err;
-
-      connection.query('select * from emp_proj , employee,role_er where emp_proj.emp_id=employee.emp_id and role_er.role_id =emp_proj.er_role and emp_proj.pro_id=?',req.params.id,
-      function(err,emp_projs){
+    connection.query('select * from emp_proj , employee,role_er where emp_proj.emp_id=employee.emp_id and role_er.role_id =emp_proj.er_role and emp_proj.pro_id=?',req.params.id,
+    function(err,emp_projs){
+      if(err) throw err;
+      connection.query('select count(*) as cnt from (select emp_proj.er_id from emp_proj , employee,role_er where emp_proj.emp_id=employee.emp_id and role_er.role_id =emp_proj.er_role and emp_proj.pro_id=?)b',req.params.id,
+      function(err,cnt){
         if(err) throw err;
-        connection.query('select count(*) as cnt from (select emp_proj.er_id from emp_proj , employee,role_er where emp_proj.emp_id=employee.emp_id and role_er.role_id =emp_proj.er_role and emp_proj.pro_id=?)b',req.params.id,
-        function(err,cnt){
+        console.log(cnt);
+        connection.query('select * from project_comment where com_project=?',req.params.id,
+        function(err,answers){
           if(err) throw err;
           console.log(cnt);
+
+
         res.render('project/show',{
           projects: projects,
           emp_projs: emp_projs,
           cnt:cnt[0],
-          moment:moment
+          moment:moment,
+          answers:answers
+        });
         });
       });
     
@@ -275,7 +296,7 @@ router.get('/:id/delete_order', isAuthenticated2, (req, res, next) => {
 });
 
 router.get('/:id/edit', isAuthenticated2, function (req, res) {
-  connection.query('select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id',
+  connection.query('select * from cus_order',
   function(err,projects){
     if(err) throw err;
       connection.query('select * from employee, dept where employee.emp_dep=dept.dept_id and dept.dept_id=5',
@@ -350,7 +371,7 @@ router.post('/:id/edit', isAuthenticated2, (req, res, next) => {
                 }
 
               req.flash('success', '성공적으로 프로젝트/참여직원을 수정하였습니다.');
-              res.redirect('/project');
+              res.redirect(`/project/${req.params.id}`);
             });
           });
         });
