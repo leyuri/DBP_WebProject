@@ -19,7 +19,7 @@ block content
         each emp_infoss in emp_infos
           option=moment(emp_infoss.er_end).format('YYYY-MM-DD')
     br
-    form(action=`/project/edit`, method = 'POST')
+    form(action=`/project/${pro_info.pro_id}/edit`, method = 'POST')
 
       .form-group
         label(for='name') 프로젝트명
