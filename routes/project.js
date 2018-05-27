@@ -244,7 +244,7 @@ router.post('/add_project', isAuthenticated2, (req, res, next) => {
 
 
 router.get('/:id', isAuthenticated1, function (req, res,next) {
-  connection.query('select * from cus_order',
+  connection.query('select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id and project.pro_id=?',req.params.id,
   function(err,projects){
     if(err) throw err;
     connection.query('select * from emp_proj , employee,role_er where emp_proj.emp_id=employee.emp_id and role_er.role_id =emp_proj.er_role and emp_proj.pro_id=?',req.params.id,

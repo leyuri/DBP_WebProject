@@ -1,12 +1,13 @@
 .answer.card
   .rrr
     .card-body
-      .content= answer.comm_content
+      .content
+      h5= answer.com_content
     .row.card-body
       .col-sm
       .col-sm.text-right
         .author
-          | answered on #{moment(answer.comm_date).format('YYYY-MM-DD')}
-          if answer.author
-            | 
-            | by #[a(href=`/employee/${answer.comm_author}`)= answer.comm_author]
+            | 작성일 : #{moment(answer.com_date).format('YYYY-MM-DD')}
+            br
+             
+            | 작성자 :  #[a(href=`/employee/${answer.com_author}`)= answer.com_author]
