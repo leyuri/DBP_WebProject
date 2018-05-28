@@ -14,9 +14,9 @@ block content
       select#selectRL
         each plan in plans
           option=plan.cnt
-
-    h2 프로젝트 진행 상태
-      #piechart
+    if(plans[0])
+      h2 프로젝트 진행 상태
+    #piechart
    
       script(type='text/javascript', src='https://www.gstatic.com/charts/loader.js')
       script(type='text/javascript').
@@ -112,36 +112,31 @@ block content
               if(emp_proj.er_end)
                 =moment(emp_proj.er_end).format("YYYY년 MM월 DD일")
     br
-    table#projtable2.table.table-bordered.table-striped.table-hover
-        h2 프로젝트 일정
+    if(pro_plans[0])
+      table#projtable2.table.table-bordered.table-striped.table-hover
+          h2 프로젝트 일정
 
-        thead
-        tr
-            th 일정 이름[task_name]
+          thead
+          tr
+              th 일정 이름[task_name]
 
-            th duration
-            th percent_complete
-            th dependency
-            th status
-            
-            
-        tbody#myTable2
-        each pro_plan in pro_plans
-          tr(href='#emp', data-toggle='collapse')
-            td=pro_plan.task_name
+              th duration
+              th percent_complete
+              th dependency
+              th status
+              
+              
+          tbody#myTable2
+          each pro_plan in pro_plans
+            tr(href='#emp', data-toggle='collapse')
+              td=pro_plan.task_name
 
-            td=pro_plan.duration
-            td=pro_plan.percent_complete
-            td=pro_plan.dependency
-            td=pro_plan.status
+              td=pro_plan.duration
+              td=pro_plan.percent_complete
+              td=pro_plan.dependency
+              td=pro_plan.status
 
  
-    //- select#select1
-    //-   each plan in plans
-    //-     option=plan.status
-    //- select#select2
-    //-   each plan in plans
-    //-     option=plan.cnt
 
     select#select1
       each pro_plan in pro_plans
@@ -164,8 +159,8 @@ block content
     select#select7
       each pro_plan in pro_plans
         option=pro_plan.dependency
-
-    h2 프로젝트 일정 차트
+    if(pro_plans[0])
+      h2 프로젝트 일정 차트
     br
     script(type='text/javascript', src='https://www.gstatic.com/charts/loader.js')
     script(type='text/javascript').
@@ -252,7 +247,35 @@ block content
       chart.draw(data, options);
       }
     #chart_div
+    if(evaluates[0])
+      h2 프로젝트 참여 사원 평가
+      table#evtable.table.table-bordered.table-striped.table-hover
+        thead
+          tr
+                th 평가번호
+                th 피평가자
+                th 프로젝트
+                th 직무
+                th 평가자
+                th 구분
+                th 평가 점수 
+                th 평가 내용
 
+        tbody#myTable
+          each evaluate in evaluates
+              tr(href='#emp', data-toggle='collapse')
+                  td=evaluate.ev_id
+                  td
+                      a(href=`/employee/${evaluate.ev_rated}`)= evaluate.ev_rated
+                  td
+                      a(href=`/project/${evaluate.pro_id}`)= evaluate.pro_id
+                  td=evaluate.role_name
+                  td
+                      a(href=`/employee/${evaluate.ev_rate}`)= evaluate.ev_rate
+                  td=evaluate.ev_type
+                  td=evaluate.score
+                  td=evaluate.comment
+        br
 
     .modal-footer
       a.btn.btn-dark(href='javascript:window.history.back();') Back
@@ -304,7 +327,10 @@ block content
             return false;
           });
         });
-   
+     
+      $(document).ready(function() {
+      $('#evtable').DataTable();
+      } );
 
   br
   br
