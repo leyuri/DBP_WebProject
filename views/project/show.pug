@@ -5,12 +5,34 @@ block content
   .container
     each project in projects
       h1=project.pro_name
-    br
-    br
+      br
+      br
+
+      select#selectEE
+        each plan in plans
+          option=plan.status
+      select#selectRL
+        each plan in plans
+          option=plan.cnt
+
     h2 프로젝트 진행 상태
       #piechart
+   
       script(type='text/javascript', src='https://www.gstatic.com/charts/loader.js')
       script(type='text/javascript').
+        var mix = new Array();
+             //For error fix & Get data.
+        $("#selectEE").hide();
+        $("#selectRL").hide();
+        var Finish = document.getElementById("selectEE").options[0].innerHTML;       
+        var countFinish = document.getElementById("selectRL").options[0].innerHTML;
+   
+        var Late = document.getElementById("selectEE").options[1].innerHTML;       
+        var countLate = document.getElementById("selectRL").options[1].innerHTML;
+
+        var Progress = document.getElementById("selectEE").options[2].innerHTML;       
+        var countProgress = document.getElementById("selectRL").options[2].innerHTML;
+   
         // Load google charts
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
@@ -18,16 +40,21 @@ block content
         function drawChart() {
         var data = google.visualization.arrayToDataTable([
         ['project', 'project status'],
-        ['완료', 8],
-        ['시작전', 2],
-        ['지연진행', 4],
+        [Finish, parseInt(countFinish)],
+        [Late, parseInt(countLate)],
+        [Progress, parseInt(countProgress)],
         ]);
         // Optional; add a title and set the width and height of the chart
-        var options = {'title':'', 'width':1500, 'height':400};
+        var options = {'title':'', 'width':1500, 'height':400 } ;
         // Display the chart inside the <div> element with id="piechart"
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
         chart.draw(data, options);
         }
+
+        $(document).ready(function(){
+  
+
+        });
 
     table.table.table-bordered.table-striped.table-hover
         h2 프로젝트 정보
@@ -59,12 +86,11 @@ block content
                 td=project.order_content
                 td=project.cus_name
     br
-    table.table.table-bordered.table-striped.table-hover
+    table#projtable1.table.table-bordered.table-striped.table-hover
         h2 프로젝트 참여자 명단
         br 
         h5 프로젝트 참여 인원 수 :
           =cnt.cnt
-        input#myInput2.form-control(type='text', placeholder='참여자검색..')
         br
         thead
         tr
@@ -85,14 +111,89 @@ block content
             td
               if(emp_proj.er_end)
                 =moment(emp_proj.er_end).format("YYYY년 MM월 DD일")
+    br
+    table#projtable2.table.table-bordered.table-striped.table-hover
+        h2 프로젝트 일정
 
- 
-    br
-    br
+        thead
+        tr
+            th 일정 이름[task_name]
+            th resource
+            th start_date
+            th end_date
+            th duration
+            th percent_complete
+            th dependency
+            th status
+            
+            
+        tbody#myTable2
+        each pro_plan in pro_plans
+          tr(href='#emp', data-toggle='collapse')
+            td=pro_plan.task_name
+            td=pro_plan.resource
+            td
+              if(pro_plan.start_date)
+                =moment(pro_plan.start_date).format("YYYY년 MM월 DD일")
+            td
+              if(pro_plan.start_date)
+                =moment(pro_plan.end_date).format("YYYY년 MM월 DD일")
+            td=pro_plan.duration
+            td=pro_plan.percent_complete
+            td=pro_plan.dependency
+            td=pro_plan.status
+
+
+    //- select#select1
+    //-   each plan in plans
+    //-     option=plan.status
+    //- select#select2
+    //-   each plan in plans
+    //-     option=plan.cnt
+
+    select#select1
+      each pro_plan in pro_plans
+        option=pro_plan.task_name
+    select#select2
+      each pro_plan in pro_plans
+        option=pro_plan.resource
+    select#select3
+      each pro_plan in pro_plans
+        option=pro_plan.start_date
+    select#select4
+      each pro_plan in pro_plans
+        option=pro_plan.end_date
+    select#select5
+      each pro_plan in pro_plans
+        option=pro_plan.duration
+    select#select6
+      each pro_plan in pro_plans
+        option=pro_plan.percent_complete
+    select#select7
+      each pro_plan in pro_plans
+        option=pro_plan.dependency
+
+
     h2 프로젝트 일정 차트
     br
     script(type='text/javascript', src='https://www.gstatic.com/charts/loader.js')
     script(type='text/javascript').
+      $("#select1").hide();
+      $("#select2").hide();
+      $("#select3").hide();
+      $("#select4").hide();
+      $("#select5").hide();
+      $("#select6").hide();
+      $("#select7").hide();
+
+      var task1 = document.getElementById("select1").options[0].innerHTML;       
+      var task2 = document.getElementById("select1").options[1].innerHTML;  
+      var task3 = document.getElementById("select1").options[2].innerHTML;       
+      var task4 = document.getElementById("select1").options[3].innerHTML;
+      var task5 = document.getElementById("select1").options[5].innerHTML;
+      console.log(task5);
+      var resource1 = document.getElementById("select2").options[0].innerHTML;
+  
       google.charts.load('current', {'packages':['gantt']});
       google.charts.setOnLoadCallback(drawChart);
       function daysToMilliseconds(days) {
@@ -109,16 +210,16 @@ block content
       data.addColumn('number', 'Percent Complete');
       data.addColumn('string', 'Dependencies');
       data.addRows([
-      ['Research', 'Find sources', null,
+      [task1, task1, null,
       new Date(2015, 0, 1), new Date(2015, 0, 5), null,  100,  null],
-      ['Write', 'Write paper', 'write',
-      null, new Date(2015, 0, 9), daysToMilliseconds(3), 25, 'Research,Outline'],
-      ['Cite', 'Create bibliography', 'write',
-      null, new Date(2015, 0, 7), daysToMilliseconds(1), 20, 'Research'],
-      ['Complete', 'Hand in paper', 'complete',
-      null, new Date(2015, 0, 10), daysToMilliseconds(1), 0, 'Cite,Write'],
-      ['Outline', 'Outline paper', 'write',
-      null, new Date(2015, 0, 6), daysToMilliseconds(1), 100, 'Research']
+      [task2, task2, task3,
+      null, new Date(2015, 0, 9), daysToMilliseconds(3), 25, task1],
+      [task3, task3, task4,
+      null, new Date(2015, 0, 7), daysToMilliseconds(1), 20, task1],
+      [task4, task4, task5,
+      null, new Date(2015, 0, 10), daysToMilliseconds(1), 0, task2],
+      [task5, task5, task5,
+      null, new Date(2015, 0, 6), daysToMilliseconds(1), 100, task1]
       ]);
       var options = {
       height: 275
