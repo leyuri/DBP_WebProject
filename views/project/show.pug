@@ -141,15 +141,11 @@ block content
     select#select1
       each pro_plan in pro_plans
         option=pro_plan.task_name
-    select#select2
-      each pro_plan in pro_plans
-        option=pro_plan.resource
+
     select#select3
       each pro_plan in pro_plans
-        option=pro_plan.start_date
-    select#select4
-      each pro_plan in pro_plans
-        option=pro_plan.end_date
+        option=pro_plan.pro_start
+
     select#select5
       each pro_plan in pro_plans
         option=pro_plan.duration
@@ -164,10 +160,8 @@ block content
     br
     script(type='text/javascript', src='https://www.gstatic.com/charts/loader.js')
     script(type='text/javascript').
-      $("#select1").hide();
-      $("#select2").hide();
-      $("#select3").hide();
-      $("#select4").hide();
+      $("#select1").hide();  
+      $("#select3").hide(); 
       $("#select5").hide();
       $("#select6").hide();
       $("#select7").hide();
@@ -190,11 +184,7 @@ block content
       var start4 = document.getElementById("select3").options[3].innerHTML;
       var start5 = document.getElementById("select3").options[4].innerHTML;
 
-      var end1 = document.getElementById("select4").options[0].innerHTML;       
-      var end2 = document.getElementById("select4").options[1].innerHTML;  
-      var end3 = document.getElementById("select4").options[2].innerHTML;       
-      var end4 = document.getElementById("select4").options[3].innerHTML;
-      var end5 = document.getElementById("select4").options[4].innerHTML;
+      
 
       var dur1 = document.getElementById("select5").options[0].innerHTML;       
       var dur2 = document.getElementById("select5").options[1].innerHTML;  
@@ -209,8 +199,7 @@ block content
       var comp5 = document.getElementById("select6").options[4].innerHTML;
 
 
-      console.log(task5);
-      var resource1 = document.getElementById("select2").options[0].innerHTML;
+      
   
       google.charts.load('current', {'packages':['gantt']});
       google.charts.setOnLoadCallback(drawChart);

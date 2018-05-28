@@ -248,7 +248,7 @@ router.get('/:id', isAuthenticated2, function (req, res,next) {
           function(err,plans){
             if(err) throw err;
             console.log(plans);
-            connection.query('select * from proj_plan where pro_id=?',req.params.id,
+            connection.query('select * from proj_plan,project where project.pro_id=proj_plan.pro_id and proj_plan.pro_id=?',req.params.id,
             function(err,pro_plans){
               if(err) throw err;
               console.log(plans);
