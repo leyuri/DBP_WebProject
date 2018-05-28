@@ -1,17 +1,22 @@
-.answer.card
-  .rrr
+br
+br
+.answer.card      
+  .card
     .card-body
-      .content
-      h5= answer.com_content
-    .row.card-body
-      .col-sm
-      .col-sm.text-right
-        .author
-            | 작성일 : #{moment(answer.com_date).format('YYYY-MM-DD')}
-            br
-             
-            | 작성자 :  #[a(href=`/employee/${answer.com_author}`)= answer.com_author]
-            br
+      | 작성일 : #{moment(answer.com_date).format('YYYY-MM-DD')}
+      br
+      | 작성자 :  #[a(href=`/employee/${answer.com_author}`)= answer.com_author]
+      br
+      br
+      .card.bg-warning.text-white
+        .card-body
+          .content
+          h5= answer.com_content
+          br
+          br
+      br
+      a.btn.btn-sm.btn-outline-danger(data-url=`/project/${answer.com_id}/delete_answer`) 댓글 삭제
+      
+
+
            
-
-

@@ -143,7 +143,7 @@ block content
             td=pro_plan.dependency
             td=pro_plan.status
 
- 
+
     //- select#select1
     //-   each plan in plans
     //-     option=plan.status
@@ -172,6 +172,7 @@ block content
     select#select7
       each pro_plan in pro_plans
         option=pro_plan.dependency
+
 
     h2 프로젝트 일정 차트
     br
@@ -236,20 +237,30 @@ block content
       a.btn.btn-primary(href=`/project/${projects[0].pro_id}/edit`) 프로젝트 수정
       a.btn.btn-secondary(data-url=`/project/${projects[0].pro_id}/delete`) 프로젝트 삭제
       
-      br
+    br
+    br
     h3 Comments
       each answer in answers
           
         include _answer 
           br
-          a.btn.btn-sm.btn-outline-danger(data-url=`/project/${answer.com_id}/delete_answer`) 댓글 삭제     
+          
+               
           
         hr       
     form(action=`/project/${projects[0].pro_id}/answers`, method='POST')
       .form-group
-        label(for='answer') Your Answer
+        p
+          b
+            font(size='3', color='black') You can comment this project.
+              
+      
         textarea.form-control(name="content", rows="5")
-      button.btn.btn-info(type="submit") Post Your Answer
+      
+      button.btn.btn-outline-warning.float-right(type="submit") add replay
+  
+
+      
       br
       br
     
@@ -279,7 +290,6 @@ block content
             return false;
           });
         });
-   
 
   br
   br
