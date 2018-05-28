@@ -144,12 +144,50 @@ block content
             td=pro_plan.status
 
  
- 
+    //- select#select1
+    //-   each plan in plans
+    //-     option=plan.status
+    //- select#select2
+    //-   each plan in plans
+    //-     option=plan.cnt
+
+    select#select1
+      each pro_plan in pro_plans
+        option=pro_plan.task_name
+    select#select2
+      each pro_plan in pro_plans
+        option=pro_plan.resource
+    select#select3
+      each pro_plan in pro_plans
+        option=pro_plan.start_date
+    select#select4
+      each pro_plan in pro_plans
+        option=pro_plan.end_date
+    select#select5
+      each pro_plan in pro_plans
+        option=pro_plan.duration
+    select#select6
+      each pro_plan in pro_plans
+        option=pro_plan.percent_complete
+    select#select7
+      each pro_plan in pro_plans
+        option=pro_plan.dependency
 
     h2 프로젝트 일정 차트
     br
     script(type='text/javascript', src='https://www.gstatic.com/charts/loader.js')
     script(type='text/javascript').
+      $("#select1").hide();
+      $("#select2").hide();
+      var Finish = document.getElementById("selectEE").options[0].innerHTML;       
+      var countFinish = document.getElementById("selectRL").options[0].innerHTML;
+  
+      var Late = document.getElementById("selectEE").options[1].innerHTML;       
+      var countLate = document.getElementById("selectRL").options[1].innerHTML;
+
+      var Progress = document.getElementById("selectEE").options[2].innerHTML;       
+      var countProgress = document.getElementById("selectRL").options[2].innerHTML;
+  
       google.charts.load('current', {'packages':['gantt']});
       google.charts.setOnLoadCallback(drawChart);
       function daysToMilliseconds(days) {
