@@ -86,12 +86,11 @@ block content
                 td=project.order_content
                 td=project.cus_name
     br
-    table.table.table-bordered.table-striped.table-hover
+    table#projtable1.table.table-bordered.table-striped.table-hover
         h2 프로젝트 참여자 명단
         br 
         h5 프로젝트 참여 인원 수 :
           =cnt.cnt
-        input#myInput2.form-control(type='text', placeholder='참여자검색..')
         br
         thead
         tr
@@ -112,7 +111,39 @@ block content
             td
               if(emp_proj.er_end)
                 =moment(emp_proj.er_end).format("YYYY년 MM월 DD일")
+    br
+    table#projtable2.table.table-bordered.table-striped.table-hover
+        h2 프로젝트 일정
 
+        thead
+        tr
+            th 일정 이름[task_name]
+            th resource
+            th start_date
+            th end_date
+            th duration
+            th percent_complete
+            th dependency
+            th status
+            
+            
+        tbody#myTable2
+        each pro_plan in pro_plans
+          tr(href='#emp', data-toggle='collapse')
+            td=pro_plan.task_name
+            td=pro_plan.resource
+            td
+              if(pro_plan.start_date)
+                =moment(pro_plan.start_date).format("YYYY년 MM월 DD일")
+            td
+              if(pro_plan.start_date)
+                =moment(pro_plan.end_date).format("YYYY년 MM월 DD일")
+            td=pro_plan.duration
+            td=pro_plan.percent_complete
+            td=pro_plan.dependency
+            td=pro_plan.status
+
+ 
  
 
     h2 프로젝트 일정 차트

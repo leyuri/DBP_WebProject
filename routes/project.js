@@ -262,14 +262,19 @@ router.get('/:id', isAuthenticated1, function (req, res,next) {
           function(err,plans){
             if(err) throw err;
             console.log(plans);
-
-          res.render('project/show',{
-            projects: projects,
-            emp_projs: emp_projs,
-            cnt:cnt[0],
-            moment:moment,
-            answers:answers,
-            plans:plans
+            connection.query('select * from proj_plan where pro_id=?',req.params.id,
+            function(err,pro_plans){
+              if(err) throw err;
+              console.log(plans);
+            res.render('project/show',{
+              projects: projects,
+              emp_projs: emp_projs,
+              cnt:cnt[0],
+              moment:moment,
+              answers:answers,
+              plans:plans,
+              pro_plans:pro_plans
+            });
           });
         });
         });
