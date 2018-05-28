@@ -118,9 +118,7 @@ block content
         thead
         tr
             th 일정 이름[task_name]
-            th resource
-            th start_date
-            th end_date
+
             th duration
             th percent_complete
             th dependency
@@ -131,13 +129,7 @@ block content
         each pro_plan in pro_plans
           tr(href='#emp', data-toggle='collapse')
             td=pro_plan.task_name
-            td=pro_plan.resource
-            td
-              if(pro_plan.start_date)
-                =moment(pro_plan.start_date).format("YYYY년 MM월 DD일")
-            td
-              if(pro_plan.start_date)
-                =moment(pro_plan.end_date).format("YYYY년 MM월 DD일")
+
             td=pro_plan.duration
             td=pro_plan.percent_complete
             td=pro_plan.dependency
@@ -242,18 +234,19 @@ block content
       data.addColumn('string', 'Dependencies');
       data.addRows([
       [task1, task1, null,
-      new Date(2015, 0, 1), new Date(2015, 0, 5), null,  100,  null],
+      new Date(start1), null, daysToMilliseconds(parseInt(dur1)),  parseInt(comp1),  null],
       [task2, task2, task3,
-      null, new Date(2015, 0, 9), daysToMilliseconds(3), 25, task1],
+      null, null, daysToMilliseconds(parseInt(dur2)), parseInt(comp2), task1],
       [task3, task3, task4,
-      null, new Date(2015, 0, 7), daysToMilliseconds(1), 20, task1],
+      null, null, daysToMilliseconds(parseInt(dur3)), parseInt(comp3), task2],
       [task4, task4, task5,
-      null, new Date(2015, 0, 10), daysToMilliseconds(1), 0, task2],
+      null, null, daysToMilliseconds(parseInt(dur4)),parseInt(comp4), task3],
       [task5, task5, task5,
-      null, new Date(2015, 0, 6), daysToMilliseconds(1), 100, task1]
+      null, null, daysToMilliseconds(parseInt(dur5)), parseInt(comp5), task4]
       ]);
       var options = {
       height: 275
+  
       };
       var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
       chart.draw(data, options);
