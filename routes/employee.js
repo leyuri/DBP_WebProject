@@ -12,7 +12,6 @@ var connection = mysql_dbc.init();
 
 var moment = require('moment');
 
-
   var isAuthenticated = function (req, res, next) {  
     if (req.isAuthenticated()){ 
       return next();    
@@ -39,7 +38,7 @@ var moment = require('moment');
 
 
 router.get('/', isAuthenticated, function (req, res,next) {
-  connection.query(' select * from employee, dept ,status where employee.emp_dep=dept.dept_id and employee.emp_status=status.st_id',
+  connection.query(' select * from evaluate, employee,project where  dept ,status where employee.emp_dep=dept.dept_id and employee.emp_status=status.st_id',
   function(err,employees){
     if(err) throw err;
 

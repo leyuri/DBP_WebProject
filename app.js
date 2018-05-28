@@ -9,7 +9,7 @@ var index = require('./routes/index');
 var myinfo = require('./routes/myinfo');
 var project = require('./routes/project');
 var employee = require('./routes/employee');
-
+var evaluation = require('./routes/evaluation');
 
 
 var flash = require('connect-flash');
@@ -75,7 +75,7 @@ app.use('/', index);
 app.use('/myinfo', myinfo);
 app.use('/project', project);
 app.use('/employee', employee);
-
+app.use('/evaluation', evaluation);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
