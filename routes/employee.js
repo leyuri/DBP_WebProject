@@ -115,18 +115,23 @@ router.get('/:id', isAuthenticated1, function (req, res,next) {
             connection.query('select * from career where  emp_id=?',req.params.id,
               function(err,careers){
                 if(err) throw err;
+
+                connection.query('select * from project, role_er, emp_proj, evaluate, ev_contents where role_er.role_id=emp_proj.er_role and  project.pro_id = emp_proj.pro_id and project.pro_id=evaluate.pro_id and evaluate.ev_id= ev_contents.ev_id and evaluate.ev_rated =?',req.params.id,
+                function(err,evaluations){
+                  if(err) throw err; 
     
                 res.render('employee/show',{
                   careers:careers,
                   skills:skills,
                   employees: employees,
                   emp_projs: emp_projs,
-                  moment:moment
+                  moment:moment,
+                  evaluations:evaluations
           
                 });
               });
           });
-   
+        });
     });
   });
 });
@@ -175,7 +180,7 @@ router.post('/:id/add_skill', isAuthenticated, (req, res, next) => {
       return next();
     });
   }
-    res.redirect('/employee');
+    res.redirect(`/employee/${req.params.id}`);
   
 });
 

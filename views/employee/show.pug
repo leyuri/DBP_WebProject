@@ -30,20 +30,6 @@ block content
                 td= moment(employee.emp_hiredate).format("YYYY년 MM월 DD일")
                 td= employee.emp_workyear
 
-    table.table.table-bordered.table-striped.table-hover
-        h2 직원 보유 기술
-        br
-        thead
-        tr
-            th 기술 이름
-            th 기술 등급
-
-        tbody#myTable2
-         each skill in skills
-          tr(href='#emp', data-toggle='collapse')
-         
-            td=skill.skill_name
-            td=skill.skill_grade
 
   
     table.table.table-bordered.table-striped.table-hover
@@ -60,26 +46,70 @@ block content
          
             td=career.career_name
             td=career.career_period
+    if(employees[0].emp_dep==5)        
+      table.table.table-bordered.table-striped.table-hover
+          h2 직원 보유 기술
+          br
+          thead
+          tr
+              th 기술 이름
+              th 기술 등급
 
-    table.table.table-bordered.table-striped.table-hover
-        h2 진행 프로젝트 정보
-        input#myInput2.form-control(type='text', placeholder='프로젝트 검색..')
-        br
-        thead
-        tr
-            th 프로젝트 이름
-            th 직무[EMP_ROLE]
-            th 참여일[ER_START]
-            th 종료일[ER_END]
-        tbody#myTable2
-         each emp_proj in emp_projs
-          tr(href='#emp', data-toggle='collapse')
-            td
-              a(href=`/project/${emp_proj.pro_id}`)= emp_proj.pro_name
-            td=emp_proj.role_name
-            td=moment(emp_proj.er_start).format("YYYY년 MM월 DD일")
-            td=moment(emp_proj.er_end).format("YYYY년 MM월 DD일")
-       
+          tbody#myTable2
+          each skill in skills
+            tr(href='#emp', data-toggle='collapse')
+          
+              td=skill.skill_name
+              td=skill.skill_grade
+
+
+      table.table.table-bordered.table-striped.table-hover
+          h2 진행 프로젝트 정보
+          input#myInput2.form-control(type='text', placeholder='프로젝트 검색..')
+          br
+          thead
+          tr
+              th 프로젝트 이름
+              th 직무[EMP_ROLE]
+              th 참여일[ER_START]
+              th 종료일[ER_END]
+          tbody#myTable2
+          each emp_proj in emp_projs
+            tr(href='#emp', data-toggle='collapse')
+              td
+                a(href=`/project/${emp_proj.pro_id}`)= emp_proj.pro_name
+              td=emp_proj.role_name
+              td=moment(emp_proj.er_start).format("YYYY년 MM월 DD일")
+              td=moment(emp_proj.er_end).format("YYYY년 MM월 DD일")
+      
+      table.table.table-bordered.table-striped.table-hover
+          h2 평가 받은 내용
+          input#myInput2.form-control(type='text', placeholder='프로젝트 검색..')
+          br
+          thead
+          tr
+              th 프로젝트 이름
+              th 직무[EMP_ROLE]
+              th 참여일[ER_START]
+              th 종료일[ER_END]
+              th 평가자 사번
+              th 평가 구분
+              th 평가 점수 
+              th 평가 내용
+
+          tbody#myTable2
+          each evaluation in evaluations
+            tr(href='#emp', data-toggle='collapse')
+              td
+                a(href=`/project/${evaluation.pro_id}`)= evaluation.pro_name
+              td=evaluation.role_name
+              td=moment(evaluation.er_start).format("YYYY년 MM월 DD일")
+              td=moment(evaluation.er_end).format("YYYY년 MM월 DD일")
+              td=evaluation.ev_rate_emp
+              td=evaluation.ev_type
+              td=evaluation.score
+              td=evaluation.comment
+            
        
     script.
         $(document).ready(function(){
