@@ -143,7 +143,7 @@ block content
             td=pro_plan.dependency
             td=pro_plan.status
 
-
+ 
     //- select#select1
     //-   each plan in plans
     //-     option=plan.status
@@ -173,7 +173,6 @@ block content
       each pro_plan in pro_plans
         option=pro_plan.dependency
 
-
     h2 프로젝트 일정 차트
     br
     script(type='text/javascript', src='https://www.gstatic.com/charts/loader.js')
@@ -190,7 +189,39 @@ block content
       var task2 = document.getElementById("select1").options[1].innerHTML;  
       var task3 = document.getElementById("select1").options[2].innerHTML;       
       var task4 = document.getElementById("select1").options[3].innerHTML;
-      var task5 = document.getElementById("select1").options[5].innerHTML;
+      var task5 = document.getElementById("select1").options[4].innerHTML;
+
+      var dep1 = document.getElementById("select7").options[0].innerHTML;       
+      var dep2 = document.getElementById("select7").options[1].innerHTML;  
+      var dep3 = document.getElementById("select7").options[2].innerHTML;       
+      var dep4 = document.getElementById("select7").options[3].innerHTML;
+      var dep5 = document.getElementById("select7").options[4].innerHTML;
+
+      var start1 = document.getElementById("select3").options[0].innerHTML;       
+      var start2 = document.getElementById("select3").options[1].innerHTML;  
+      var start3 = document.getElementById("select3").options[2].innerHTML;       
+      var start4 = document.getElementById("select3").options[3].innerHTML;
+      var start5 = document.getElementById("select3").options[4].innerHTML;
+
+      var end1 = document.getElementById("select4").options[0].innerHTML;       
+      var end2 = document.getElementById("select4").options[1].innerHTML;  
+      var end3 = document.getElementById("select4").options[2].innerHTML;       
+      var end4 = document.getElementById("select4").options[3].innerHTML;
+      var end5 = document.getElementById("select4").options[4].innerHTML;
+
+      var dur1 = document.getElementById("select5").options[0].innerHTML;       
+      var dur2 = document.getElementById("select5").options[1].innerHTML;  
+      var dur3 = document.getElementById("select5").options[2].innerHTML;       
+      var dur4 = document.getElementById("select5").options[3].innerHTML;
+      var dur5 = document.getElementById("select5").options[4].innerHTML;
+
+      var comp1 = document.getElementById("select6").options[0].innerHTML;       
+      var comp2 = document.getElementById("select6").options[1].innerHTML;  
+      var comp3 = document.getElementById("select6").options[2].innerHTML;       
+      var comp4 = document.getElementById("select6").options[3].innerHTML;
+      var comp5 = document.getElementById("select6").options[4].innerHTML;
+
+
       console.log(task5);
       var resource1 = document.getElementById("select2").options[0].innerHTML;
   
@@ -237,30 +268,20 @@ block content
       a.btn.btn-primary(href=`/project/${projects[0].pro_id}/edit`) 프로젝트 수정
       a.btn.btn-secondary(data-url=`/project/${projects[0].pro_id}/delete`) 프로젝트 삭제
       
-    br
-    br
+      br
     h3 Comments
       each answer in answers
           
         include _answer 
           br
-          
-               
+          a.btn.btn-sm.btn-outline-danger(data-url=`/project/${answer.com_id}/delete_answer`) 댓글 삭제     
           
         hr       
     form(action=`/project/${projects[0].pro_id}/answers`, method='POST')
       .form-group
-        p
-          b
-            font(size='3', color='black') You can comment this project.
-              
-      
+        label(for='answer') Your Answer
         textarea.form-control(name="content", rows="5")
-      
-      button.btn.btn-outline-warning.float-right(type="submit") add replay
-  
-
-      
+      button.btn.btn-info(type="submit") Post Your Answer
       br
       br
     
@@ -290,6 +311,7 @@ block content
             return false;
           });
         });
+   
 
   br
   br
