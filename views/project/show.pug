@@ -5,12 +5,34 @@ block content
   .container
     each project in projects
       h1=project.pro_name
-    br
-    br
+      br
+      br
+
+      select#selectEE
+        each plan in plans
+          option=plan.status
+      select#selectRL
+        each plan in plans
+          option=plan.cnt
+
     h2 프로젝트 진행 상태
       #piechart
+   
       script(type='text/javascript', src='https://www.gstatic.com/charts/loader.js')
       script(type='text/javascript').
+        var mix = new Array();
+             //For error fix & Get data.
+        $("#selectEE").hide();
+        $("#selectRL").hide();
+        var Finish = document.getElementById("selectEE").options[0].innerHTML;       
+        var countFinish = document.getElementById("selectRL").options[0].innerHTML;
+   
+        var Late = document.getElementById("selectEE").options[1].innerHTML;       
+        var countLate = document.getElementById("selectRL").options[1].innerHTML;
+
+        var Progress = document.getElementById("selectEE").options[2].innerHTML;       
+        var countProgress = document.getElementById("selectRL").options[2].innerHTML;
+   
         // Load google charts
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
@@ -18,16 +40,21 @@ block content
         function drawChart() {
         var data = google.visualization.arrayToDataTable([
         ['project', 'project status'],
-        ['완료', 8],
-        ['시작전', 2],
-        ['지연진행', 4],
+        [Finish, parseInt(countFinish)],
+        [Late, parseInt(countLate)],
+        [Progress, parseInt(countProgress)],
         ]);
         // Optional; add a title and set the width and height of the chart
-        var options = {'title':'', 'width':1500, 'height':400};
+        var options = {'title':'', 'width':1500, 'height':400 } ;
         // Display the chart inside the <div> element with id="piechart"
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
         chart.draw(data, options);
         }
+
+        $(document).ready(function(){
+  
+
+        });
 
     table.table.table-bordered.table-striped.table-hover
         h2 프로젝트 정보

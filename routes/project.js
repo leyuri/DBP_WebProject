@@ -253,19 +253,24 @@ router.get('/:id', isAuthenticated1, function (req, res,next) {
       connection.query('select count(*) as cnt from (select emp_proj.er_id from emp_proj , employee,role_er where emp_proj.emp_id=employee.emp_id and role_er.role_id =emp_proj.er_role and emp_proj.pro_id=?)b',req.params.id,
       function(err,cnt){
         if(err) throw err;
-        console.log(cnt);
+   
         connection.query('select * from project_comment where com_project=?',req.params.id,
         function(err,answers){
           if(err) throw err;
-          console.log(cnt);
+     
+          connection.query('select status, count(*) as cnt from proj_plan where pro_id=? group by status',req.params.id,
+          function(err,plans){
+            if(err) throw err;
+            console.log(plans);
 
-
-        res.render('project/show',{
-          projects: projects,
-          emp_projs: emp_projs,
-          cnt:cnt[0],
-          moment:moment,
-          answers:answers
+          res.render('project/show',{
+            projects: projects,
+            emp_projs: emp_projs,
+            cnt:cnt[0],
+            moment:moment,
+            answers:answers,
+            plans:plans
+          });
         });
         });
       });
