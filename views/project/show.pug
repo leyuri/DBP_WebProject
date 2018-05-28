@@ -138,7 +138,11 @@ block content
       br
     h3 Comments
       each answer in answers
-        include _answer      
+          
+        include _answer 
+          br
+          a.btn.btn-sm.btn-outline-danger(data-url=`/project/${answer.com_id}/delete_answer`) 댓글 삭제     
+          
         hr       
     form(action=`/project/${projects[0].pro_id}/answers`, method='POST')
       .form-group
@@ -165,6 +169,17 @@ block content
           return false;
           });
       });
+
+        $(function() {
+          $('.btn-outline-danger').click(function() {
+            if (confirm('Are you sure to delete?')) {
+              location = $(this).data('url');
+            }
+            return false;
+          });
+        });
+   
+
   br
   br
 

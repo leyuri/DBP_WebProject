@@ -294,6 +294,15 @@ router.get('/:id/delete_order', isAuthenticated2, (req, res, next) => {
     res.redirect('/project/order_list');
   });
 });
+router.get('/:id/delete_answer', isAuthenticated2, (req, res, next) => {
+  connection.query('DELETE FROM project_comment WHERE com_id = ?',req.params.id,function(err,result){
+    if (err) {
+      return next(err);
+    }
+    req.flash('success', 'Deleted Successfully.');
+    res.redirect('/project');
+  });
+});
 
 router.get('/:id/edit', isAuthenticated2, function (req, res) {
   connection.query('select * from cus_order',
