@@ -18,26 +18,12 @@ var isAuthenticated = function (req, res, next) {
 };
 
 
-var isAuthenticated1 = function (req, res, next) {
-  
-  if (req.isAuthenticated()){
-    if(req.user.dept ==3 ||req.user.dept ==2){
-      //경영진/인사과만 열람가능
-      return next();
-    }
-    req.flash('danger','접근 권한이 없습니다.');
-    res.redirect('/project');
-    
-  }
-  res.redirect('/signin');
- 
-};
 
 var isAuthenticated2 = function (req, res, next) {
   
   if (req.isAuthenticated()){
-    if(req.user.dept ==3||req.user.dept ==5){
-      //경영진, 개발자만 가능
+    if(req.user.dept ==3){
+      //경영진만 가능
       return next();
     }
     req.flash('danger','접근 권한이 없습니다.');
@@ -243,7 +229,7 @@ router.post('/add_project', isAuthenticated2, (req, res, next) => {
 });
 
 
-router.get('/:id', isAuthenticated1, function (req, res,next) {
+router.get('/:id', isAuthenticated2, function (req, res,next) {
   connection.query('select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id and project.pro_id=?',req.params.id,
   function(err,projects){
     if(err) throw err;
