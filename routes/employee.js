@@ -87,7 +87,7 @@ router.post('/new', isAuthenticated1, (req,res, next) => {
         return next(err);
       }
       req.flash('success', 'Inserted successfully.');
-      res.redirect('/');
+      res.redirect('/employee');
     });
     }
     else{
@@ -116,7 +116,7 @@ router.get('/:id', isAuthenticated1, function (req, res,next) {
               function(err,careers){
                 if(err) throw err;
 
-                connection.query('select * from project, role_er, emp_proj, evaluate, ev_contents where role_er.role_id=emp_proj.er_role and  project.pro_id = emp_proj.pro_id and project.pro_id=evaluate.pro_id and evaluate.ev_id= ev_contents.ev_id and evaluate.ev_rated =?',req.params.id,
+                connection.query('select ev_id, pro_name, project.pro_id,role_name,er_start,er_end,ev_rate,ev_rated,ev_type,score,comment from project, role_er, emp_proj, evaluate where project.pro_id = emp_proj.pro_id and emp_proj.pro_id=evaluate.pro_id and emp_proj.er_role =role_er.role_id and emp_proj.emp_id = evaluate.ev_rated and evaluate.ev_rated =?',req.params.id,
                 function(err,evaluations){
                   if(err) throw err; 
     
@@ -224,7 +224,7 @@ router.get('/:id/delete', isAuthenticated1, (req, res, next) => {
       return next(err);
     }
     req.flash('success', 'Deleted Successfully.');
-    res.redirect('/');
+    res.redirect('/employee');
   });
 });
 

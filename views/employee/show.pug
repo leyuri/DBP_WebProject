@@ -88,10 +88,9 @@ block content
           br
           thead
           tr
+              th 평가번호
               th 프로젝트 이름
               th 직무[EMP_ROLE]
-              th 참여일[ER_START]
-              th 종료일[ER_END]
               th 평가자 사번
               th 평가 구분
               th 평가 점수 
@@ -100,12 +99,12 @@ block content
           tbody#myTable2
           each evaluation in evaluations
             tr(href='#emp', data-toggle='collapse')
+              td=evaluation.ev_id
               td
                 a(href=`/project/${evaluation.pro_id}`)= evaluation.pro_name
               td=evaluation.role_name
-              td=moment(evaluation.er_start).format("YYYY년 MM월 DD일")
-              td=moment(evaluation.er_end).format("YYYY년 MM월 DD일")
-              td=evaluation.ev_rate_emp
+              td
+                a(href=`/project/${evaluation.ev_rate}`)= evaluation.ev_rate
               td=evaluation.ev_type
               td=evaluation.score
               td=evaluation.comment

@@ -214,7 +214,7 @@ router.post('/add_project', isAuthenticated2, (req, res, next) => {
           if (err) {
             return next(err);
           }
-         
+           
           connection.query('INSERT into emp_proj(pro_id,emp_id,er_role,er_start,er_end) values(?,?,?,?,?)',
           [projects[0].pro_id, req.body.select1_1,req.body.select2_1,req.body.select3_1,req.body.select4_1] ,
           function(err,result){
@@ -356,24 +356,25 @@ router.post('/:id/edit', isAuthenticated2, (req, res, next) => {
           if (err) {
             return next(err);
           }
-          
-          connection.query('INSERT into emp_proj(pro_id,emp_id,er_role,er_start,er_end) values(?,?,?,?,?)',
-          [req.params.id, req.body.select1_1,req.body.select2_1,req.body.select3_1,req.body.select4_1] ,
-          function(err,result){
-            if (err) {
-              return next(err);
-            }
+          if(req.body.select1_1)
             connection.query('INSERT into emp_proj(pro_id,emp_id,er_role,er_start,er_end) values(?,?,?,?,?)',
-              [req.params.id, req.body.select1_2,req.body.select2_2,req.body.select3_2,req.body.select4_2] ,
-              function(err,result){
-                if (err) {
-                  return next(err);
-                }
+            [req.params.id, req.body.select1_1,req.body.select2_1,req.body.select3_1,req.body.select4_1] ,
+            function(err,result){
+              if (err) {
+                return next(err);
+              }
+              if(req.body.select1_2)
+                connection.query('INSERT into emp_proj(pro_id,emp_id,er_role,er_start,er_end) values(?,?,?,?,?)',
+                  [req.params.id, req.body.select1_2,req.body.select2_2,req.body.select3_2,req.body.select4_2] ,
+                  function(err,result){
+                    if (err) {
+                      return next(err);
+                    }
 
-              req.flash('success', '성공적으로 프로젝트/참여직원을 수정하였습니다.');
-              res.redirect(`/project/${req.params.id}`);
+          req.flash('success', '성공적으로 프로젝트/참여직원을 수정하였습니다.');
+          res.redirect(`/project/${req.params.id}`);
+              });
             });
-          });
         });
     
       });  
