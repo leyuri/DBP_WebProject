@@ -19,7 +19,7 @@ var isAuthenticated1 = function (req, res, next) {
     res.redirect('/employee');
     
   }
-  res.redirect('/signin');
+  res.redirect('/');
  
 };
 
