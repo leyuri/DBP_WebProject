@@ -25,13 +25,13 @@ var isAuthenticated1 = function (req, res, next) {
 
 
 router.get('/', isAuthenticated1, function (req, res,next) {
-  connection.query('select ev_id, pro_name, project.pro_id,role_name,er_start,er_end,ev_rate,ev_rated,ev_type,score,comment , emp_name from employee,project, role_er, emp_proj, evaluate where employee.emp_id=emp_proj.emp_id and project.pro_id = emp_proj.pro_id and emp_proj.pro_id=evaluate.pro_id and emp_proj.er_role =role_er.role_id and emp_proj.emp_id = evaluate.ev_rated and evaluate.ev_type="PM"',
+  connection.query('select ev_id, ev_contype,pro_name, project.pro_id,role_name,er_start,er_end,ev_rate,ev_rated,ev_type,score,comment , emp_name from employee,project, role_er, emp_proj, evaluate where employee.emp_id=emp_proj.emp_id and project.pro_id = emp_proj.pro_id and emp_proj.pro_id=evaluate.pro_id and emp_proj.er_role =role_er.role_id and emp_proj.emp_id = evaluate.ev_rated and evaluate.ev_type="PM"',
   function(err,pms){
     if(err) throw err;
-    connection.query('select ev_id, pro_name, project.pro_id,role_name,er_start,er_end,ev_rate,ev_rated,ev_type,score,comment , emp_name from employee,project, role_er, emp_proj, evaluate where employee.emp_id=emp_proj.emp_id and project.pro_id = emp_proj.pro_id and emp_proj.pro_id=evaluate.pro_id and emp_proj.er_role =role_er.role_id and emp_proj.emp_id = evaluate.ev_rated and evaluate.ev_type="고객"',
+    connection.query('select ev_id,ev_contype, pro_name, project.pro_id,role_name,er_start,er_end,ev_rate,ev_rated,ev_type,score,comment , emp_name from employee,project, role_er, emp_proj, evaluate where employee.emp_id=emp_proj.emp_id and project.pro_id = emp_proj.pro_id and emp_proj.pro_id=evaluate.pro_id and emp_proj.er_role =role_er.role_id and emp_proj.emp_id = evaluate.ev_rated and evaluate.ev_type="고객"',
     function(err,clients){
       if(err) throw err;
-      connection.query('select ev_id, pro_name, project.pro_id,role_name,er_start,er_end,ev_rate,ev_rated,ev_type,score,comment , emp_name from employee,project, role_er, emp_proj, evaluate where employee.emp_id=emp_proj.emp_id and project.pro_id = emp_proj.pro_id and emp_proj.pro_id=evaluate.pro_id and emp_proj.er_role =role_er.role_id and emp_proj.emp_id = evaluate.ev_rated and evaluate.ev_type="동료"',
+      connection.query('select ev_id,ev_contype, pro_name, project.pro_id,role_name,er_start,er_end,ev_rate,ev_rated,ev_type,score,comment , emp_name from employee,project, role_er, emp_proj, evaluate where employee.emp_id=emp_proj.emp_id and project.pro_id = emp_proj.pro_id and emp_proj.pro_id=evaluate.pro_id and emp_proj.er_role =role_er.role_id and emp_proj.emp_id = evaluate.ev_rated and evaluate.ev_type="동료"',
       function(err,peers){
         if(err) throw err;
         res.render('evaluation/index',{
@@ -51,9 +51,10 @@ router.get('/:id/delete_eval', isAuthenticated1, (req, res, next) => {
       return next(err);
     }
     req.flash('success', 'Deleted Successfully.');
-    res.redirect('/evaluation/index');
+    res.redirect('/evaluation');
   });
 });
+
 
 
 module.exports = router;

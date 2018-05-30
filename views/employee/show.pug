@@ -93,8 +93,10 @@ block content
               th 직무[EMP_ROLE]
               th 평가자 사번
               th 평가 구분
+              th 평가 타입 구분
               th 평가 점수 
               th 평가 내용
+              th
 
           tbody#myTable2
           each evaluation in evaluations
@@ -106,8 +108,12 @@ block content
               td
                 a(href=`/project/${evaluation.ev_rate}`)= evaluation.ev_rate
               td=evaluation.ev_type
+              td=evaluation.ev_contype
               td=evaluation.score
               td=evaluation.comment
+              td
+                a.btn.btn-sm.btn-outline-danger(data-url=`/evaluation/${evaluation.ev_id}/delete_eval`)
+                  | #[i.fa.fa-trash] 삭제
             
        
     script.
@@ -119,7 +125,15 @@ block content
         });
         });
         });
-  
+        $(function() {
+          $('.btn-outline-danger').click(function() {
+            if (confirm('Are you sure to delete?')) {
+              location = $(this).data('url');
+            }
+            return false;
+          });
+        });
+
 
 
 
@@ -139,12 +153,3 @@ block content
     br
     br
     br
-    script.
-      $(function() {
-        $('.btn-secondary').click(function() {
-          if (confirm('Are you sure to delete?')) {
-            location = $(this).data('url');
-          }
-          return false;
-        });
-      });
