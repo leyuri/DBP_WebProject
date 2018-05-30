@@ -45,6 +45,31 @@ router.get('/', isAuthenticated1, function (req, res,next) {
   });
 });
 
+router.get('/add', isAuthenticated1, function (req, res,next) {
+  connection.query('select * from employee',
+  function(err,employees){
+    if(err) throw err;
+
+      res.render('evaluation/add_eval',{
+        employees: employees,
+
+      });    
+  });
+});
+
+
+router.get('/:id/edit', isAuthenticated1, function (req, res,next) {
+  connection.query('select * from evaluate',
+  function(err,evaluates){
+    if(err) throw err;
+
+      res.render('project/add_project',{
+        evaluates: evaluates,
+      });
+  });
+});
+
+
 router.get('/:id/delete_eval', isAuthenticated1, (req, res, next) => {
   connection.query('DELETE FROM evaluate WHERE ev_id = ?',req.params.id,function(err,result){
     if (err) {
