@@ -261,7 +261,7 @@ router.get('/:id', isAuthenticated4, function (req, res,next) {
   connection.query('select * from emp_proj  where emp_id=? and pro_id=?',[req.user.id,req.params.id],
   function(err,results){
     if(err) throw err;
-    if(results[0]){
+    if(results[0]|| req.user.dept==3){
       connection.query('select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id and project.pro_id=?',req.params.id,
       function(err,projects){
         if(err) throw err;
