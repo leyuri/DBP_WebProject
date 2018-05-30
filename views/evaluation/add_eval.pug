@@ -7,24 +7,25 @@ block content
       p You can evaluate the project. 
     h1.main-title 평가
     br
-    form
+    form(action=`/evaluation/add`, method = 'POST')
       .form-group
           label(for='')
           |프로젝트 명:&nbsp;
-          select.form-control(type='text',name="employee")
-            option 지도앱 개발
+          select.form-control(type='text',name="project")
+            each emp_proj in emp_projs
+              option(value=emp_proj.pro_id)=emp_proj.pro_name
           p
           label(for='')
           |평가 항목:&nbsp;
-          select.form-control(type='text',name="employee")
-            option PM
-            option 동료
-            option 
+          select.form-control(type='text',name="ev_type")
+            each evaluate in evaluates
+              option=evaluate.ev_type
           p
           label(for='')
           |피 평가자:&nbsp;
-          select.form-control(type='text',name="employee")
-            option 사원번호 :  /  이름 : 
+          select.form-control(type='text',name="ev_rated")
+            each employee in employees
+              option(value=employee.emp_id)=' 사원번호 : '+employee.emp_id +' /  이름 : '+employee.emp_name + ' /  경력: '+employee.emp_workyear+'년'
       h3 업무 수행 능력 평가
       .form-group
         p
@@ -50,25 +51,25 @@ block content
         p
         |평가 점수: &nbsp;
         br
-        input(type="radio", name="score", value="1" )
+        input(type="radio", name="score1", value="1" )
         |	1 &nbsp;
-        input(type="radio", name="score", value="2")
+        input(type="radio", name="score1", value="2")
         |	2 &nbsp;
-        input(type="radio", name="score", value="3")
+        input(type="radio", name="score1", value="3")
         |	3 &nbsp;
-        input(type="radio", name="score", value="4")
+        input(type="radio", name="score1", value="4")
         |	4 &nbsp;
-        input(type="radio", name="score", value="5")
+        input(type="radio", name="score1", value="5")
         |	5 &nbsp;
         p
         |평가 내용 : 
         p
-        textarea(name="evaluate", cols="70%", rows="10")
+        textarea(name="evaluate1", cols="70%", rows="10")
 
 
       
-    a.btn.btn-outline-secondary(href='javascript:window.history.back();') Back 
-    | 
-    button.btn.btn-dark(type='submit') 등록
-    br
-    br
+        a.btn.btn-outline-secondary(href='javascript:window.history.back();') Back 
+        | 
+        button.btn.btn-dark(type='submit') 등록
+        br
+        br

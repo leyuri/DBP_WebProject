@@ -46,24 +46,46 @@ router.get('/', isAuthenticated1, function (req, res,next) {
 });
 
 router.get('/add', isAuthenticated1, function (req, res,next) {
-  connection.query('select * from employee',
-  function(err,employees){
+  connection.query('select * from project',
+  function(err,emp_projs){
     if(err) throw err;
-
-      res.render('evaluation/add_eval',{
-        employees: employees,
-
+    connection.query('select * from emp_proj,employee where emp_proj.emp_id=employee.emp_id',
+      function(err,employees){
+        if(err) throw err;
+        connection.query('select distinct(ev_type) from evaluate',
+        function(err,evaluates){
+          if(err) throw err;
+      
+          res.render('evaluation/add_eval',{
+            emp_projs: emp_projs,
+            evaluates:evaluates,
+            employees:employees
+          });
+        });
       });    
   });
 });
 
 
+router.post('/add', isAuthenticated1, function (req, res,next) {
+  connection.query('insert into evaluate(pro_id,ev_rate,ev_rated,ev_type,score,comment,ev_contype) values(?,?,?,?,?,?,?)',[req.body.project,req.user.id,req.body.ev_rated,req.body.ev_type,req.body.score,req.body.evaluate,"업무능력"],
+  function(err,emp_projs){
+    if(err) throw err;
+    connection.query('insert into evaluate(pro_id,ev_rate,ev_rated,ev_type,score,comment,ev_contype) values(?,?,?,?,?,?,?)',[req.body.project,req.user.id,req.body.ev_rated,req.body.ev_type,req.body.score1,req.body.evaluate1,"커뮤니케이션"],
+    function(err,emp_projs){
+      if(err) throw err;
+      req.flash('success', '성공적으로 평가를 등록했습니다.');
+      res.redirect('/evaluation');
+  
+    });
+  });
+});
 router.get('/:id/edit', isAuthenticated1, function (req, res,next) {
   connection.query('select * from evaluate',
   function(err,evaluates){
     if(err) throw err;
 
-      res.render('project/add_project',{
+      res.render('evaluation/add_eval',{
         evaluates: evaluates,
       });
   });
