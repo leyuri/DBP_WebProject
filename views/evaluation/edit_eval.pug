@@ -1,2 +1,74 @@
 extends ../layout
 block content
+  title= 'Evaluation'
+  .container
+    .jumbotron
+      h1 Evaluation Page
+      p You can evaluate the project. 
+    h1.main-title 평가
+    br
+    form
+      .form-group
+          label(for='')
+          |프로젝트 명:&nbsp;
+          select.form-control(type='text',name="employee")
+            option 지도앱 개발
+          p
+          label(for='')
+          |평가 항목:&nbsp;
+          select.form-control(type='text',name="employee")
+            option PM
+            option 동료
+            option 
+          p
+          label(for='')
+          |피 평가자:&nbsp;
+          select.form-control(type='text',name="employee")
+            option 사원번호 :  /  이름 : 
+      h3 업무 수행 능력 평가
+      .form-group
+        p
+        |평가 점수: &nbsp;
+        br
+        input(type="radio", name="score", value="1" )
+        |	1 &nbsp;
+        input(type="radio", name="score", value="2")
+        |	2 &nbsp;
+        input(type="radio", name="score", value="3")
+        |	3 &nbsp;
+        input(type="radio", name="score", value="4")
+        |	4 &nbsp;
+        input(type="radio", name="score", value="5")
+        |	5 &nbsp;
+        p
+        |평가 내용 : 
+        p
+        textarea(name="evaluate", cols="70%", rows="10")
+
+      h3 커뮤니케이션 능력 평가
+      .form-group
+        p
+        |평가 점수: &nbsp;
+        br
+        input(type="radio", name="score", value="1" )
+        |	1 &nbsp;
+        input(type="radio", name="score", value="2")
+        |	2 &nbsp;
+        input(type="radio", name="score", value="3")
+        |	3 &nbsp;
+        input(type="radio", name="score", value="4")
+        |	4 &nbsp;
+        input(type="radio", name="score", value="5")
+        |	5 &nbsp;
+        p
+        |평가 내용 : 
+        p
+        textarea(name="evaluate", cols="70%", rows="10")
+
+
+      
+    a.btn.btn-outline-secondary(href='javascript:window.history.back();') Back 
+    | 
+    button.btn.btn-dark(type='submit') 평가 수정
+    br
+    br
