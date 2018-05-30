@@ -12,11 +12,15 @@ block content
         tr
           th 번호
           th 이름
+          th
       tbody#myTable
         each client in clients
           tr           
             td= client.cus_id
             td= client.cus_name
+            td
+              a.btn.btn-sm.btn-outline-danger(data-url=`/project/${client.cus_id}/delete_customer`)
+                | #[i.fa.fa-trash] 고객 삭제
     br
     br
     h2 Order List
