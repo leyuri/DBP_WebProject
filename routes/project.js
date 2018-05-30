@@ -279,15 +279,15 @@ router.get('/:id', isAuthenticated4, function (req, res,next) {
               connection.query('select status, count(*) as cnt from proj_plan where pro_id=? group by status',req.params.id,
               function(err,plans){
                 if(err) throw err;
-                console.log(plans);
+
                 connection.query('select * from proj_plan,project where project.pro_id=proj_plan.pro_id and proj_plan.pro_id=?',req.params.id,
                 function(err,pro_plans){
                   if(err) throw err;
-                  console.log(plans);
+
                   connection.query('select * from evaluate where pro_id=?',req.params.id,
                   function(err,evaluates){
                     if(err) throw err;
-                    console.log(plans);
+        
                     res.render('project/show',{
                       projects: projects,
                       emp_projs: emp_projs,

@@ -23,7 +23,19 @@ var isAuthenticated1 = function (req, res, next) {
  
 };
 
-
+var isAuthenticated2 = function (req, res, next) {    
+  if (req.isAuthenticated()){
+    if(req.user.dept ==3 ||req.user.dept ==5){
+      //경영진/개발자만 열람가능
+      return next();
+    }
+    req.flash('danger','접근 권한이 없습니다.');
+    res.redirect('/');
+    
+  }
+  res.redirect('/');
+ 
+};
 router.get('/', isAuthenticated1, function (req, res,next) {
   connection.query('select ev_id, ev_contype,pro_name, project.pro_id,role_name,er_start,er_end,ev_rate,ev_rated,ev_type,score,comment , emp_name from employee,project, role_er, emp_proj, evaluate where employee.emp_id=emp_proj.emp_id and project.pro_id = emp_proj.pro_id and emp_proj.pro_id=evaluate.pro_id and emp_proj.er_role =role_er.role_id and emp_proj.emp_id = evaluate.ev_rated and evaluate.ev_type="PM"',
   function(err,pms){
@@ -45,7 +57,7 @@ router.get('/', isAuthenticated1, function (req, res,next) {
   });
 });
 
-router.get('/:id/add', isAuthenticated1, function (req, res,next) {
+router.get('/:id/add', isAuthenticated2, function (req, res,next) {
 
   connection.query('select * from emp_proj,employee where emp_proj.emp_id=employee.emp_id and pro_id=?',req.params.id,
     function(err,employees){
@@ -64,7 +76,7 @@ router.get('/:id/add', isAuthenticated1, function (req, res,next) {
 });
 
 
-router.post('/:id/add', isAuthenticated1, function (req, res,next) {
+router.post('/:id/add', isAuthenticated2, function (req, res,next) {
   connection.query('insert into evaluate(pro_id,ev_rate,ev_rated,ev_type,score,comment,ev_contype) values(?,?,?,?,?,?,?)',[req.params.id,req.user.id,req.body.ev_rated,req.body.ev_type,req.body.score,req.body.evaluate,"업무능력"],
   function(err,emp_projs){
     if(err) throw err;

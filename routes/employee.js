@@ -212,7 +212,7 @@ router.post('/:id/edit', isAuthenticated1, (req, res, next) => {
       return next(err);
     }
     req.flash('success', 'Updated successfully.');
-    res.redirect(`/employee`);
+    res.redirect(`/employee/${req.params.id}`);
   
   });
 });
