@@ -6,7 +6,7 @@ block content
       h1 Evaluation View Page
       p You can view the Evaluation about Employee. 
   .container
-    a.btn.btn-sm.btn-outline-secondary(href=`/evaluation/add`) 평가하기
+
 
     h2 PM 평가
     table#evtable.table.table-bordered.table-striped.table-hover
@@ -37,8 +37,8 @@ block content
                 td=pm.score
                 td=pm.comment
                 td    
-                    a.btn.btn-sm.btn-outline-secondary(href=`/evaluation/${pm.ev_id}/edit`) 
-                        | #[i.fa.fa-pencil] 수정
+                    //- a.btn.btn-sm.btn-outline-secondary(href=`/evaluation/${pm.ev_id}/edit`) 
+                    //-     | #[i.fa.fa-pencil] 수정
                     a.btn.btn-sm.btn-outline-danger(data-url=`/evaluation/${pm.ev_id}/delete_eval`)
                         | #[i.fa.fa-trash] 삭제
                 
@@ -73,8 +73,8 @@ block content
                 td=client.score
                 td=client.comment
                 td
-                    a.btn.btn-sm.btn-outline-secondary(href=`/evaluation/${client.ev_id}/edit`)
-                        | #[i.fa.fa-pencil] 수정
+                    //- a.btn.btn-sm.btn-outline-secondary(href=`/evaluation/${client.ev_id}/edit`)
+                    //-     | #[i.fa.fa-pencil] 수정
                     a.btn.btn-sm.btn-outline-danger(data-url=`/evaluation/${client.ev_id}/delete_eval`)
                         | #[i.fa.fa-trash] 삭제
     br
@@ -108,13 +108,11 @@ block content
                 td=peer.score
                 td=peer.comment
                 td
-                    a.btn.btn-sm.btn-outline-secondary(href=`/evaluation/${peer.ev_id}/edit`) 
-                        | #[i.fa.fa-pencil] 수정
+                    //- a.btn.btn-sm.btn-outline-secondary(href=`/evaluation/${peer.ev_id}/edit`) 
+                    //-     | #[i.fa.fa-pencil] 수정
                     a.btn.btn-sm.btn-outline-danger(data-url=`/evaluation/${peer.ev_id}/delete_eval`)
                         | #[i.fa.fa-trash] 삭제
     br
-    br
-    a.btn.btn-sm.btn-outline-secondary(href='/project/add_eval') 평가 추가
     br
     br
   script.

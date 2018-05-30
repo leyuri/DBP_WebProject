@@ -7,25 +7,17 @@ block content
       p You can evaluate the project. 
     h1.main-title 평가
     br
-    form(action=`/evaluation/add`, method = 'POST')
+    form(action=`/evaluation/${employees[0].pro_id}/add`, method = 'POST')
       .form-group
-          label(for='')
-          |프로젝트 명:&nbsp;
-          select.form-control(type='text',name="project")
-            each emp_proj in emp_projs
-              option(value=emp_proj.pro_id)=emp_proj.pro_name
-          p
-          label(for='')
-          |평가 항목:&nbsp;
-          select.form-control(type='text',name="ev_type")
+        |평가 항목:&nbsp;
+        select.form-control(type='text',name="ev_type")
             each evaluate in evaluates
-              option=evaluate.ev_type
-          p
-          label(for='')
-          |피 평가자:&nbsp;
-          select.form-control(type='text',name="ev_rated")
+                option=evaluate.ev_type        
+
+        |피 평가자:&nbsp;
+        select.form-control(type='text',name="ev_rated")
             each employee in employees
-              option(value=employee.emp_id)=' 사원번호 : '+employee.emp_id +' /  이름 : '+employee.emp_name + ' /  경력: '+employee.emp_workyear+'년'
+                option(value=employee.emp_id)=' 사원번호 : '+employee.emp_id +' /  이름 : '+employee.emp_name + ' /  경력: '+employee.emp_workyear+'년'
       h3 업무 수행 능력 평가
       .form-group
         p
