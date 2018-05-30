@@ -45,6 +45,16 @@ router.get('/', isAuthenticated1, function (req, res,next) {
   });
 });
 
+router.get('/:id/delete_eval', isAuthenticated1, (req, res, next) => {
+  connection.query('DELETE FROM evaluate WHERE ev_id = ?',req.params.id,function(err,result){
+    if (err) {
+      return next(err);
+    }
+    req.flash('success', 'Deleted Successfully.');
+    res.redirect('/evaluation/index');
+  });
+});
+
 
 module.exports = router;
 

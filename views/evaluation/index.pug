@@ -18,6 +18,7 @@ block content
               th 구분
               th 평가 점수 
               th 평가 내용
+              th
 
       tbody#myTable
         each pm in pms
@@ -33,6 +34,10 @@ block content
                 td=pm.ev_type
                 td=pm.score
                 td=pm.comment
+                td
+                    a.btn.btn-sm.btn-outline-danger(data-url=`/evaluation/${pm.ev_id}/delete_eval`)
+                        | #[i.fa.fa-trash] 삭제
+                
     br
     br
     h2 고객 평가
@@ -47,6 +52,7 @@ block content
               th 구분
               th 평가 점수 
               th 평가 내용
+              th
 
       tbody#myTable
         each client in clients
@@ -62,6 +68,9 @@ block content
                 td=client.ev_type
                 td=client.score
                 td=client.comment
+                td
+                    a.btn.btn-sm.btn-outline-danger(data-url=`/evaluation/${client.ev_id}/delete_eval`)
+                        | #[i.fa.fa-trash] 삭제
     br
     br
     h2 동료 평가
@@ -76,6 +85,7 @@ block content
               th 구분
               th 평가 점수 
               th 평가 내용
+              th
 
       tbody#myTable
         each peer in peers
@@ -91,16 +101,30 @@ block content
                 td=peer.ev_type
                 td=peer.score
                 td=peer.comment
+                td
+                    a.btn.btn-sm.btn-outline-danger(data-url=`/evaluation/${peer.ev_id}/delete_eval`)
+                        | #[i.fa.fa-trash] 삭제
     br
     br
  
   script.
+
+
     $(document).ready(function() {
     $('#evtable').DataTable();
     } );
     $(document).ready(function() {
     $('#evtable1').DataTable();
     } );
-      $(document).ready(function() {
+    $(document).ready(function() {
     $('#evtable2').DataTable();
     } );
+    
+    $(function() {
+    $('.btn-outline-danger').click(function() {
+    if (confirm('정말 삭제하시겠습니까?')) {
+        location = $(this).data('url');
+    }
+    return false;
+    });
+    });
