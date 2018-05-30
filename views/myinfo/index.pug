@@ -72,7 +72,8 @@ block content
           each project in projects        
             tr(data-toggle='modal', data-target='#myModal')
               
-              td= project.pro_name
+              td
+                a(href=`/project/${project.pro_id}`)= project.pro_name 
               td= project.role_name
               td= moment(project.er_start).format("YYYY년 MM월 DD일")
               td

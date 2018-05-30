@@ -16,7 +16,7 @@ var isAuthenticated1 = function (req, res, next) {
       return next();
     }
     req.flash('danger','접근 권한이 없습니다.');
-    res.redirect('/employee');
+    res.redirect('/');
     
   }
   res.redirect('/');
