@@ -69,7 +69,7 @@ block content
           each project in projects
             tr
                 td=project.pro_name
-                td=project.pro_org
+                td=project.pro_id
                 td=project.cus_name
                 td=moment(project.pro_start).format("YYYY년 MM월 DD일")
                 td=moment(project.pro_deadline).format("YYYY년 MM월 DD일")

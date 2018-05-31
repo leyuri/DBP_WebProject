@@ -156,7 +156,7 @@ router.post('/:id/edit_order', isAuthenticated3, (req, res, next) => {
   });
 });
 
-router.post('/:id/answers', isAuthenticated2, (req, res, next) => {
+router.post('/:id/answers', isAuthenticated4, (req, res, next) => {
 
 
   connection.query('insert into project_comment(com_project,com_author,com_content,com_date) values(?,?,?,NOW())',
@@ -334,7 +334,7 @@ router.get('/:id/delete_order', isAuthenticated3, (req, res, next) => {
     res.redirect('/project/order_list');
   });
 });
-router.get('/:id/delete_answer', isAuthenticated2, (req, res, next) => {
+router.get('/:id/delete_answer', isAuthenticated4, (req, res, next) => {
   connection.query('DELETE FROM project_comment WHERE com_id = ?',req.params.id,function(err,result){
     if (err) {
       return next(err);
