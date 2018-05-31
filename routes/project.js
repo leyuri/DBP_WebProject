@@ -395,7 +395,7 @@ router.get('/:id/edit', isAuthenticated2, function (req, res) {
 });
 
 
-router.post('/:id/edit', isAuthenticated2, (req, res, next) => {
+router.post('/:id/edit', isAuthenticated2, (req, res, next) => {    
   if(req.body.pro_name){
     connection.query('update project set pro_name=? ,pro_start=?, pro_deadline=?, pro_org=? where pro_id=?',
     [req.body.pro_name,req.body.pro_start,req.body.pro_end,req.body.order, req.params.id] ,
@@ -428,9 +428,18 @@ router.post('/:id/edit', isAuthenticated2, (req, res, next) => {
                     if (err) {
                       return next(err);
                     }
-
-          req.flash('success', '성공적으로 프로젝트/참여직원을 수정하였습니다.');
-          res.redirect(`/project/${req.params.id}`);
+                    if(req.body.select1_3)
+                    connection.query('INSERT into emp_proj(pro_id,emp_id,er_role,er_start,er_end) values(?,?,?,?,?)',
+                      [req.params.id, req.body.select1_3,req.body.select2_3,req.body.select3_3,req.body.select4_3] ,
+                      function(err,result){
+                        if (err) {
+                          return next(err);
+                        }
+            
+        
+                  req.flash('success', '성공적으로 프로젝트/참여직원을 수정하였습니다.');
+                  res.redirect(`/project/${req.params.id}`);
+                  });
               });
             });
         });
