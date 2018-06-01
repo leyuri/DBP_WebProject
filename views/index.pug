@@ -1,108 +1,340 @@
 extends layout
 block content
-  main(role='main')
-    #myCarousel.carousel.slide(data-ride='carousel')
-      ol.carousel-indicators
-        li.active(data-target='#myCarousel', data-slide-to='0')
-        li(data-target='#myCarousel', data-slide-to='1')
-        li(data-target='#myCarousel', data-slide-to='2')
-      .carousel-inner
-        .carousel-item.active
-          img.first-slide(src='http://placehold.it/1600x500&text=image1', alt='First slide')
-          .container
-            .carousel-caption.text-left
-              h1 Example headline.
-              p
-                | Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+  head
+    meta(charset='utf-8')
+    title Main Page
 
-        .carousel-item
-          img.second-slide(src='http://placehold.it/1400x500&text=image2', alt='Second slide')
-          .container
-            .carousel-caption
-              h1 Another example headline.
-              p
-                | Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-              p
-                a.btn.btn-lg.btn-primary(href='#', role='button') Learn more
-        .carousel-item
-          img.third-slide(src='http://placehold.it/1400x500&text=image3', alt='Third slide')
-          .container
-            .carousel-caption.text-right
-              h1 One more for good measure.
-              p
-                | Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-              p
-                a.btn.btn-lg.btn-primary(href='#', role='button') Browse gallery
-      a.carousel-control-prev(href='#myCarousel', role='button', data-slide='prev')
-        span.carousel-control-prev-icon(aria-hidden='true')
-        span.sr-only Previous
-      a.carousel-control-next(href='#myCarousel', role='button', data-slide='next')
-        span.carousel-control-next-icon(aria-hidden='true')
-        span.sr-only Next
-    //
-      Marketing messaging and featurettes
-      ==================================================
-    // Wrap the rest of the page in another container to center all the content.
-    br
-    br
-    .container.marketing
-      // Three columns of text below the carousel
+  // Header
+  header.masthead#master
+    .container
+      .intro-text
+        .intro-lead-in Welcome To Our Company!
+        .intro-heading.text-uppercase It&apos;s Nice To Meet You
+        a.btn.btn-primary.btn-xl.text-uppercase.js-scroll-trigger(href='#services') Details
+  // Services
+  section
+    .container#services
+  
       .row
-        .col-lg-4
-          img.rounded-circle(src='http://placehold.it/120x120&text=image1', alt='Generic placeholder image', width='140', height='140')
-          h2 Heading
-          p
-            | Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.
-          p
-            a.btn.btn-secondary(href='#', role='button') View details &raquo;
-        // /.col-lg-4
-        .col-lg-4
-          img.rounded-circle(src='http://placehold.it/120x120&text=image2', alt='Generic placeholder image', width='140', height='140')
-          h2 Heading
-          p
-            | Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.
-          p
-            a.btn.btn-secondary(href='#', role='button') View details &raquo;
-        // /.col-lg-4
-        .col-lg-4
-          img.rounded-circle(src='http://placehold.it/120x120&text=image3', alt='Generic placeholder image', width='140', height='140')
-          h2 Heading
-          p
-            | Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-          p
-            a.btn.btn-secondary(href='#', role='button') View details &raquo;
-        // /.col-lg-4
-      // /.row
-      // START THE FEATURETTES
-      hr.featurette-divider
-      .row.featurette
-        .col-md-7
-          h2.featurette-heading
-            | First featurette heading. 
-            span.text-muted It&apos;ll blow your mind.
-          p.lead
-            | Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.
-        .col-md-5
-          img.featurette-image.img-fluid.mx-auto(src='http://placehold.it/120x120&text=image1', alt='Generic placeholder image')
-      hr.featurette-divider
-      .row.featurette
-        .col-md-7.order-md-2
-          h2.featurette-heading
-            | Oh yeah, it&apos;s that good. 
-            span.text-muted See for yourself.
-          p.lead
-            | Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.
-        .col-md-5.order-md-1
-          img.featurette-image.img-fluid.mx-auto(src='http://placehold.it/120x120&text=image1', alt='Generic placeholder image')
-      hr.featurette-divider
-      .row.featurette
-        .col-md-7
-          h2.featurette-heading
-            | And lastly, this one. 
-            span.text-muted Checkmate.
-          p.lead
-            | Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.
-        .col-md-5
-          img.featurette-image.img-fluid.mx-auto(src='http://placehold.it/120x120&text=image1', alt='Generic placeholder image')
-      hr.featurette-divider
-      // /END THE FEATURETTES
+        .col-lg-12.text-center
+          br
+          br
+          h2.section-heading.text-uppercase Services
+          h3.section-subheading.text-muted 
+      .row.text-center
+        .col-md-4
+          span.fa-stack.fa-4x
+            i.fa.fa-circle.fa-stack-2x.text-primary
+            i.fa.fa-shopping-cart.fa-stack-1x.fa-inverse
+          h4.service-heading System Development
+          p.text-muted
+            | 웹 기반 시스템 및 웹 서비스 개발, 반응형 웹을 활용한 모바일 웹 개발, 안드로이드 iOS앱 개발
+        .col-md-4
+          span.fa-stack.fa-4x
+            i.fa.fa-circle.fa-stack-2x.text-primary
+            i.fa.fa-laptop.fa-stack-1x.fa-inverse
+          h4.service-heading Products & Services
+          p.text-muted
+            | 모바일 주문 시스템, 블로그 제작 및 마게팅, 디지털 메뉴보드 광고
+        .col-md-4
+          span.fa-stack.fa-4x
+            i.fa.fa-circle.fa-stack-2x.text-primary
+            i.fa.fa-lock.fa-stack-1x.fa-inverse
+          h4.service-heading Maintenance
+          p.text-muted
+            | 웹 서비스 운영 유지보수 대행, 데이터베이스 위탁 관리 대행
+    .intro-text
+      a.btn.btn-primary.btn-xl.text-uppercase.js-scroll-trigger(href='#portfolio') Projects
+ 
+  // Portfolio Grid
+  section.bg-light
+    .container#portfolio
+      .row
+        .col-lg-12.text-center
+          h2.section-heading.text-uppercase Projects
+          h3.section-subheading.text-muted These are our projects
+      .row
+        .col-md-4.col-sm-6.portfolio-item
+          a.portfolio-link(data-toggle='modal', href='#portfolioModal1')
+            .portfolio-hover
+              .portfolio-hover-content
+                i.fa.fa-plus.fa-3x
+            img.img-fluid(src='img/portfolio/01-thumbnail.jpg', alt='')
+          .portfolio-caption
+            h4=projects[0].pro_name
+            p.text-muted=moment(projects[0].pro_start).format("YYYY년 MM월 DD일")
+        .col-md-4.col-sm-6.portfolio-item
+          a.portfolio-link(data-toggle='modal', href='#portfolioModal2')
+            .portfolio-hover
+              .portfolio-hover-content
+                i.fa.fa-plus.fa-3x
+            img.img-fluid(src='img/portfolio/02-thumbnail.jpg', alt='')
+          .portfolio-caption
+            h4=projects[1].pro_name
+            p.text-muted=moment(projects[1].pro_start).format("YYYY년 MM월 DD일")
+        .col-md-4.col-sm-6.portfolio-item
+          a.portfolio-link(data-toggle='modal', href='#portfolioModal3')
+            .portfolio-hover
+              .portfolio-hover-content
+                i.fa.fa-plus.fa-3x
+            img.img-fluid(src='img/portfolio/03-thumbnail.jpg', alt='')
+          .portfolio-caption
+            h4=projects[2].pro_name
+            p.text-muted=moment(projects[2].pro_start).format("YYYY년 MM월 DD일")
+        .col-md-4.col-sm-6.portfolio-item
+          a.portfolio-link(data-toggle='modal', href='#portfolioModal4')
+            .portfolio-hover
+              .portfolio-hover-content
+                i.fa.fa-plus.fa-3x
+            img.img-fluid(src='img/portfolio/04-thumbnail.jpg', alt='')
+          .portfolio-caption
+            h4=projects[3].pro_name
+            p.text-muted=moment(projects[3].pro_start).format("YYYY년 MM월 DD일")
+        .col-md-4.col-sm-6.portfolio-item
+          a.portfolio-link(data-toggle='modal', href='#portfolioModal5')
+            .portfolio-hover
+              .portfolio-hover-content
+                i.fa.fa-plus.fa-3x
+            img.img-fluid(src='img/portfolio/05-thumbnail.jpg', alt='')
+          .portfolio-caption
+            h4=projects[4].pro_name
+            p.text-muted=moment(projects[4].pro_start).format("YYYY년 MM월 DD일")
+        .col-md-4.col-sm-6.portfolio-item
+          a.portfolio-link(data-toggle='modal', href='#portfolioModal6')
+            .portfolio-hover
+              .portfolio-hover-content
+                i.fa.fa-plus.fa-3x
+            img.img-fluid(src='img/portfolio/06-thumbnail.jpg', alt='')
+          .portfolio-caption
+            h4=projects[5].pro_name
+            p.text-muted=moment(projects[5].pro_start).format("YYYY년 MM월 DD일")
+    .intro-text
+      a.btn.btn-primary.btn-xl.text-uppercase.js-scroll-trigger(href='/project') Project List
+      p
+      a.btn.btn-primary.btn-xl.text-uppercase.js-scroll-trigger(href='/project/add_project') Create Project
+
+  // Team
+  section#team.bg-light
+    .container
+      .row
+        .col-lg-12.text-center
+          h2.section-heading.text-uppercase Our Amazing Team
+          h3.section-subheading.text-muted 
+      .row
+        .col-sm-3
+          .team-member
+            img.mx-auto.rounded-circle(src='img/team/1.jpg', alt='')
+            h4 문현주
+            p.text-muted Lead Developer
+            ul.list-inline.social-buttons
+              li.list-inline-item
+                a(href='#')
+                  i.fa.fa-twitter
+              li.list-inline-item
+                a(href='#')
+                  i.fa.fa-facebook
+              li.list-inline-item
+                a(href='#')
+                  i.fa.fa-linkedin
+        .col-sm-3
+          .team-member
+            img.mx-auto.rounded-circle(src='img/team/2.jpg', alt='')
+            h4 신성범
+            p.text-muted Lead Developer
+            ul.list-inline.social-buttons
+              li.list-inline-item
+                a(href='#')
+                  i.fa.fa-twitter
+              li.list-inline-item
+                a(href='#')
+                  i.fa.fa-facebook
+              li.list-inline-item
+                a(href='#')
+                  i.fa.fa-linkedin
+        .col-sm-3
+          .team-member
+            img.mx-auto.rounded-circle(src='img/team/3.jpg', alt='')
+            h4 이유리
+            p.text-muted Lead Developer
+            ul.list-inline.social-buttons
+              li.list-inline-item
+                a(href='#')
+                  i.fa.fa-twitter
+              li.list-inline-item
+                a(href='#')
+                  i.fa.fa-facebook
+              li.list-inline-item
+                a(href='#')
+                  i.fa.fa-linkedin
+        .col-sm-3
+          .team-member
+            img.mx-auto.rounded-circle(src='img/team/4.jpg', alt='')
+            h4 유주영
+            p.text-muted Lead Developer
+            ul.list-inline.social-buttons
+              li.list-inline-item
+                a(href='#')
+                  i.fa.fa-twitter
+              li.list-inline-item
+                a(href='#')
+                  i.fa.fa-facebook
+              li.list-inline-item
+                a(href='#')
+                  i.fa.fa-linkedin        
+      .row
+        .col-lg-8.mx-auto.text-center
+          p.large.text-muted
+
+  // Portfolio Modals
+  // Modal 1
+
+  #portfolioModal1.portfolio-modal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .close-modal(data-dismiss='modal')
+          .lr
+            .rl
+        .container
+          .row
+            .col-lg-8.mx-auto
+              .modal-body
+                // Project Details Go Here
+                h2.text-uppercase=projects[0].pro_name
+                p.item-intro.text-muted=projects[0].pro_start
+                img.img-fluid.d-block.mx-auto(src='img/portfolio/01-full.jpg', alt='')
+                p=projects[0].order_content
+                ul.list-inline
+             
+                  li Client : 
+                   p=projects[0].cus_name
+               
+                button.btn.btn-primary(data-dismiss='modal', type='button')
+                  i.fa.fa-times
+                  |                     Close Project
+
+  // Modal 2
+  #portfolioModal2.portfolio-modal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .close-modal(data-dismiss='modal')
+          .lr
+            .rl
+        .container
+          .row
+            .col-lg-8.mx-auto
+              .modal-body
+                // Project Details Go Here
+                h2.text-uppercase=projects[1].pro_name
+                p.item-intro.text-muted=projects[1].pro_start
+                img.img-fluid.d-block.mx-auto(src='img/portfolio/02-full.jpg', alt='')
+                p=projects[1].order_content
+                ul.list-inline
+          
+                  li Client : 
+                   p=projects[1].cus_name
+                button.btn.btn-primary(data-dismiss='modal', type='button')
+                  i.fa.fa-times
+                  |                     Close Project
+  // Modal 3
+  #portfolioModal3.portfolio-modal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .close-modal(data-dismiss='modal')
+          .lr
+            .rl
+        .container
+          .row
+            .col-lg-8.mx-auto
+              .modal-body
+                // Project Details Go Here
+                h2.text-uppercase=projects[2].pro_name
+                p.item-intro.text-muted=projects[2].pro_start
+                img.img-fluid.d-block.mx-auto(src='img/portfolio/03-full.jpg', alt='')
+                p=projects[2].order_content
+                ul.list-inline
+           
+                  li Client : 
+                   p=projects[2].cus_name
+                button.btn.btn-primary(data-dismiss='modal', type='button')
+                  i.fa.fa-times
+                  |                     Close Project
+  // Modal 4
+  #portfolioModal4.portfolio-modal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .close-modal(data-dismiss='modal')
+          .lr
+            .rl
+        .container
+          .row
+            .col-lg-8.mx-auto
+              .modal-body
+                // Project Details Go Here
+                h2.text-uppercase=projects[3].pro_name
+                p.item-intro.text-muted=projects[3].pro_start
+                img.img-fluid.d-block.mx-auto(src='img/portfolio/04-full.jpg', alt='')
+                p=projects[3].order_content
+                ul.list-inline
+         
+                  li Client : 
+                    p=projects[3].cus_name
+        
+                button.btn.btn-primary(data-dismiss='modal', type='button')
+                  i.fa.fa-times
+                  |                     Close Project
+  // Modal 5
+  #portfolioModal5.portfolio-modal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .close-modal(data-dismiss='modal')
+          .lr
+            .rl
+        .container
+          .row
+            .col-lg-8.mx-auto
+              .modal-body
+                // Project Details Go Here
+                h2.text-uppercase=projects[4].pro_name
+                p.item-intro.text-muted=projects[4].pro_start
+                img.img-fluid.d-block.mx-auto(src='img/portfolio/05-full.jpg', alt='')
+                p=projects[4].order_content
+                ul.list-inline
+             
+                  li Client : 
+                   p=projects[4].cus_name
+                button.btn.btn-primary(data-dismiss='modal', type='button')
+                  i.fa.fa-times
+                  |                     Close Project
+  // Modal 6
+  #portfolioModal6.portfolio-modal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .close-modal(data-dismiss='modal')
+          .lr
+            .rl
+        .container
+          .row
+            .col-lg-8.mx-auto
+              .modal-body
+                // Project Details Go Here
+                h2.text-uppercase=projects[5].pro_name
+                p.item-intro.text-muted=projects[5].pro_start
+                img.img-fluid.d-block.mx-auto(src='img/portfolio/06-full.jpg', alt='')
+                p=projects[5].order_content
+                ul.list-inline
+  
+                  li Client : 
+                   p=projects[5].cus_name
+                button.btn.btn-primary(data-dismiss='modal', type='button')
+                  i.fa.fa-times
+                  |                     Close Project
+  // Bootstrap core JavaScript
+  script(src='vendor/jquery/jquery.min.js')
+  script(src='vendor/bootstrap/js/bootstrap.bundle.min.js')
+  // Plugin JavaScript
+  script(src='vendor/jquery-easing/jquery.easing.min.js')
+  // Contact form JavaScript
+  script(src='js/jqBootstrapValidation.js')
+  script(src='js/contact_me.js')
+  // Custom scripts for this template
+  script(src='js/agency.min.js')

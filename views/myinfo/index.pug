@@ -2,7 +2,7 @@ extends ../layout
 
 block content
   .container
-       
+
     dl.row
       dt.col-sm-3 ID
       dd.col-sm-9= user_info.emp_id
@@ -11,7 +11,7 @@ block content
       dd.col-sm-9= user_info.emp_name
 
       dt.col-sm-3 부서
-      dd.col-sm-9= user_info.emp_dep
+      dd.col-sm-9= user_info.dept_name
     
       dt.col-sm-3 최종학력
       dd.col-sm-9= user_info.emp_edu
@@ -19,11 +19,77 @@ block content
       dt.col-sm-3 주민번호
       dd.col-sm-9= user_info.emp_Rnum
 
+      dt.col-sm-3 입사날짜
+      dd.col-sm-9= moment(user_info.emp_hiredate).format("YYYY년 MM월 DD일")
+
+      dt.col-sm-3 경력
+      dd.col-sm-9= user_info.emp_workyear
     br
-    a.btn.btn-sm.btn-outline-secondary(href=`/myinfo/${user_info.emp_id}/edit`) 
-      | 정보 수정
-    a.btn.btn-sm.btn-outline-danger.delete-btn(data-url=`/myinfo/${user_info.emp_id}/delete`)
-      | 회원 탈퇴
+    table.table.table-bordered.table-striped.table-hover
+      h2 나의 경력 정보
+      br
+      thead
+      tr
+          th 이전 직장 이름
+          th 근무 기간
+  
+      tbody#myTable2
+      each career in careers
+        tr(href='#emp', data-toggle='collapse')
+      
+          td=career.career_name
+          td=career.career_period
+
+    if(user_info.emp_dep==5)
+      table.table.table-bordered.table-striped.table-hover
+          h2 나의 보유 기술
+          br
+          thead
+          tr
+              th 기술 이름
+              th 기술 등급
+
+          tbody#myTable2
+          each skill in skills
+            tr(href='#emp', data-toggle='collapse')
+          
+              td=skill.skill_name
+              td=skill.skill_grade
+
+
+    
+      table.table.table-bordered.table-striped.table-hover
+        h2 진행 프로젝트
+        br
+        thead
+        tr
+          th 프로젝트명[PRO_NAME]
+          th 직무[EMP_ROLE]
+          th 시작일[ER_START]
+          th 종료일[ER_END]
+
+        tbody#myTable2
+          each project in projects        
+            tr(data-toggle='modal', data-target='#myModal')
+              
+              td
+                a(href=`/project/${project.pro_id}`)= project.pro_name 
+              td= project.role_name
+              td= moment(project.er_start).format("YYYY년 MM월 DD일")
+              td
+                if(project.er_end)
+                  = moment(project.er_end).format("YYYY년 MM월 DD일")
+    
+    table(width='250')
+      tr
+        th
+          a.btn.btn-sm.btn-outline-secondary(href=`/myinfo/${user_info.emp_id}/edit`) 비밀번호 수정
+        th
+          a.btn.btn-sm.btn-outline-danger.delete-btn(data-url=`/myinfo/${user_info.emp_id}/delete`) 회원 탈퇴
+      br
+      br 
+    br
+    br
     br
     
     script.

@@ -1,0 +1,46 @@
+extends ../layout
+block content
+  .container
+    h1.main-title 내 경력/기술 등록
+    br
+    form(action=`/employee/${user_info.emp_id}/add_skill`, method='POST')
+      table(width="70%",margin="4")
+       tr(style='vertical-align:top')
+          td(style='width:400px; border-right:1px solid black; padding-right:12px; text-align:justify')
+            |경력 이름:&nbsp;
+            input.form-control(type='text', id='career_name', name='career_name')
+            br
+            |경력 기간:
+            input.form-control(type='text', id='carreer_period', name='career_period')
+
+          td(style='padding-left:10px')
+            |기술 이름 : 
+            input.form-control(type='text', id='skill_name', name='skill_name')
+            
+          
+            
+            p
+            |기술 등급: &nbsp;
+            br
+            input(type="radio", name="skill_level", value="상" )
+            |	상 &nbsp;
+            input(type="radio", name="skill_level", value="중")
+            |	중 &nbsp;
+            input(type="radio", name="skill_level", value="하")
+            |	하 &nbsp;
+
+      br
+      br
+
+      a.btn.btn-outline-secondary(href='javascript:window.history.back();') Back 
+      | 
+      button.btn.btn-dark(type='submit') 등록
+
+
+      br
+      br
+      br
+
+
+      
+        

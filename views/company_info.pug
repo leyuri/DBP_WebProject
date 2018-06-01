@@ -1,0 +1,103 @@
+extends layout
+block content
+    .container
+    section
+    .container#services
+  
+      .row
+        .col-lg-12.text-center
+          br
+          br
+          h2.section-heading.text-uppercase Services
+          h3.section-subheading.text-muted 
+      .row.text-center
+        .col-md-4
+          span.fa-stack.fa-4x
+            i.fa.fa-circle.fa-stack-2x.text-primary
+            i.fa.fa-shopping-cart.fa-stack-1x.fa-inverse
+          h4.service-heading System Development
+          p.text-muted
+            | 웹 기반 시스템 및 웹 서비스 개발, 반응형 웹을 활용한 모바일 웹 개발, 안드로이드 iOS앱 개발
+        .col-md-4
+          span.fa-stack.fa-4x
+            i.fa.fa-circle.fa-stack-2x.text-primary
+            i.fa.fa-laptop.fa-stack-1x.fa-inverse
+          h4.service-heading Products & Services
+          p.text-muted
+            | 모바일 주문 시스템, 블로그 제작 및 마게팅, 디지털 메뉴보드 광고
+        .col-md-4
+          span.fa-stack.fa-4x
+            i.fa.fa-circle.fa-stack-2x.text-primary
+            i.fa.fa-lock.fa-stack-1x.fa-inverse
+          h4.service-heading Maintenance
+          p.text-muted
+            | 웹 서비스 운영 유지보수 대행, 데이터베이스 위탁 관리 대행
+    .intro-text
+      a.btn.btn-primary.btn-xl.text-uppercase.js-scroll-trigger(href='#portfolio') Projects
+ 
+
+    section.bg-light
+        .container#portfolio
+        .row
+            .col-lg-12.text-center
+            h2.section-heading.text-uppercase Projects
+            h3.section-subheading.text-muted These are our projects
+        .row
+            .col-md-4.col-sm-6.portfolio-item
+            a.portfolio-link(data-toggle='modal', href='#portfolioModal1')
+                .portfolio-hover
+                .portfolio-hover-content
+                    i.fa.fa-plus.fa-3x
+                img.img-fluid(src='img/portfolio/01-thumbnail.jpg', alt='')
+            .portfolio-caption
+                h4=projects[0].pro_name
+                p.text-muted=moment(projects[0].pro_start).format("YYYY년 MM월 DD일")
+            .col-md-4.col-sm-6.portfolio-item
+            a.portfolio-link(data-toggle='modal', href='#portfolioModal2')
+                .portfolio-hover
+                .portfolio-hover-content
+                    i.fa.fa-plus.fa-3x
+                img.img-fluid(src='img/portfolio/02-thumbnail.jpg', alt='')
+            .portfolio-caption
+                h4=projects[1].pro_name
+                p.text-muted=moment(projects[1].pro_start).format("YYYY년 MM월 DD일")
+            .col-md-4.col-sm-6.portfolio-item
+            a.portfolio-link(data-toggle='modal', href='#portfolioModal3')
+                .portfolio-hover
+                .portfolio-hover-content
+                    i.fa.fa-plus.fa-3x
+                img.img-fluid(src='img/portfolio/03-thumbnail.jpg', alt='')
+            .portfolio-caption
+                h4=projects[2].pro_name
+                p.text-muted=moment(projects[2].pro_start).format("YYYY년 MM월 DD일")
+            .col-md-4.col-sm-6.portfolio-item
+            a.portfolio-link(data-toggle='modal', href='#portfolioModal4')
+                .portfolio-hover
+                .portfolio-hover-content
+                    i.fa.fa-plus.fa-3x
+                img.img-fluid(src='img/portfolio/04-thumbnail.jpg', alt='')
+            .portfolio-caption
+                h4=projects[3].pro_name
+                p.text-muted=moment(projects[3].pro_start).format("YYYY년 MM월 DD일")
+            .col-md-4.col-sm-6.portfolio-item
+            a.portfolio-link(data-toggle='modal', href='#portfolioModal5')
+                .portfolio-hover
+                .portfolio-hover-content
+                    i.fa.fa-plus.fa-3x
+                img.img-fluid(src='img/portfolio/05-thumbnail.jpg', alt='')
+            .portfolio-caption
+                h4=projects[4].pro_name
+                p.text-muted=moment(projects[4].pro_start).format("YYYY년 MM월 DD일")
+            .col-md-4.col-sm-6.portfolio-item
+            a.portfolio-link(data-toggle='modal', href='#portfolioModal6')
+                .portfolio-hover
+                .portfolio-hover-content
+                    i.fa.fa-plus.fa-3x
+                img.img-fluid(src='img/portfolio/06-thumbnail.jpg', alt='')
+            .portfolio-caption
+                h4=projects[5].pro_name
+                p.text-muted=moment(projects[5].pro_start).format("YYYY년 MM월 DD일")
+        .intro-text
+        a.btn.btn-primary.btn-xl.text-uppercase.js-scroll-trigger(href='/project') Project List
+        p
+        a.btn.btn-primary.btn-xl.text-uppercase.js-scroll-trigger(href='/project/add_project') Create Project

@@ -1,0 +1,138 @@
+extends ../layout
+block content
+  title= 'Evaluation View'
+  .container
+    .jumbotron
+      h1 Evaluation View Page
+      p You can view the Evaluation about Employee. 
+  .container
+
+
+    h2 PM 평가
+    table#evtable.table.table-bordered.table-striped.table-hover
+      thead
+        tr
+              th 평가번호
+              th 피평가자
+              th 프로젝트
+              th 직무
+              th 평가자
+              th 구분
+              th 평가 점수 
+              th 평가 내용
+              th
+
+      tbody#myTable
+        each pm in pms
+            tr(href='#emp', data-toggle='collapse')
+                td=pm.ev_id
+                td
+                    a(href=`/employee/${pm.ev_rated}`)= pm.ev_rated
+                td
+                    a(href=`/project/${pm.pro_id}`)= pm.pro_name
+                td=pm.role_name
+                td
+                    a(href=`/employee/${pm.ev_rate}`)= pm.ev_rate
+                td=pm.ev_contype
+                td=pm.score
+                td=pm.comment
+                td    
+                    //- a.btn.btn-sm.btn-outline-secondary(href=`/evaluation/${pm.ev_id}/edit`) 
+                    //-     | #[i.fa.fa-pencil] 수정
+                    a.btn.btn-sm.btn-outline-danger(data-url=`/evaluation/${pm.ev_id}/delete_eval`)
+                        | #[i.fa.fa-trash] 삭제
+                
+    br
+    br
+    h2 고객 평가
+    table#evtable1.table.table-bordered.table-striped.table-hover
+      thead
+        tr
+              th 평가번호
+              th 피평가자
+              th 프로젝트
+              th 직무
+              th 평가자
+              th 구분
+              th 평가 점수 
+              th 평가 내용
+              th
+
+      tbody#myTable
+        each client in clients
+            tr(href='#emp', data-toggle='collapse')
+                td=client.ev_id
+                td
+                    a(href=`/employee/${client.ev_rated}`)= client.ev_rated
+                td
+                    a(href=`/project/${client.pro_id}`)= client.pro_name
+                td=client.role_name
+                td
+                    a(href=`/employee/${client.ev_rate}`)= client.ev_rate
+                td=client.ev_contype
+                td=client.score
+                td=client.comment
+                td
+                    //- a.btn.btn-sm.btn-outline-secondary(href=`/evaluation/${client.ev_id}/edit`)
+                    //-     | #[i.fa.fa-pencil] 수정
+                    a.btn.btn-sm.btn-outline-danger(data-url=`/evaluation/${client.ev_id}/delete_eval`)
+                        | #[i.fa.fa-trash] 삭제
+    br
+    br
+    h2 동료 평가
+    table#evtable2.table.table-bordered.table-striped.table-hover
+      thead
+        tr
+              th 평가번호
+              th 피평가자
+              th 프로젝트
+              th 직무
+              th 평가자
+              th 구분
+              th 평가 점수 
+              th 평가 내용
+              th
+
+      tbody#myTable
+        each peer in peers
+            tr(href='#emp', data-toggle='collapse')
+                td=peer.ev_id
+                td
+                    a(href=`/employee/${peer.ev_rated}`)= peer.ev_rated
+                td
+                    a(href=`/project/${peer.pro_id}`)= peer.pro_name
+                td=peer.role_name
+                td
+                    a(href=`/employee/${peer.ev_rate}`)= peer.ev_rate
+                td=peer.ev_contype
+                td=peer.score
+                td=peer.comment
+                td
+                    //- a.btn.btn-sm.btn-outline-secondary(href=`/evaluation/${peer.ev_id}/edit`) 
+                    //-     | #[i.fa.fa-pencil] 수정
+                    a.btn.btn-sm.btn-outline-danger(data-url=`/evaluation/${peer.ev_id}/delete_eval`)
+                        | #[i.fa.fa-trash] 삭제
+    br
+    br
+    br
+  script.
+
+
+    $(document).ready(function() {
+    $('#evtable').DataTable();
+    } );
+    $(document).ready(function() {
+    $('#evtable1').DataTable();
+    } );
+    $(document).ready(function() {
+    $('#evtable2').DataTable();
+    } );
+    
+    $(function() {
+    $('.btn-outline-danger').click(function() {
+    if (confirm('정말 삭제하시겠습니까?')) {
+        location = $(this).data('url');
+    }
+    return false;
+    });
+    });

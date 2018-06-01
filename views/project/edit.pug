@@ -1,0 +1,178 @@
+extends ../layout
+block content
+  .container
+    h1.main-title Edit Project
+    br
+    h5
+      | 프로젝트 참여 사원의 수 : 
+      a#countE=cnt.cnt
+      
+      select#selectEE
+        each emp_infoss in emp_infos
+          option=emp_infoss.emp_id
+      select#selectRL
+        each emp_infoss in emp_infos
+          option=emp_infoss.er_role
+      select#selectST
+        each emp_infoss in emp_infos
+          option=moment(emp_infoss.er_start).format('YYYY-MM-DD')
+      select#selectEN
+        each emp_infoss in emp_infos
+          option=moment(emp_infoss.er_end).format('YYYY-MM-DD')
+    br
+    form(action=`/project/${pro_info.pro_id}/edit`, method = 'POST')
+
+      .form-group
+        label(for='name') 프로젝트명
+        input.form-control(type='text', name='pro_name', placeholder='ProjectName' ,value=pro_info.pro_name)
+      .form-group
+        label(for='order') Order
+        select.form-control(name="order")
+          each project in projects
+            option(value=project.order_id)=project.order_content
+      .form-group
+        label(for='pro_start') 프로젝트 시작
+        input#startDate.form-control(type='date',name='pro_start', placeholder='Start Date',size='35' value= moment(pro_info.pro_start).format('YYYY-MM-DD'))
+      .form-group
+        label(for='pro_end') 프로젝트 끝
+        input#endDate.form-control(type='date',name='pro_end', placeholder='End Date', value=moment(pro_info.pro_deadline).format('YYYY-MM-DD'))
+      .form-group
+        label(for='edu') 참여 인력 선택&nbsp;
+        .row
+          .col-sm-4
+            | 개발자 선택:
+            select#select1.form-control(type='text',name="employee", value=emp_infos[0].emp_id)=emp_infos[0].emp_id
+              each employee in employees
+                option(value=employee.emp_id)=' 사원번호 : '+employee.emp_id +' /  이름 : '+employee.emp_name + ' /  경력: '+employee.emp_workyear+'년'
+            br
+            #container
+          .col-sm-2
+            |역할:
+            select#select2.form-control(type='text',name="role")
+              each role_er in role_ers
+                option(value=role_er.role_id)=role_er.role_name
+            br
+            #container2
+          .col-sm-2
+            |시작일:
+            input#select3.form-control(type='date', name="er_start" ,value=moment(emp_infos[0].er_start).format('YYYY-MM-DD'))
+            br
+            #container3
+          .col-sm-2
+            |종료일:
+            input#select4.form-control(type='date', name="er_end" ,value=moment(emp_infos[0].er_end).format('YYYY-MM-DD'))
+            br 
+            #container4
+        p
+          button#addBtn.btn.btn-outline.btn-primary.pull-left(type='button',class="btn btn-secondary float-right") 추가
+
+          br
+          a.btn.btn-dark(href='javascript:window.history.back();') Back
+          
+          | 
+          p#demo
+          button.btn.btn-secondary(type='submit') 프로젝트 수정
+          br
+          br
+
+  script(type='text/javascript').
+    $(document).ready(function(){
+    //For error fix & Get data.
+    $("#selectEE").hide();
+    $("#selectRL").hide();
+    $("#selectST").hide();
+    $("#selectEN").hide();
+    //First row init.
+    var countEmp = document.getElementById("countE").innerHTML;
+    countEmp *=1;
+    var value1st = document.getElementById("selectEE").options[0].innerHTML;
+    var selectText = "select option[value='"+value1st+"']";
+    $(selectText).attr("selected", true);
+    var value2nd = document.getElementById("selectRL").options[0].innerHTML;
+    var selectText = "select option[value='"+value2nd+"']";
+    $(selectText).attr("selected", true);
+    //Initialize Funciton with DB Data
+    $(function () {
+    for(i=1;i<countEmp;i++){
+    var value1 = document.getElementById("selectEE").options[i].innerHTML;
+    var value2 = document.getElementById("selectRL").options[i].innerHTML;
+    var value3 = document.getElementById("selectST").options[i].innerHTML;
+    var value4 = document.getElementById("selectEN").options[i].innerHTML;
+
+    //window.alert(value1);
+    var init_1 = $("#container select").length + 1;
+    var init_2 = $("#container2 select").length + 1;
+    var init_3 = $("#container3 input").length + 1;
+    var init_4 = $("#container4 input").length + 1;
+
+    var initselect1 = $("#select1").clone();
+    var initselect2 = $("#select2").clone();
+    var initselect3 = $("#select3").clone();
+    var initselect4 = $("#select4").clone();
+
+    initselect1.attr("name", "select1_" + init_1); 
+    initselect2.attr("name", "select2_" + init_2);
+    initselect3.attr("name", "select3_" + init_3);
+    initselect4.attr("name", "select4_" + init_4); 
+
+    initselect3.attr('value',value3);
+    initselect4.attr('value',value4);
+
+    var selectedValue1 = $("#select1 option:selected").val();
+    var selectedValue2 = $("#select2 option:selected").val();
+
+    initselect1.find("option[value = '" + value1 + "']").attr("selected", true);
+    initselect2.find("option[value = '" + value2 + "']").attr("selected", true); 
+
+    $("#container").append(initselect1);
+    $("#container").append("<br />");
+
+    $("#container2").append(initselect2);
+    $("#container2").append("<br />");
+
+    $("#container3").append(initselect3);
+    $("#container3").append("<br />");
+
+    $("#container4").append(initselect4);
+    $("#container4").append("<br />");
+    }
+    });
+    //Click Button to append New Data
+    $("#addBtn").bind("click", function () {
+    var index1 = $("#container select").length + 1;
+    var index2 = $("#container2 select").length + 1;
+    var index3 = $("#container3 input").length + 1;
+    var index4 = $("#container4 input").length + 1;
+    //Clone the DropDownList
+    var ddl1 = $("#select1").clone();
+    var ddl2 = $("#select2").clone();
+    var ddl3 = $("#select3").clone();
+    var ddl4 = $("#select4").clone();
+    //Set the ID and Name
+    ddl1.attr("name", "select1_" + index1);
+    ddl2.attr("name", "select2_" + index2);
+    ddl3.attr("name", "select3_" + index1);
+    ddl4.attr("name", "select4_" + index2);
+    //[OPTIONAL] Copy the selected value
+    var selectedValue1 = $("#select1 option:selected").val();
+    var selectedValue2 = $("#select2 option:selected").val();
+
+    ddl1.find("option[value = '" + selectedValue1 + "']").attr("selected", true);
+    ddl2.find("option[value = '" + selectedValue2 + "']").attr("selected", true);
+
+    var selectedValue3 = $("#select3 option:selected").val();
+    var selectedValue4 = $("#select4 option:selected").val();
+    ddl3.find("option[value = '" + selectedValue3 + "']").attr("selected", true);
+    ddl4.find("option[value = '" + selectedValue4 + "']").attr("selected", true);
+
+    //Append to the DIV.
+    $("#container").append(ddl1);
+    $("#container2").append(ddl2);
+    $("#container3").append(ddl3);
+    $("#container4").append(ddl4);
+    $("#container").append("<br />");
+    $("#container2").append("<br />");
+    $("#container3").append("<br />");
+    $("#container4").append("<br />");
+    });
+    });

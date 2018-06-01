@@ -6,8 +6,11 @@ var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
 var myinfo = require('./routes/myinfo');
+var project = require('./routes/project');
+var employee = require('./routes/employee');
+var evaluation = require('./routes/evaluation');
+
 
 var flash = require('connect-flash');
 var bodyParser = require('body-parser');
@@ -47,7 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // pug의 local에 현재 사용자 정보와 flash 메시지를 전달하자.
 app.use(function(req, res, next) {
-  res.locals.currentUser = req.session.user;
+  res.locals.currentUser = req.isAuthenticated();
   res.locals.flashMessages = req.flash();
   next();
 });
@@ -69,9 +72,10 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
 app.use('/myinfo', myinfo);
-
+app.use('/project', project);
+app.use('/employee', employee);
+app.use('/evaluation', evaluation);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

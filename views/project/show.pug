@@ -1,0 +1,329 @@
+extends ../layout
+block content
+  title= 'Project List'
+
+  .container
+    each project in projects
+      h1=project.pro_name
+      br
+      br
+
+      select#selectEE
+        each plan in plans
+          option=plan.status
+      select#selectRL
+        each plan in plans
+          option=plan.cnt
+    if(plans[0])
+      h2 프로젝트 진행 상태
+    #piechart
+   
+      script(type='text/javascript', src='https://www.gstatic.com/charts/loader.js')
+      script(type='text/javascript').
+        var mix = new Array();
+             //For error fix & Get data.
+        $("#selectEE").hide();
+        $("#selectRL").hide();
+        var Finish = document.getElementById("selectEE").options[0].innerHTML;       
+        var countFinish = document.getElementById("selectRL").options[0].innerHTML;
+   
+        var Late = document.getElementById("selectEE").options[1].innerHTML;       
+        var countLate = document.getElementById("selectRL").options[1].innerHTML;
+
+        var Progress = document.getElementById("selectEE").options[2].innerHTML;       
+        var countProgress = document.getElementById("selectRL").options[2].innerHTML;
+   
+        // Load google charts
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        // Draw the chart and set the chart values
+        function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+        ['project', 'project status'],
+        [Finish, parseInt(countFinish)],
+        [Late, parseInt(countLate)],
+        [Progress, parseInt(countProgress)],
+        ]);
+        // Optional; add a title and set the width and height of the chart
+        var options = {'title':'', 'width':1500, 'height':400 } ;
+        // Display the chart inside the <div> element with id="piechart"
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+        }
+
+        $(document).ready(function(){
+  
+
+        });
+
+    table.table.table-bordered.table-striped.table-hover
+        h2 프로젝트 정보
+        thead
+        tr
+            th 프로젝트명[PRO_NAME]
+            th [PRO_ID]
+            th 기관[PRO_ORG]
+            th [PRO_START]
+            th [PRO_DEADLINE]
+        tbody
+          each project in projects
+            tr
+                td=project.pro_name
+                td=project.pro_id
+                td=project.cus_name
+                td=moment(project.pro_start).format("YYYY년 MM월 DD일")
+                td=moment(project.pro_deadline).format("YYYY년 MM월 DD일")
+    table.table.table-bordered.table-striped.table-hover
+        thead
+        tr
+            th [ORDER_DATE]
+            th [ORDER_CONTENT]
+            th 기관[CUS_NAME]
+        tbody
+          each project in projects
+            tr
+                td=moment(project.order_date).format("YYYY년 MM월 DD일")
+                td=project.order_content
+                td=project.cus_name
+    br
+    table#projtable1.table.table-bordered.table-striped.table-hover
+        h2 프로젝트 참여자 명단
+        br 
+        h5 프로젝트 참여 인원 수 :
+          =cnt.cnt
+        br
+        thead
+        tr
+            th [EMP_NAME]  
+            th 직무[EMP_ROLE]
+            th 참여일[ER_START]
+            th 종료일[ER_END]
+            
+        tbody#myTable2
+        each emp_proj in emp_projs
+          tr(href='#emp', data-toggle='collapse')
+            td
+              a(href=`/employee/${emp_proj.emp_id}`)= emp_proj.emp_name
+            td=emp_proj.role_name
+            td
+              if(emp_proj.er_start)
+                =moment(emp_proj.er_start).format("YYYY년 MM월 DD일")
+            td
+              if(emp_proj.er_end)
+                =moment(emp_proj.er_end).format("YYYY년 MM월 DD일")
+    br
+    if(pro_plans[0])
+      table#projtable2.table.table-bordered.table-striped.table-hover
+          h2 프로젝트 일정
+
+          thead
+          tr
+              th 일정 이름[task_name]
+
+              th duration
+              th percent_complete
+              th dependency
+              th status
+              
+              
+          tbody#myTable2
+          each pro_plan in pro_plans
+            tr(href='#emp', data-toggle='collapse')
+              td=pro_plan.task_name
+
+              td=pro_plan.duration
+              td=pro_plan.percent_complete
+              td=pro_plan.dependency
+              td=pro_plan.status
+
+ 
+
+    select#select1
+      each pro_plan in pro_plans
+        option=pro_plan.task_name
+
+    select#select3
+      each pro_plan in pro_plans
+        option=pro_plan.pro_start
+
+    select#select5
+      each pro_plan in pro_plans
+        option=pro_plan.duration
+    select#select6
+      each pro_plan in pro_plans
+        option=pro_plan.percent_complete
+    select#select7
+      each pro_plan in pro_plans
+        option=pro_plan.dependency
+    if(pro_plans[0])
+      h2 프로젝트 일정 차트
+    br
+    script(type='text/javascript', src='https://www.gstatic.com/charts/loader.js')
+    script(type='text/javascript').
+      $("#select1").hide();  
+      $("#select3").hide(); 
+      $("#select5").hide();
+      $("#select6").hide();
+      $("#select7").hide();
+
+      var task1 = document.getElementById("select1").options[0].innerHTML;       
+      var task2 = document.getElementById("select1").options[1].innerHTML;  
+      var task3 = document.getElementById("select1").options[2].innerHTML;       
+      var task4 = document.getElementById("select1").options[3].innerHTML;
+      var task5 = document.getElementById("select1").options[4].innerHTML;
+
+      var dep1 = document.getElementById("select7").options[0].innerHTML;       
+      var dep2 = document.getElementById("select7").options[1].innerHTML;  
+      var dep3 = document.getElementById("select7").options[2].innerHTML;       
+      var dep4 = document.getElementById("select7").options[3].innerHTML;
+      var dep5 = document.getElementById("select7").options[4].innerHTML;
+
+      var start1 = document.getElementById("select3").options[0].innerHTML;       
+      var start2 = document.getElementById("select3").options[1].innerHTML;  
+      var start3 = document.getElementById("select3").options[2].innerHTML;       
+      var start4 = document.getElementById("select3").options[3].innerHTML;
+      var start5 = document.getElementById("select3").options[4].innerHTML;
+
+      
+
+      var dur1 = document.getElementById("select5").options[0].innerHTML;       
+      var dur2 = document.getElementById("select5").options[1].innerHTML;  
+      var dur3 = document.getElementById("select5").options[2].innerHTML;       
+      var dur4 = document.getElementById("select5").options[3].innerHTML;
+      var dur5 = document.getElementById("select5").options[4].innerHTML;
+
+      var comp1 = document.getElementById("select6").options[0].innerHTML;       
+      var comp2 = document.getElementById("select6").options[1].innerHTML;  
+      var comp3 = document.getElementById("select6").options[2].innerHTML;       
+      var comp4 = document.getElementById("select6").options[3].innerHTML;
+      var comp5 = document.getElementById("select6").options[4].innerHTML;
+
+
+      
+  
+      google.charts.load('current', {'packages':['gantt']});
+      google.charts.setOnLoadCallback(drawChart);
+      function daysToMilliseconds(days) {
+      return days * 24 * 60 * 60 * 1000;
+      }
+      function drawChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Task ID');
+      data.addColumn('string', 'Task Name');
+      data.addColumn('string', 'Resource');
+      data.addColumn('date', 'Start Date');
+      data.addColumn('date', 'End Date');
+      data.addColumn('number', 'Duration');
+      data.addColumn('number', 'Percent Complete');
+      data.addColumn('string', 'Dependencies');
+      data.addRows([
+      [task1, task1, null,
+      new Date(start1), null, daysToMilliseconds(parseInt(dur1)),  parseInt(comp1),  null],
+      [task2, task2, task3,
+      null, null, daysToMilliseconds(parseInt(dur2)), parseInt(comp2), task1],
+      [task3, task3, task4,
+      null, null, daysToMilliseconds(parseInt(dur3)), parseInt(comp3), task2],
+      [task4, task4, task5,
+      null, null, daysToMilliseconds(parseInt(dur4)),parseInt(comp4), task3],
+      [task5, task5, task5,
+      null, null, daysToMilliseconds(parseInt(dur5)), parseInt(comp5), task4]
+      ]);
+      var options = {
+      height: 275
+  
+      };
+      var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+      chart.draw(data, options);
+      }
+    #chart_div
+    //- if(evaluates[0])
+    //-   h2 프로젝트 참여 사원 평가
+    //-   table#evtable.table.table-bordered.table-striped.table-hover
+    //-     thead
+    //-       tr
+    //-             th 평가번호
+    //-             th 피평가자
+    //-             th 프로젝트
+    //-             th 직무
+    //-             th 평가자
+    //-             th 구분
+    //-             th 평가 점수 
+    //-             th 평가 내용
+
+    //-     tbody#myTable
+    //-       each evaluate in evaluates
+    //-           tr(href='#emp', data-toggle='collapse')
+    //-               td=evaluate.ev_id
+    //-               td
+    //-                   a(href=`/employee/${evaluate.ev_rated}`)= evaluate.ev_rated
+    //-               td
+    //-                   a(href=`/project/${evaluate.pro_id}`)= evaluate.pro_id
+    //-               td=evaluate.role_name
+    //-               td
+    //-                   a(href=`/employee/${evaluate.ev_rate}`)= evaluate.ev_rate
+    //-               td=evaluate.ev_type
+    //-               td=evaluate.score
+    //-               td=evaluate.comment
+        br
+
+    .modal-footer
+      a.btn.btn-dark(href='javascript:window.history.back();') Back
+      br
+      br
+      a.btn.btn-sm.btn-outline-secondary(href=`/evaluation/${projects[0].pro_id}/add`) 평가하기
+      br
+      a.btn.btn-primary(href=`/project/${projects[0].pro_id}/edit`) 프로젝트 수정
+      a.btn.btn-secondary(data-url=`/project/${projects[0].pro_id}/delete`) 프로젝트 삭제
+      
+      br
+    h3 Comments
+      each answer in answers
+          
+        include _answer 
+          br
+
+          
+        hr       
+    form(action=`/project/${projects[0].pro_id}/answers`, method='POST')
+      .form-group
+        label(for='answer') Your Answer
+        textarea.form-control(name="content", rows="5")
+      button.btn.btn-info(type="submit") Post Your Answer
+      br
+      br
+    
+  script.
+      $(document).ready(function(){
+      $("#myInput2").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myTable2 tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+      });
+      });
+        $(function() {
+          $('.btn-secondary').click(function() {
+          if (confirm('Are you sure to delete?')) {
+              location = $(this).data('url');
+          }
+          return false;
+          });
+      });
+
+        $(function() {
+          $('.btn-outline-danger').click(function() {
+            if (confirm('Are you sure to delete?')) {
+              location = $(this).data('url');
+            }
+            return false;
+          });
+        });
+     
+      $(document).ready(function() {
+      $('#evtable').DataTable();
+      } );
+
+  br
+  br
+
+    

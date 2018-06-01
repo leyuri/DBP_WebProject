@@ -1,0 +1,38 @@
+extends ../layout
+block content
+  title= 'Add New Client/ Recieved Order'
+  .container
+    h1.main_title 클라이언트 / 수주 정보 입력
+    form(action=`/project/add_order`, method = 'POST')
+
+      .form-group
+        label(for="client") 고객 &nbsp;
+        .row 
+            .col-sm-6
+                select.form-control(name="client")
+                    each client in clients
+                        option(value=client.cus_id)=client.cus_name
+            .col-sm-2                
+                | 기존 고객이 아니라면: 
+            .col-sm-4  
+                input.form-control(type='text', id='client_add', name='client_add' placeholder='(고객 이름 추가)')
+
+      .form-group
+        label(for = 'content') 주문 내용
+        textarea.form-control(name="content", rows="5",placeholder="수주 상세 내용을 입력하시오(필수)")
+      .form-group
+        label(for='hiredate') 주문 일자
+        input.form-control(type='date', id='orderdate', name='orderdate')
+   
+      table(width='160')
+        tr
+          th
+            a.btn.btn-outline-secondary(href='javascript:window.history.back();') Back 
+          th
+            button.btn.btn-dark(type='submit') 저장
+   
+    br
+    br
+    br
+    br
+  

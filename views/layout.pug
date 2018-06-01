@@ -5,18 +5,34 @@ head
   meta(name='description', content='')
   meta(name='author', content='')
   link(rel='icon', href='../../../../favicon.ico')
-  title Carousel Template for Bootstrap
+  title PROMPT COMPANY
 
   // Custom styles for this template
-    // Bootstrap core CSS
+  // Bootstrap core CSS
   meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
   link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css')
   link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+  link(rel='stylesheet', href='/stylesheets/style.css')
+
+  link(href='/bootstrap/css/bootstrap.min.css', rel='stylesheet')
+  link(href='/stylesheets/font-awesome.min.css', rel='stylesheet', type='text/css')
+
+  link(href='https://fonts.googleapis.com/css?family=Montserrat:400,700', rel='stylesheet', type='text/css')
+  link(href='https://fonts.googleapis.com/css?family=Kaushan+Script', rel='stylesheet', type='text/css')
+  link(href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic', rel='stylesheet', type='text/css')
+  link(href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700', rel='stylesheet', type='text/css')
+  link(href='/stylesheets/agency.min.css', rel='stylesheet')
+
   //
   //Bootstrap core JavaScript
   //==================================================
   // Placed at the end of the document so the pages load faster
   script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js', integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN', crossorigin='anonymous')
+  //Table Pagination
+  script(src='https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js')
+  script(src='https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js')
+  link(href='https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css', rel='stylesheet', type='text/css')
+
 
 header
 
@@ -26,15 +42,17 @@ body
   br 
   br
   br
-  block hero-unit
-  if flashMessages
-    each texts, type in flashMessages
-      .container
-        .alert.alert-dismissible.fade.show(class=`alert-${type}`)
-          each msg in texts
-            | #{msg} 
-          button.close(type='button', data-dismiss='alert', aria-label='close')
-            span(aria-hidden='true') &times;
-  block content
-  block footer
-    include ./includes/footer
+  .wrapper
+    block hero-unit
+    if flashMessages
+      each texts, type in flashMessages
+        .container
+          .alert.alert-dismissible.fade.show(class=`alert-${type}`)
+            each msg in texts
+              | #{msg} 
+            button.close(type='button', data-dismiss='alert', aria-label='close')
+              span(aria-hidden='true') &times;
+    block content
+
+    block footer
+      include ./includes/footer

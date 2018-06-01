@@ -1,8 +1,71 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
+  padding-top: 30px;
+
+  font:  "Lucida Grande", Helvetica, Arial, sans-serif; }
 
 a {
   color: #00B7FF; }
 
-/*# sourceMappingURL=style.css.map */
+.wrapper {
+
+  position:relative;
+  
+}
+#myFooter {
+  background-color: #2d313c;
+  color: white;
+  position : relative;
+  left:0px;
+  bottom:0px;
+  width: 100%;
+  text-align: center;
+  height: 9%; min-height: 30px;
+  z-index: 8;
+}
+#myFooter .row {
+  margin-bottom: 60px;
+}
+
+#myFooter ul {
+  list-style-type: none;
+  padding-left: 0;
+
+}
+#myFooter ul>li{
+font-size: 0.9em;
+margin-left: 3em;
+}
+#myFooter a {
+  color: #ffffff;
+  text-decoration: none;
+}
+#myFooter a:hover,
+#myFooter a:focus {
+  text-decoration: none;
+  color: white;
+}
+
+#myFooter .third-bar {
+  text-align: center;
+  background-color: #2d313c;
+}
+#myFooter .third-bar .container .logo{
+text-align: left;
+}
+#myFooter .third-bar a {
+  font-size: 20px;
+  color: #ffffff;
+  padding: 10px;
+  transition: 0.2s;
+}
+#myFooter .third-bar li{
+text-decoration: none;
+list-style: none;
+display:inline;
+}
+#myFooter .third-bar li a{
+font-size: 1em;
+}
+#myFooter .third-bar a:hover {
+  text-decoration: none;
+}

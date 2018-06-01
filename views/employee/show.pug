@@ -1,0 +1,155 @@
+extends ../layout
+block content
+  title= 'Employee List'
+
+  .container
+    each employee in employees
+      h1=employee.emp_name
+      br
+      br
+
+    table.table.table-bordered.table-striped.table-hover
+        h2 직원 정보
+        thead
+        tr
+            th 직원번호
+            th 부서
+            th 이름
+            th 재직구분
+            th 학력
+            th 입사날짜
+            th 경력
+        tbody
+          each employee in employees
+            tr
+                td= employee.emp_id
+                td= employee.dept_name
+                td= employee.emp_name
+                td= employee.st_name 
+                td= employee.emp_edu  
+                td= moment(employee.emp_hiredate).format("YYYY년 MM월 DD일")
+                td= employee.emp_workyear
+
+
+  
+    table.table.table-bordered.table-striped.table-hover
+        h2 직원 경력 정보
+        br
+        thead
+        tr
+            th 이전 직장 이름
+            th 근무 기간
+
+        tbody#myTable2
+         each career in careers
+          tr(href='#emp', data-toggle='collapse')
+         
+            td=career.career_name
+            td=career.career_period
+    if(employees[0].emp_dep==5)        
+      table.table.table-bordered.table-striped.table-hover
+          h2 직원 보유 기술
+          br
+          thead
+          tr
+              th 기술 이름
+              th 기술 등급
+
+          tbody#myTable2
+          each skill in skills
+            tr(href='#emp', data-toggle='collapse')
+          
+              td=skill.skill_name
+              td=skill.skill_grade
+
+
+      table.table.table-bordered.table-striped.table-hover
+          h2 진행 프로젝트 정보
+          input#myInput2.form-control(type='text', placeholder='프로젝트 검색..')
+          br
+          thead
+          tr
+              th 프로젝트 이름
+              th 직무[EMP_ROLE]
+              th 참여일[ER_START]
+              th 종료일[ER_END]
+          tbody#myTable2
+          each emp_proj in emp_projs
+            tr(href='#emp', data-toggle='collapse')
+              td
+                a(href=`/project/${emp_proj.pro_id}`)= emp_proj.pro_name
+              td=emp_proj.role_name
+              td=moment(emp_proj.er_start).format("YYYY년 MM월 DD일")
+              td=moment(emp_proj.er_end).format("YYYY년 MM월 DD일")
+      
+      table.table.table-bordered.table-striped.table-hover
+          h2 평가 받은 내용
+
+          br
+          thead
+          tr
+              th 평가번호
+              th 프로젝트 이름
+              th 직무[EMP_ROLE]
+              th 평가자 사번
+              th 평가 구분
+              th 평가 타입 구분
+              th 평가 점수 
+              th 평가 내용
+              th
+
+          tbody#myTable2
+          each evaluation in evaluations
+            tr(href='#emp', data-toggle='collapse')
+              td=evaluation.ev_id
+              td
+                a(href=`/project/${evaluation.pro_id}`)= evaluation.pro_name
+              td=evaluation.role_name
+              td
+                a(href=`/employee/${evaluation.ev_rate}`)= evaluation.ev_rate
+              td=evaluation.ev_type
+              td=evaluation.ev_contype
+              td=evaluation.score
+              td=evaluation.comment
+              td
+                a.btn.btn-sm.btn-outline-danger(data-url=`/evaluation/${evaluation.ev_id}/delete_eval`)
+                  | #[i.fa.fa-trash] 삭제
+            
+       
+    script.
+        $(document).ready(function(){
+        $("#myInput2").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable2 tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+        });
+        });
+        $(function() {
+          $('.btn-outline-danger').click(function() {
+            if (confirm('Are you sure to delete?')) {
+              location = $(this).data('url');
+            }
+            return false;
+          });
+        });
+
+
+
+
+    .modal-footer
+    table(width='500')
+      tr
+        th
+          a.btn.btn-dark(href='javascript:window.history.back();') Back
+        th
+          a.btn.btn-primary(href=`/employee/${employees[0].emp_id}/edit`) 사원 정보 수정
+        th
+          a.btn.btn-success(href=`/employee/${employees[0].emp_id}/add_skill`) 경력/기술 추가
+        th
+          a.btn.btn-secondary(data-url=`/employee/${employees[0].emp_id}/delete`) 사원 정보 삭제
+
+
+    br
+    br
+    br

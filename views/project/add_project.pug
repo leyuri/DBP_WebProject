@@ -1,0 +1,104 @@
+extends ../layout
+block content
+  .container
+    h1.main-title Create Project
+    form(action=`/project/add_project`, method = 'POST')
+      .form-group
+        label(for='name') 프로젝트명
+        input.form-control(type='text', name='pro_name', placeholder='ProjectName')
+      .form-group
+        label(for='order') Order
+        select.form-control(type='text',name="order")
+          each project in projects
+            option(value=project.order_id)=project.order_content
+      .form-group
+        label(for='pro_start') 프로젝트 시작
+        input#startDate.form-control(type='date',name='pro_start', placeholder='Start Date',size='35')
+      .form-group
+        label(for='pro_end') 프로젝트 끝
+        input#endDate.form-control(type='date',name='pro_end', placeholder='End Date')
+      .form-group
+      
+        label(for='edu') 참여 인력 선택&nbsp;
+        .row
+          .col-sm-4
+            | 개발자 선택:
+            select#select1.form-control(type='text',name="employee")
+              each employee in employees
+                option(value=employee.emp_id)=' 사원번호 : '+employee.emp_id +' /  이름 : '+employee.emp_name + ' /  경력: '+employee.emp_workyear+'년'
+            br
+            #container
+          .col-sm-2
+            |역할:
+            select#select2.form-control(type='text',name="role")
+              each role_er in role_ers
+                option(value=role_er.role_id)=role_er.role_name
+            br
+            #container2
+          .col-sm-2
+            |시작일:
+            input#select3.form-control(type='date', name="er_start")
+   
+            br
+            #container3
+          .col-sm-2
+            |종료일:
+            input#select4.form-control(type='date', name="er_end")  
+            br 
+            #container4
+            
+        p
+          button#addBtn.btn.btn-outline.btn-primary.pull-left(type='button',onclick='add()',class="btn btn-secondary float-right") 추가
+
+          br
+          | 
+          a.btn.btn-dark(href='javascript:window.history.back();') Back
+          button.btn.btn-info(type='submit') 프로젝트 생성
+          br
+          br
+
+
+
+  script(type='text/javascript').
+    $(function () {
+    $("#addBtn").bind("click", function () {
+    var index1 = $("#container select").length + 1;
+    var index2 = $("#container2 select").length + 1;
+    var index3 = $("#container3 input").length + 1;
+    var index4 = $("#container4 input").length + 1;
+    //Clone the DropDownList
+    var ddl1 = $("#select1").clone();
+    var ddl2 = $("#select2").clone();
+    var ddl3 = $("#select3").clone();
+    var ddl4 = $("#select4").clone();
+    //Set the ID and Name
+   
+    ddl1.attr("name", "select1_" + index1);
+    ddl2.attr("name", "select2_" + index2);
+    ddl3.attr("name", "select3_" + index1);
+    ddl4.attr("name", "select4_" + index2);
+    //[OPTIONAL] Copy the selected value
+    var selectedValue1 = $("#select1 option:selected").val();
+    var selectedValue2 = $("#select2 option:selected").val();
+
+    ddl1.find("option[value = '" + selectedValue1 + "']").attr("selected", "selected");
+    ddl2.find("option[value = '" + selectedValue2 + "']").attr("selected", "selected");
+
+    var selectedValue3 = $("#select3 option:selected").val();
+    var selectedValue4 = $("#select4 option:selected").val();
+    ddl3.find("option[value = '" + selectedValue3 + "']").attr("selected", "selected");
+    ddl4.find("option[value = '" + selectedValue4 + "']").attr("selected", "selected");
+
+
+    //Append to the DIV.
+    $("#container").append(ddl1);
+    $("#container2").append(ddl2);
+    $("#container3").append(ddl3);
+    $("#container4").append(ddl4);
+    $("#container").append("<br />");
+    $("#container2").append("<br />");
+    $("#container3").append("<br />");
+    $("#container4").append("<br />");
+    });
+    });
+  

@@ -1,0 +1,67 @@
+extends ../layout
+block content
+  title= 'Evaluation'
+  .container
+    .jumbotron
+      h1 Evaluation Page
+      p You can evaluate the project. 
+    h1.main-title 평가
+    br
+    form(action=`/evaluation/${employees[0].pro_id}/add`, method = 'POST')
+      .form-group
+        |평가 항목:&nbsp;
+        select.form-control(type='text',name="ev_type")
+            each evaluate in evaluates
+                option=evaluate.ev_type        
+
+        |피 평가자:&nbsp;
+        select.form-control(type='text',name="ev_rated")
+            each employee in employees
+                option(value=employee.emp_id)=' 사원번호 : '+employee.emp_id +' /  이름 : '+employee.emp_name + ' /  경력: '+employee.emp_workyear+'년'
+      h3 업무 수행 능력 평가
+      .form-group
+        p
+        |평가 점수: &nbsp;
+        br
+        input(type="radio", name="score", value="1" )
+        |	1 &nbsp;
+        input(type="radio", name="score", value="2")
+        |	2 &nbsp;
+        input(type="radio", name="score", value="3")
+        |	3 &nbsp;
+        input(type="radio", name="score", value="4")
+        |	4 &nbsp;
+        input(type="radio", name="score", value="5")
+        |	5 &nbsp;
+        p
+        |평가 내용 : 
+        p
+        textarea(name="evaluate", cols="70%", rows="10")
+
+      h3 커뮤니케이션 능력 평가
+      .form-group
+        p
+        |평가 점수: &nbsp;
+        br
+        input(type="radio", name="score1", value="1" )
+        |	1 &nbsp;
+        input(type="radio", name="score1", value="2")
+        |	2 &nbsp;
+        input(type="radio", name="score1", value="3")
+        |	3 &nbsp;
+        input(type="radio", name="score1", value="4")
+        |	4 &nbsp;
+        input(type="radio", name="score1", value="5")
+        |	5 &nbsp;
+        p
+        |평가 내용 : 
+        p
+        textarea(name="evaluate1", cols="70%", rows="10")
+
+
+      
+        a.btn.btn-outline-secondary(href='javascript:window.history.back();') Back 
+        | 
+        button.btn.btn-dark(type='submit') 등록
+        br
+        br

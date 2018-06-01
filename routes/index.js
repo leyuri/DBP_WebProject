@@ -10,13 +10,31 @@ var bcrypt = require('bcrypt');
 var mysql_dbc = require('../models/db_con')();
 var connection = mysql_dbc.init();
 
+var moment = require('moment');
 
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Expressssss!' });
+
+router.get('/',  function (req, res,next) {
+  connection.query(' select * from project, cus_order, customer where project.pro_org=cus_order.order_id and cus_order.cus_id=customer.cus_id',
+  function(err,projects){
+    if(err) throw err;
+
+    res.render('index',{
+      projects: projects,
+      moment:moment
+    });
+  });
 });
+router.get('/#service', function(req, res, next) {
+  res.render('#service');
+});
+
 
 router.get('/signin', function(req, res, next) {
   res.render('signin');
+});
+
+router.get('/company_info', function(req, res, next) {
+  res.render('company_info');
 });
 
 router.post('/signin', passport.authenticate('local', {failureRedirect: '/signin', failureFlash: true}), // 인증실패시 401 리턴, {} -> 인증 스트레티지
@@ -65,7 +83,7 @@ passport.use(new LocalStrategy({
         console.log(password);
         console.log(result[0].emp_pass);        
         if (password!= result[0].emp_pass) {
-               req.flash('danger','Password x');
+               req.flash('danger','Password is not correct');
           return done(false, null);
         } else {
           
@@ -74,9 +92,8 @@ passport.use(new LocalStrategy({
             return done(null, {
               id: result[0].emp_id,
               name: result[0].emp_name,
-              dept: result1[0].dept_name,
-              edu:result[0].emp_edu,
-              rnum:result[0].emp_rnum,
+              dept: result[0].emp_dep,
+  
             });
           });
         }

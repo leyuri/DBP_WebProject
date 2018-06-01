@@ -1,19 +1,33 @@
 block topnav
   nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top
-    .container
-      a.navbar-brand(href="/") PROMPT COMPANY
-      button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarsExampleDefault", aria-controls="navbarsExampleDefault", aria-expanded="false", aria-label="Toggle navigation")
-        span.navbar-toggler-icon
 
-      #navbarsExampleDefault.collapse.navbar-collapse
-        ul.navbar-nav.ml-auto
-          li.nav-item
-            a.nav-link(href="/questions") Project
-          li.nav-item
-            a.nav-link(href="/users") Users
+    a.navbar-brand(href="/#master") PROMPT COMPANY
+    button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarsExampleDefault", aria-controls="navbarsExampleDefault", aria-expanded="false", aria-label="Toggle navigation")
+      span.navbar-toggler-icon
 
+    #navbarsExampleDefault.collapse.navbar-collapse
+      ul.navbar-nav.ml-auto
+        li.nav-item.dropdown
+          a#navbardrop.dropdown-toggle(href = "/project/order_list",data-toggle='dropdown').nav-link Received Order
+          .dropdown-menu
+            a.dropdown-item(href="/project/order_list") Client/Order Info
+            a.dropdown-item(href="/project/add_order") Add Received Order
+        li.nav-item.dropdown
+          a#navbardrop.dropdown-toggle(href = "/project",data-toggle='dropdown').nav-link Project
+          .dropdown-menu
+            a.dropdown-item(href="/project") Project List
+            a.dropdown-item(href="/project/add_project") Create Project 
+        li.nav-item.dropdown
+          a#navbardrop.dropdown-toggle(href = "/employee",data-toggle='dropdown').nav-link Employee
+          .dropdown-menu
+            a.dropdown-item(href="/employee") Employee List
+            a.dropdown-item(href="/employee/new") Create Employee 
+        li.nav-item
+          a.nav-link(href='/evaluation') Evaluation
+        if(!currentUser)
           li.nav-item
             a.nav-link(href='/signin') Signin
+        else
           li.nav-item
             a.nav-link(href='/signout') Signout
           li.nav-item

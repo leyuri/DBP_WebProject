@@ -3,28 +3,31 @@ extends layout
 block content
   .container
     .clearfix
-      form.form-signin(action='/signin', method='POST')
-        h3.form-signin-heading Signin
-        label.sr-only(for='username') Email address
-        input(
-          type='text', id='email', name='username', class='form-control', 
-          placeholder='Email address', required, autofocus
-        )
-        label.sr-only(for='password') Password
-        input(
-          type='password', id='password', name='password', class='form-control', 
-          placeholder='Password', required, autofocus
-        )
-        .checkbox
-          label 
-            input(type="checkbox", value="remember-me")
-            |
-            | Remember me
-        button.btn.btn-primary.btn-block(type='submit') Signin
-        div.sub 
-          a(href='/users/new') Signup
-          | 
-          | /
-          |
-          a(href='/reset-password') Reset Password
-      
+      .row
+        .col-xs-6.col-md-4 
+        .col-xs-6.col-md-4 
+          form.form-signin(action='/signin', method='POST')
+            
+            h3.form-signin-heading Signin
+            br
+            label.sr-only(for='username') ID
+            input(
+              type='text', id='email', name='username', class='form-control', 
+              placeholder='ID', required, autofocus
+            )
+            
+            label.sr-only(for='password') Password
+            input(
+              type='password', id='password', name='password', class='form-control', 
+              placeholder='Password', required, autofocus
+            )
+            
+            button.btn.btn-dark.btn-block(type='submit') Signin
+            div.sub 
+            br
+            br
+            br
+            br
+            br
+            br
+        .col-xs-6.col-md-4 

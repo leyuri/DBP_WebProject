@@ -1,0 +1,39 @@
+extends ../layout
+block content
+  title= 'Employee View'
+  .container
+    .jumbotron
+      h1 Employee View Page
+      p You can view the Employee. 
+  .container
+    table#emptable.table.table-bordered.table-striped.table-hover
+      thead
+        tr
+          th 직원번호
+          th 부서
+          th 이름
+          th 재직구분
+          th 학력
+          th 입사날짜
+          th 경력
+      tbody#myTable
+        each employee in employees
+          tr
+            td
+             a(href=`/employee/${employee.emp_id}`)= employee.emp_id
+            td= employee.dept_name
+            td= employee.emp_name
+            td= employee.st_name 
+            td= employee.emp_edu  
+            td= moment(employee.emp_hiredate).format("YYYY년 MM월 DD일")
+            td= employee.emp_workyear  
+    br
+    br
+    a.btn.btn-sm.btn-outline-secondary(href=`/employee/new`) 
+      | 사원 추가
+    br
+    br
+  script.
+    $(document).ready(function() {
+    $('#emptable').DataTable();
+    } );
