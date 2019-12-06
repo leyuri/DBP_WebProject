@@ -37,11 +37,11 @@
 
 ### Screenshots
 <img width="995" alt="Screen Shot 2019-12-07 at 1 33 57 AM" src="https://user-images.githubusercontent.com/33794732/70340264-ce61da80-1893-11ea-8c19-c341ffc1d897.png">
-<img width="896" alt="Screen Shot 2019-12-07 at 1 55 12 AM" src="https://user-images.githubusercontent.com/33794732/70340710-a7f06f00-1894-11ea-8f21-02dbd9a7925b.png">
-<img width="882" alt="Screen Shot 2019-12-07 at 1 44 35 AM" src="https://user-images.githubusercontent.com/33794732/70340171-9ce90f00-1893-11ea-91d3-4bb42af34704.png">
-<img width="882" alt="Screen Shot 2019-12-07 at 1 45 26 AM" src="https://user-images.githubusercontent.com/33794732/70340175-9d81a580-1893-11ea-8420-5590e99a4321.png">
-<img width="885" alt="Screen Shot 2019-12-07 at 1 44 49 AM" src="https://user-images.githubusercontent.com/33794732/70340174-9d81a580-1893-11ea-9192-9871184e0ae5.png">
-<img width="882" alt="Screen Shot 2019-12-07 at 1 52 40 AM" src="https://user-images.githubusercontent.com/33794732/70340557-521bc700-1894-11ea-8786-b8085993eefb.png">
-<img width="882" alt="Screen Shot 2019-12-07 at 1 52 52 AM" src="https://user-images.githubusercontent.com/33794732/70340558-521bc700-1894-11ea-9ce1-79de3fdbb51a.png">
+<img width="995" alt="Screen Shot 2019-12-07 at 1 55 12 AM" src="https://user-images.githubusercontent.com/33794732/70340710-a7f06f00-1894-11ea-8f21-02dbd9a7925b.png">
+<img width="995" alt="Screen Shot 2019-12-07 at 1 44 35 AM" src="https://user-images.githubusercontent.com/33794732/70340171-9ce90f00-1893-11ea-91d3-4bb42af34704.png">
+<img width="995" alt="Screen Shot 2019-12-07 at 1 45 26 AM" src="https://user-images.githubusercontent.com/33794732/70340175-9d81a580-1893-11ea-8420-5590e99a4321.png">
+<img width="995" alt="Screen Shot 2019-12-07 at 1 44 49 AM" src="https://user-images.githubusercontent.com/33794732/70340174-9d81a580-1893-11ea-9192-9871184e0ae5.png">
+<img width="995" alt="Screen Shot 2019-12-07 at 1 52 40 AM" src="https://user-images.githubusercontent.com/33794732/70340557-521bc700-1894-11ea-8786-b8085993eefb.png">
+<img width="995" alt="Screen Shot 2019-12-07 at 1 52 52 AM" src="https://user-images.githubusercontent.com/33794732/70340558-521bc700-1894-11ea-9ce1-79de3fdbb51a.png">
 
 
