@@ -8,7 +8,7 @@
 ### DB design
 ![ db](https://user-images.githubusercontent.com/33794732/70339348-07994b00-1892-11ea-84e1-5ec469bca2a7.png)
 
-### Implementation Function
+### Features
 
 #### User
 - 로그인
